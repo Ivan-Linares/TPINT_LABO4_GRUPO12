@@ -1,4 +1,4 @@
-.Caja-1{
+/*.Caja-1{
 	position: absolute;
 	top:100px;
 	right:40%;
@@ -6,7 +6,74 @@
 	height: 160px;
 	background-color: skyblue;
 	border: 2px solid black;
+}*/
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
+
+.Caja-1 {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+}
+
+.Caja-1-5 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #007BFF;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+a {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 12px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+
+
 .Caja-1-5{
 	display: grid;
 	place-items: center;

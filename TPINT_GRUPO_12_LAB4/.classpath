@@ -13,5 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/germa/OneDrive/Escritorio/TSP/LAB 4/TP Integrador/TPINT_LABO4_GRUPO12/TPINT_GRUPO_12_LAB4/mysql-connector-j-8.0.31.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

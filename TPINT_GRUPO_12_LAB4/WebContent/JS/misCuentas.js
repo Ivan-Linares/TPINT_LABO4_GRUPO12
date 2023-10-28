@@ -33,11 +33,9 @@ function cargarHistorial() {
     const infoCuentaDiv = document.getElementById('infoCuenta');
     const historialMovimientos = document.getElementById('historialMovimientos');
 
-    // Limpia los datos previos
     infoCuentaDiv.innerHTML = '';
     historialMovimientos.innerHTML = '';
 
-    // Muestra información de la cuenta
     infoCuentaDiv.innerHTML = `
         <strong>Cliente:</strong> ${cuenta.cliente}<br>
         <strong>Fecha de Creación:</strong> ${cuenta.fechaCreacion}<br>
@@ -46,8 +44,7 @@ function cargarHistorial() {
         <strong>CBU:</strong> ${cuenta.CBU}<br>
         <strong>Saldo:</strong> ${cuenta.saldo}<br>
     `;
-
-    // Muestra los movimientos
+    
     cuenta.movimientos.forEach(movimiento => {
         const li = document.createElement('li');
         li.textContent = `${movimiento.fecha} - ${movimiento.descripcion}: ${movimiento.monto}`;

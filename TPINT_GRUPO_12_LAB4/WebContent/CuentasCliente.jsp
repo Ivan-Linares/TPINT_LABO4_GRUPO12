@@ -62,7 +62,7 @@
 <h3>Tus cuentas:</h3>
 
 <select id="listaCuentas" onchange="cargarHistorial()">
-    <% // Suponiendo que este bloque Java emula los datos del JavaScript para el despliegue inicial
+    <%
        for(int i = 0; i < 2; i++) { // Simulamos 2 cuentas
     %>
     <option value="<%= i %>"><%= "Cuenta " + (i + 1) %></option>
@@ -71,7 +71,7 @@
 
 <h3>Información de la cuenta:</h3>
 <div id="infoCuenta">
-    <!-- Aquí se mostrará la información detallada de la cuenta seleccionada -->
+ 
 </div>
 
 <h3>Historial de Movimientos:</h3>

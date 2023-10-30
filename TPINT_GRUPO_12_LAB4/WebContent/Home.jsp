@@ -14,10 +14,11 @@
 	<div class="Cajahome2">
 		<input type="submit" name="1" value="ASIGNAR CUENTA"></br></br>
 		<input type="submit" name="2" value="PRESTAMOS EN SOLICITUD"></br></br>
-		<input type="submit" name="3" value="INFORME"></br></br>
+		<input type="submit" name="3" value="INFORMES"></br></br>
 		<input type="submit" name="4" value="CUENTAS"></br></br>
 		<input type="submit" name="5" value="TRANSFERENCIAS"></br></br>
 		<input type="submit" name="6" value="PRESTAMOS" ></br></br>
+		<input type="submit" name="7" value="Datos Personales" ></br></br>
 	</div>
 </div>
 </body>

@@ -44,8 +44,7 @@
 				
 	</table>
 	
-		<input type="submit" name="btnConfirmar" value="Confirmar prestamo"><input type="submit" value="Cancelar solicitud" name="btnCancelar"></form>
-	
+		<input type="submit" name="btnConfirmar" value="Confirmar prestamo"></form><form action="SolicitarPrestamoClienteServlet" method="post"><input type="submit" name="btnCancelar" value="Cancelar prestamo"></form>
 
 	
 	<%}%>

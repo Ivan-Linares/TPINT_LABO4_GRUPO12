@@ -10,6 +10,13 @@
 <title>Home</title>
 </head>
 <body>
+<%if(request.getAttribute("mensaje")!=null){
+	String msj = (String)request.getAttribute("mensaje");%>
+	<script type="text/javascript">
+    var msg = "<%=msj%>";
+    alert(msg);
+</script>
+<%}%>
 <div class="Cajahome1">
 	<div class="Cajahome2">
 		<input type="submit" name="1" value="ASIGNAR CUENTA"></br></br>

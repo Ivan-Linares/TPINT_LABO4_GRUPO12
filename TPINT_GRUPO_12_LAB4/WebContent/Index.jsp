@@ -93,7 +93,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Ver Cuentas</a></li>
-            <li><a class="dropdown-item" href="#"></a>Admin Cuentas</li>
+            <li><a class="dropdown-item" href="#">Administrar</a></li>
           </ul>
         </li>
         <li class="nav-item">

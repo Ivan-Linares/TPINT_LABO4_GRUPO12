@@ -65,7 +65,7 @@
     <%
        for(int i = 0; i < 2; i++) { // Simulamos 2 cuentas
     %>
-    <option value="<%= i %>"><%= "Cuenta " + (i + 1) %></option>
+    <option value="<%= i %>"><%= "Cuenta " + (i + 1)%></option>
     <% } %>
 </select>
 

@@ -10,7 +10,7 @@
 	<h2>Solicitar nuevo prestamo</h2>
 	<h3>Utilice esta sección para nuevas solicitudes de prestamos a acreditar en su cuenta personal. Tenga en cuenta que las solicitudes están sujetas a aprobación, dicho proceso puede demoras hasta 48hs hábiles.</h3>
 	
-	<%if(request.getAttribute("Prestamo")==null){%>
+	<%if(request.getAttribute("nuevasolicitud")!=null){%>
 	<form action="SolicitarPrestamoClienteServlet" method="get">
 	<table>
 			<tr><th>Cuenta de acreditación </th>

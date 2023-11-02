@@ -29,14 +29,22 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int p=1;
-		request.setAttribute("Prestamo", p);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/SolicitudPrestamoCliente.jsp");
-		rd.forward(request, response);	
-		doGet(request, response);
-
+		if(request.getParameter("btnsolicitarprestamo")!=null) {
+			int p=1;
+			request.setAttribute("nuevasolicitud", p);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/SolicitudPrestamoCliente.jsp");
+			rd.forward(request, response);	
+			doGet(request, response);
+		}
+		if(request.getParameter("btnSimular")!=null) {
+			int p=1;
+			request.setAttribute("Prestamo", p);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/SolicitudPrestamoCliente.jsp");
+			rd.forward(request, response);	
+			doGet(request, response);			
+		}
 	}
 
 	/**

@@ -6,6 +6,7 @@ public class Cuenta {
 	private String numero;
 	private Fecha fechaCreacion;
 	private TipoCuenta tipoCuenta;
+	private String CBU;
 	private float saldo;
 	private String estado;
 	
@@ -13,12 +14,13 @@ public class Cuenta {
 		
 	}
 	
-	public Cuenta(String d, String n, Fecha fechaC, TipoCuenta t, float s, String e) {
+	public Cuenta(String d, String n, Fecha fechaC, TipoCuenta t, String c, float s, String e) {
 		
 		this.dni=d;
 		this.numero=n;
 		this.fechaCreacion=fechaC;
 		this.tipoCuenta=t;
+		this.CBU=c;
 		this.saldo=s;
 		this.estado=e;
 	}
@@ -47,6 +49,14 @@ public String getDni() {
 	public void setFechaCreacion(Fecha fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
+	
+	public String getCBU() {
+		return CBU;
+	}
+
+	public void setCBU(String cbu) {
+		this.CBU = cbu;
+	}
 
 
 	public TipoCuenta getTipoCuenta() {
@@ -64,6 +74,8 @@ public String getDni() {
 	public void setSaldo(float saldo) {
 		this.saldo = saldo;
 	}
+	
+	
 	
 	
 

@@ -2,8 +2,21 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<style type="text/css">
-	<jsp:include page="Css\Styles.css"></jsp:include>
+<style>
+	.Caja-1{
+	position: absolute;
+	top:100px;
+	right:40%;
+	width: 340px;
+	height: 160px;
+	background-color: skyblue;
+	border: 2px solid black;
+}
+.Caja-1-5{
+	display: grid;
+	place-items: center;
+	margin-top:15px;
+}
 </style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

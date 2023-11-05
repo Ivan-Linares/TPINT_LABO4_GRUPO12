@@ -23,7 +23,7 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, Pais pa, String di, String a, String tel, String n, String s, Fecha fechanac, Provincia p, String l, String mail, String u, String ps, String e) {
+	public Cliente(String d, String c, String a, String n, String s, Fecha fechanac, String di, String l, Provincia p, Pais pa, String mail, String u, String e, String ps, String tel) {
 		
 		this.dni=d;
 		this.cuil=c;
@@ -38,6 +38,24 @@ public class Cliente {
 		this.email=mail;
 		this.usuario=u;
 		this.pass=ps;
+		this.estado=e;
+		this.direccion=di;
+		
+	}
+	
+	public Cliente(String d, String c, String a, String n, String s, Fecha fechanac, String di, String l, int p, int pa, String mail, String u, String e) {
+		
+		this.dni=d;
+		this.cuil=c;
+		this.apellido=a;
+		this.pais.setCode(pa);;
+		this.nombre=n;
+		this.sexo=s;
+		this.fechaNac=fechanac;
+		this.prov.setCode(p);
+		this.localidad=l;
+		this.email=mail;
+		this.usuario=u;
 		this.estado=e;
 		this.direccion=di;
 		

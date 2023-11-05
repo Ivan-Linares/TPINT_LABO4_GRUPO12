@@ -88,7 +88,7 @@ public class CuentaDaoImpl implements CuentaDao {
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Cuentas SET TipoCuenta=?, Saldo=?, Estado=? Where NumeroCuenta=?");
+			statement = con.prepareStatement("Update Cuentas SET Tipo_De_Cuenta=?, Saldo=?, Estado=? Where Cuenta=?");
 			statement.setInt(1, cuenta.getTipoCuenta().getCode());
 			statement.setDouble(2, cuenta.getSaldo());
 			statement.setString(3, cuenta.getEstado());
@@ -135,7 +135,15 @@ public class CuentaDaoImpl implements CuentaDao {
 	}
 	
 	private Cuenta setCuenta(ResultSet rs, Cuenta cuenta) throws SQLException {
-		// Carga los datos de la cuenta 
+		cuenta = new Cuenta();
+		cuenta.setCBU(rs.getString("CBU"));
+		cuenta.setTipoCuenta(new TipoCuentaDaoImpl().getPorID(rs.getInt("Tipo_De_Cuenta")));
+		cuenta.setEstado(rs.getString("Estado"));
+		cuenta.setFechaCreacion(LocalDateTime.parse(rs.getString("Fecha_creacion"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		cuenta.setNumero(rs.getString("Cuenta"));
+		cuenta.setSaldo(rs.getFloat("Saldo"));
+		//En caso de que creamos necesario agregar DNI a la tabla cuentas:
+		//cuenta.setUsuario(new UsuarioDaoImpl().getUsuarioPorDNI(rs.getString("DNI")));
 		return cuenta;
 	}
 

@@ -22,11 +22,11 @@ public class Cuenta {
 		this.tipoCuenta=t;
 		this.CBU=c;
 		this.saldo=s;
-		this.estado=e;
+		this.setEstado(e);
 	}
 	
 
-public String getDni() {
+	public String getDni() {
 		return dni;
 	}
 
@@ -73,6 +73,14 @@ public String getDni() {
 
 	public void setSaldo(float saldo) {
 		this.saldo = saldo;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	

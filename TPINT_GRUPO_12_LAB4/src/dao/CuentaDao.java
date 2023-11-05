@@ -12,9 +12,10 @@ public interface CuentaDao {
 	public ArrayList<Cuenta> listar();
 	
 	//Metodos opcionales
-	public Cuenta getCuentaPorID(int numeroCuenta);
-	public Cuenta getCuentaPorCbu(String cbu);
-	public ArrayList<Cuenta> getCuentasPorDNI(String dni);
+	//public Cuenta getCuentaPorID(int numeroCuenta);
+	//public Cuenta getCuentaPorCbu(String cbu);
+	//public ArrayList<Cuenta> getCuentasPorDNI(String dni);
 	public int total_cuentas(int dni);
+	public ArrayList<Cuenta> listar(String b, int busqueda);
 
 }

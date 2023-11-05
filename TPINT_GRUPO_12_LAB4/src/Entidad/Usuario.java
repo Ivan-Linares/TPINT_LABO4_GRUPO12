@@ -1,14 +1,12 @@
 package Entidad;
 
-import entidad.Rol;
-import entidad.TipoUsuario;
+import Entidad.TipoUsuario;
 
 public class Usuario {
 	
 	private Cliente cliente;
 	private String User;
 	private String Pass;
-	private Rol Rol;
 	private boolean Estado;
 	private TipoUsuario tipoUsuario;
 	
@@ -16,11 +14,11 @@ public class Usuario {
 		
 	}
 
-	public Usuario(Cliente cliente, String user, String pass, entidad.Rol rol, boolean estado) {
+	public Usuario(Cliente cliente, String user, String pass, TipoUsuario tipo, boolean estado) {
 		this.cliente = cliente;
 		this.User = user;
 		this.Pass = pass;
-		this.Rol = rol;
+		this.tipoUsuario=tipo;
 		this.Estado = estado;
 	}
 
@@ -48,12 +46,12 @@ public class Usuario {
 		Pass = pass;
 	}
 
-	public Rol getRol() {
-		return Rol;
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
 	}
 
-	public void setRol(Rol rol) {
-		Rol = rol;
+	public void setTipoUsuario(TipoUsuario rol) {
+		tipoUsuario = rol;
 	}
 
 	public boolean getEstado() {
@@ -64,11 +62,8 @@ public class Usuario {
 		Estado = estado;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [Persona=" + Persona + ", User=" + User + ", Pass=" + Pass + ", Rol=" + Rol + ", Estado="
-				+ Estado + "]";
-	}
+
+
 
 
 

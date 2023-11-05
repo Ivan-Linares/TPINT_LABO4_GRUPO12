@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Entidad.Cuenta;
+import Entidad.Fecha;
 import dao.CuentaDao;
 
 public class CuentaDaoImpl implements CuentaDao {
@@ -139,7 +140,8 @@ public class CuentaDaoImpl implements CuentaDao {
 		cuenta.setCBU(rs.getString("CBU"));
 		cuenta.setTipoCuenta(new TipoCuentaDaoImpl().getPorID(rs.getInt("Tipo_De_Cuenta")));
 		cuenta.setEstado(rs.getString("Estado"));
-		cuenta.setFechaCreacion(LocalDateTime.parse(rs.getString("Fecha_creacion"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		Fecha f = new Fecha(LocalDateTime.parse(rs.getString("Fecha_creacion"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		cuenta.setFechaCreacion(f);
 		cuenta.setNumero(rs.getString("Cuenta"));
 		cuenta.setSaldo(rs.getFloat("Saldo"));
 		//En caso de que creamos necesario agregar DNI a la tabla cuentas:
@@ -148,22 +150,54 @@ public class CuentaDaoImpl implements CuentaDao {
 	}
 
 	@Override
-	public Cuenta getCuentaPorID(int numeroCuenta) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Cuenta> listar(String b, int busqueda) {
+		
+		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+		Cuenta cuenta = new Cuenta();
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		
+		if (busqueda==1) {
+			try {
+				Statement st = cn.createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM cuentas;");
+				while(rs.next()) {
+					cuenta = setCuenta(rs, cuenta);
+					cuentas.add(cuenta);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (busqueda==2) {
+			try {
+				Statement st = cn.createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM cuentas;");
+				while(rs.next()) {
+					cuenta = setCuenta(rs, cuenta);
+					cuentas.add(cuenta);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (busqueda==3) {
+			try {
+				Statement st = cn.createStatement();
+				ResultSet rs = st.executeQuery("SELECT * FROM cuentas;");
+				while(rs.next()) {
+					cuenta = setCuenta(rs, cuenta);
+					cuentas.add(cuenta);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return cuentas;
 	}
 
-	@Override
-	public Cuenta getCuentaPorCbu(String cbu) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Cuenta> getCuentasPorDNI(String dni) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int total_cuentas(int dni) {

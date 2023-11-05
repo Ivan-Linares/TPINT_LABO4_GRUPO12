@@ -7,7 +7,9 @@ public class Cliente {
 	private String cuil;
 	private String apellido;
 	private String nombre;
+	private Pais pais;
 	private String sexo;
+	private String direccion;
 	private Fecha fechaNac;
 	private Provincia prov;
 	private String telefono[];
@@ -21,11 +23,12 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, String a, String tel, String n, String s, Fecha fechanac, Provincia p, String l, String mail, String u, String ps, String e) {
+	public Cliente(String d, String c, Pais pa, String di, String a, String tel, String n, String s, Fecha fechanac, Provincia p, String l, String mail, String u, String ps, String e) {
 		
 		this.dni=d;
 		this.cuil=c;
 		this.apellido=a;
+		this.pais=pa;
 		this.nombre=n;
 		this.sexo=s;
 		this.fechaNac=fechanac;
@@ -36,9 +39,18 @@ public class Cliente {
 		this.usuario=u;
 		this.pass=ps;
 		this.estado=e;
+		this.direccion=di;
 		
 	}
 
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
 
 	public String getDni() {
 		return dni;
@@ -138,6 +150,14 @@ public class Cliente {
 
 	public String getEstado() {
 		return estado;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public void setEstado(String estado) {

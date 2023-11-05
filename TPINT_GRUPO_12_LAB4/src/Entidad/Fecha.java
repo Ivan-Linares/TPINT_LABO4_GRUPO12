@@ -1,5 +1,7 @@
 package Entidad;
 
+import java.time.LocalDateTime;
+
 public class Fecha {
 	
 	private int dia;
@@ -7,6 +9,10 @@ public class Fecha {
 	private int year;
 	
 	public Fecha() {
+		LocalDateTime time= LocalDateTime.now();
+		this.dia=time.getDayOfMonth();
+		this.mes=time.getMonthValue();
+		this.year=time.getYear();
 		
 	}
 	
@@ -14,6 +20,12 @@ public class Fecha {
 		this.dia=d;
 		this.mes=m;
 		this.year=y;
+	}
+	
+	public Fecha(LocalDateTime time) {
+		this.dia=time.getDayOfMonth();
+		this.mes=time.getMonthValue();
+		this.year=time.getYear();
 	}
 
 	public int getDia() {

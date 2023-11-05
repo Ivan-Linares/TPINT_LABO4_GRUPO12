@@ -1,5 +1,8 @@
 package daoImpl;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import Entidad.Prestamo;
@@ -9,7 +12,39 @@ public class PrestamoDaoImpl implements PrestamoDao {
 
 	@Override
 	public boolean insertar(Prestamo prestamo) {
-		// TODO Auto-generated method stub
+		
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("INSERT into prestamos values(?,?,?,?,?,?)");
+			statement.setInt(1, prestamo.getIDPrestamo());
+			statement.setString(2, prestamo.getCuenta().getNumero());
+			//Quizas es mejor trabajar las fechas como string en la DB
+			statement.setString(3, prestamo.getFecha().toString());
+			//En caso de que las trabajemos como Date:
+			//statement.setDate(3, Date.valueOf(prestamo.getFecha()));
+			statement.setDouble(4, prestamo.getImporteSolicitado());
+			statement.setInt(5, prestamo.getPlazoPagoMeses());
+			statement.setString(6, prestamo.getEstado());
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
 		return false;
 	}
 

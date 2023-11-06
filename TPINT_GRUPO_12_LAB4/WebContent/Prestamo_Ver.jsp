@@ -3,7 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Prestamos en solicitud</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ver Prestamos</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -56,8 +57,7 @@
 				<li class="nav-item"><a class="nav-link" href="#">Informes</a>
 				</li>
 				<li class="nav-item">
-					<button class="btn btn-outline-danger" type="submit">Log
-						Out</button>
+					<button class="btn btn-outline-danger" type="submit">LogOut</button>
 				</li>
 			</ul>
 		</div>
@@ -117,59 +117,59 @@
 	%>
 	<br />
 
-	<%!boolean SolicitudPrestamo = true;%>
 	<div class="container text-center">
-		<div class="row justify-content-md-center">
-			<div class="col col-lg-2"></div>
-			<div class="col-md-auto">
+		<div class="row">
+			<div class="col-8">
 				<%
-					if (!SolicitudPrestamo) {
+					if (admin) {
 				%>
-				<h3>No hay solicitudes pendientes de aprobacion!</h3>
+				<input class="form-control" type="text" placeholder="Ingrese el DNI del cliente.."	aria-label="default input example"> 
+				<br>
 				<%
-					} else {
+					}else {
 				%>
-				<h3>Tienes solicitudes de los siguientes clientes:</h3>
+				<input class="form-control" type="text" placeholder="42899522"	aria-label="default input example" disabled> 
+				<br>
+				<%
+					}
+				%>
+				<label for="fechaDesde">Fecha Desde:</label> 
+				<input type="date" name="fechaDesde" required>
+				<label for="fechaHasta">Fecha Hasta:</label>
+				<input type="date" name="fechaHasta" required> 
+				<input type="submit" value="Enviar" class="btn btn-primary"> 
+				<br>
+				<br>
 				<table class="table table-hover">
 					<thead>
 						<td>DNI</td>
 						<td>Nombre</td>
 						<td>Apellido</td>
-						<td>Monto del Préstamo</td>
+						<td>Cod del Préstamo</td>
+						<td>Monto Pedido</td>
+						<td>Monto total a pagar</td>
 						<td>Fecha Solicitud</td>
-						<td>Acción</td>
-						<td>Enviar</td>
 					</thead>
 					<%
 						int i = 0;
-							while (i < 3) {
+						while (i < 3) {
 					%>
 					<tr>
 						<td>42899522</td>
 						<td>Ivan</td>
 						<td>Linares</td>
-						<td>1.000.000</td>
+						<td>1001</td>
+						<td>$1.000.000</td>
+						<td>$1.500.000</td>
 						<td>2/11/2023</td>
-						<td><select class="form-select"
-							aria-label="Default select example">
-								<option selected>Aprobar</option>
-								<option value="1">Rechazar</option>
-						</select></td>
-						<td><input type="submit" value="Enviar"
-							class="btn btn-primary"></td>
 					</tr>
 					<%
 						i++;
-							}
+						}
 					%>
 				</table>
-				<%
-					}
-				%>
 			</div>
-			<div class="col col-lg-2"></div>
 		</div>
 	</div>
-
 </body>
 </html>

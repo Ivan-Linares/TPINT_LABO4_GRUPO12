@@ -2,18 +2,18 @@ package Entidad;
 
 public class TipoUsuario {
 	
-	private String Tipo;
+	private int Tipo;
 	private String descripcion;
 	
 	public TipoUsuario() {
 		
 	}
 
-	public String getTipo() {
+	public int getTipo() {
 		return Tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(int tipo) {
 		Tipo = tipo;
 	}
 

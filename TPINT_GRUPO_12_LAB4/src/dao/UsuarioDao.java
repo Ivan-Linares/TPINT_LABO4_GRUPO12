@@ -11,6 +11,5 @@ public interface UsuarioDao {
 	public boolean modificar(Usuario usuario);
 	public Usuario getUsuarioPorDNI(String dni);
 	public Usuario getUsuarioPorUsuario(String usuario);
-	public ArrayList<Usuario> listar();
 
 }

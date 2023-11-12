@@ -118,7 +118,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Provincia p on c.provincia=p.codprovincia inner join Pais p on c.pais=p.codpais;");
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Provincia p on c.provincia=p.codprovincia inner join Pais pa on c.pais=pa.codpais;");
 			while(rs.next()) {
 				cliente = setCliente(rs);
 				clientes.add(cliente);
@@ -141,24 +141,22 @@ public class ClienteDaoImpl implements ClienteDao{
 		Cliente cliente = new Cliente();
 		Provincia pro =new Provincia();
 		Pais pais=new Pais();
-		cliente.setDni(rs.getString("DNI"));
-		cliente.setCuil(rs.getString("Cuil"));
-		cliente.setApellido(rs.getString("Apellido"));
-		cliente.setNombre(rs.getString("Nombre"));
-		cliente.setCuil(rs.getString("Cuil"));
-		cliente.setDireccion(rs.getString("Direccion"));
-		cliente.setLocalidad(rs.getString("Localidad"));
-		cliente.setDireccion(rs.getString("Direccion"));
-		cliente.setUsuario(rs.getString("Usuario"));
-		pro.setName(rs.getString("NombreProvincia"));
-		pro.setCode((rs.getInt("codProvincia")));
+		cliente.setDni(rs.getString("c.DNI"));
+		cliente.setCuil(rs.getString("c.Cuil"));
+		cliente.setApellido(rs.getString("c.Apellido"));
+		cliente.setNombre(rs.getString("c.Nombre"));
+		cliente.setDireccion(rs.getString("c.Direccion"));
+		cliente.setLocalidad(rs.getString("c.Localidad"));
+		cliente.setUsuario(rs.getString("c.Usuario"));
+		pro.setName(rs.getString("p.NombreProvincia"));
+		pro.setCode((rs.getInt("p.codProvincia")));
 		cliente.setProv(pro);
-		pais.setCode((rs.getInt("codPais")));
-		pais.setName(rs.getString("NombrePais"));
+		pais.setCode((rs.getInt("pa.codPais")));
+		pais.setName(rs.getString("pa.NombrePais"));
 		cliente.setPais(pais);
-		cliente.setPass(rs.getString("Password"));
-		cliente.setEstado(rs.getString("Estado"));
-		Fecha f = new Fecha(LocalDateTime.parse(rs.getString("Fecha_creacion"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		cliente.setPass(rs.getString("u.Password"));
+		cliente.setEstado(rs.getString("c.Estado"));
+		Fecha f = new Fecha(LocalDateTime.parse(rs.getString("c.FechaNac"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		cliente.setFechaNac(f);
 		return cliente;
 	}

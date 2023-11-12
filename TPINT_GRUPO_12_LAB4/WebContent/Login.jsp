@@ -25,7 +25,7 @@
 <body>
 <div class="Caja-1">
 	<div class="Caja-1-5">
-		<form action="servlet" method="get">
+		<form action="validarLoginServlet" method="post">
 			<input  type="text"  placeholder="Usuario..."  required name="txtusuario"></br></br>
 			<input  type="text"  placeholder="Contraseña.."  required name="txtcontraseña"></br>
 			<a Style=margin-left:20px; href="servlet">Olvidaste la clave?</a></br></br>
@@ -33,5 +33,10 @@
 		</form>	
 	</div>
 </div>
+
+<%if(request.getAttribute("Validar")!=null){
+		String resp=(String)request.getAttribute("Validar");%>
+		<h2><%= resp %></h2>
+<%}%>
 </body>
 </html>

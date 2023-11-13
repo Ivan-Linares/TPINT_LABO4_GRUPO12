@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,6 +14,7 @@ import Entidad.Cliente;
 import Entidad.Fecha;
 import Entidad.Pais;
 import Entidad.Provincia;
+import Entidad.Usuario;
 import dao.ClienteDao;
 
 public class ClienteDaoImpl implements ClienteDao{
@@ -135,6 +137,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 	private Cliente setCliente(ResultSet rs) throws SQLException {
 		
@@ -151,13 +155,49 @@ public class ClienteDaoImpl implements ClienteDao{
 		pro.setName(rs.getString("p.NombreProvincia"));
 		pro.setCode((rs.getInt("p.codProvincia")));
 		cliente.setProv(pro);
+		cliente.setSexo(rs.getString("c.Sexo"));
+		cliente.setEmail(rs.getString("c.email"));
 		pais.setCode((rs.getInt("pa.codPais")));
 		pais.setName(rs.getString("pa.NombrePais"));
 		cliente.setPais(pais);
 		cliente.setPass(rs.getString("u.Password"));
 		cliente.setEstado(rs.getString("c.Estado"));
-		Fecha f = new Fecha(LocalDateTime.parse(rs.getString("c.FechaNac"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		String fe=rs.getString("c.FechaNac");
+		Fecha f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
 		cliente.setFechaNac(f);
 		return cliente;
+	}
+
+	@Override
+	public Cliente getClientePorUsuario(Usuario usuario) {
+		
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		Cliente cli=new Cliente();
+		
+		try {
+			statement = con.prepareStatement("select * from Clientes c inner join Usuarios u on u.Usuario=c.usuario inner join Provincia p on c.provincia=p.codprovincia inner join Pais pa on c.pais=pa.codpais where c.Usuario=?;");
+			statement.setString(1, usuario.getUser());
+			
+			ResultSet r=statement.executeQuery();
+			while(r.next()) {
+				cli = setCliente(r);
+			}
+						
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return cli;
 	}
 }

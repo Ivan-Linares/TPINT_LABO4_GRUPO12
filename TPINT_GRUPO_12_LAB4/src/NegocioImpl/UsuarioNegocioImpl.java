@@ -3,7 +3,9 @@ package NegocioImpl;
 import Entidad.Cliente;
 import Entidad.Usuario;
 import Negocio.UsuarioNegocio;
+import dao.ClienteDao;
 import dao.UsuarioDao;
+import daoImpl.ClienteDaoImpl;
 import daoImpl.UsuarioDaoImpl;
 
 
@@ -59,8 +61,25 @@ public class UsuarioNegocioImpl implements UsuarioNegocio{
 
 	@Override
 	public Usuario obtenerUsuario(String usuario) {
-		// TODO Auto-generated method stub
-		return null;
+		uDao=new UsuarioDaoImpl();
+		Usuario utest=new Usuario();
+		utest=uDao.getUsuarioPorUsuario(usuario);
+		
+		if(utest.getUser()!=null) {
+			return utest;
+		}
+		
+		else return null;
+	}
+
+	@Override
+	public Usuario asignarCliente(Usuario user) {
+		
+		ClienteDao cDao=new ClienteDaoImpl();
+		Cliente c=new Cliente();
+		c=cDao.getClientePorUsuario(user);
+		user.setPersona(c);
+		return user;
 	}
 	
 	

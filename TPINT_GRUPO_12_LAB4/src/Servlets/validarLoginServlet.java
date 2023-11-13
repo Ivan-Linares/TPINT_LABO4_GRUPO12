@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Usuario;
+import Negocio.ClienteNegocio;
 import Negocio.UsuarioNegocio;
+import NegocioImpl.ClienteNegocioImpl;
 import NegocioImpl.UsuarioNegocioImpl;
 import dao.UsuarioDao;
 import daoImpl.UsuarioDaoImpl;
@@ -45,16 +47,17 @@ public class validarLoginServlet extends HttpServlet {
 		
 		String User=request.getParameter("txtusuario");
 		String Pass=request.getParameter("txtcontraseña");
-		String resp="No está entrando al try";
+		String resp=new String();
 		
+		Usuario utest=new Usuario();
 		UsuarioNegocio uDao=new UsuarioNegocioImpl();
 		
 		try {
-			Usuario utest=new Usuario();
-			
 			if (uDao.verificarExistencia(User)) {
 				if (uDao.validar(User, Pass)) {
-					resp="Conexión exitosa";
+				
+					utest=uDao.obtenerUsuario(User);
+					utest=uDao.asignarCliente(utest);
 				}
 				
 				else {
@@ -70,8 +73,16 @@ public class validarLoginServlet extends HttpServlet {
 			resp="falló conexión a DB";
 		}
 		
-		request.setAttribute("Validar", resp);
 		RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
+		
+		if(resp!=null) {
+			request.setAttribute("Validar", resp);
+		}
+		
+		else {
+			request.setAttribute("Client", utest);
+		}
+		
 		rd.forward(request, response);
 	}
 

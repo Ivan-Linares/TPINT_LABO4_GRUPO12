@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="Entidad.Usuario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <style>
@@ -37,6 +38,11 @@
 <%if(request.getAttribute("Validar")!=null){
 		String resp=(String)request.getAttribute("Validar");%>
 		<h2><%= resp %></h2>
+<%}%>
+
+<%if(request.getAttribute("Client")!=null){
+		Usuario resp=(Usuario)request.getAttribute("Client");%>
+		<h2><%=resp.getPersona().getNombre()%></h2>
 <%}%>
 </body>
 </html>

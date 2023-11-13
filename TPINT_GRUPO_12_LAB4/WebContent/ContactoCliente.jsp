@@ -9,50 +9,50 @@
 </head>
 <body>
 <div class="container">
-        <form action="RegistroServlet" method="post">
+        <form action="ContactoClienteServlet" method="post">
             <h2>Formulario de Registro</h2>
             
-            <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" required>
+            <label for="lblApellido">Apellido:</label>
+            <input type="text" id="apellido" name="txtApellido" required>
             
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <label for="lblNombre">Nombre:</label>
+            <input type="text" id="nombre" name="txtNombre" required>
             
-            <label for="dni">DNI:</label>
-            <input type="text" id="dni" name="dni" required>
+            <label for="lblDNI">DNI:</label>
+            <input type="text" id="dni" name="txtDNI" required>
             
-            <label for="cuil">CUIL:</label>
-            <input type="text" id="cuil" name="cuil" required>
+            <label for="lblCUIL">CUIL:</label>
+            <input type="text" id="cuil" name="txtCUIL" required>
             
-            <label for="sexo">Sexo:</label>
-            <select id="sexo" name="sexo" required>
+            <label for="lblSexo">Sexo:</label>
+            <select id="sexo" name="SelSexo" required>
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
                 <option value="NA">Prefiero no decirlo</option>
             </select>
             
-            <label for="pais">País:</label>
-            <input type="text" id="pais" name="pais" required>
+            <label for="lblPais">País:</label>
+            <input type="text" id="pais" name="txtPais" required>
             
-            <label for="provincia">Provincia:</label>
-            <input type="text" id="provincia" name="provincia" required>
+            <label for="lblProvincia">Provincia:</label>
+            <input type="text" id="provincia" name="txtProvincia" required>
             
-            <label for="localidad">Localidad:</label>
-            <input type="text" id="localidad" name="localidad" required>
+            <label for="lblLocalidad">Localidad:</label>
+            <input type="text" id="localidad" name="txtLocalidad" required>
             
-            <label for="direccion">Dirección:</label>
-            <input type="text" id="direccion" name="direccion" required>
+            <label for="lblDireccion">Dirección:</label>
+            <input type="text" id="direccion" name="txtDireccion" required>
             
-            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+            <label for="lblFechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" name="dateFechaNacimiento" required>
             
-            <label for="telefono">Teléfono:</label>
-            <input type="text" id="telefono" name="telefono" required>
+            <label for="lblTelefono">Teléfono:</label>
+            <input type="text" id="telefono" name="txtTelefono" required>
             
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="lblEmail">Email:</label>
+            <input type="email" id="email" name="txtEmail" required>
             
-            <input type="submit" value="Registrar">
+            <input type="submit" value="Registrar" name="btnRegistrar">
         </form>
     </div>
 

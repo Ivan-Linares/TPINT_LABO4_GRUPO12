@@ -178,6 +178,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		TipoUsuario tipo = new TipoUsuario();
 		
 		while (rs.next()) {
+			boolean e=rs.getBoolean("Estado");
 			usuario.setEstado(rs.getBoolean("Estado"));
 			usuario.setPass(rs.getString("Password"));
 			usuario.setUser(rs.getString("u.Usuario"));

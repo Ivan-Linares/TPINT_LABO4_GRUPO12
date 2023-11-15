@@ -8,13 +8,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<div class="btn-group" role="group" aria-label="Basic example">
-	<form method="get" action="SolicitarPrestamoClienteServlet">
-	  <input type="submit" class="btn btn-primary" Value="Solicitar nuevo prestamo" name="btnsolicitarprestamo">	
-	</form>
-</div>
 <div>
-	<div><h3>Prestamos solicitados</h3></div>
+	<div><h3>Prestamos</h3></div>
 	<table class="table accordion-collapse">
 		<form>
 			<tr>
@@ -45,7 +40,12 @@
 	</table>
 </div>
 <div class="btn-group" role="group" aria-label="Basic example">
-  <input type="submit" class="btn btn-primary" Value="Volver">
+  <input type="submit" class="btn btn-success" Value="Volver">
+</div>
+<div class="btn-group" role="group" aria-label="Basic example">
+	<form method="get" action="SolicitarPrestamoClienteServlet">
+	  <input type="submit" class="btn btn-primary" Value="Solicitar nuevo prestamo" name="btnsolicitarprestamo">	
+	</form>
 </div>
 </body>
 </html>

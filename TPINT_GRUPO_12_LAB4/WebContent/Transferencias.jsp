@@ -10,11 +10,53 @@
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <h2>Nueva trasferencia</h2><br>
+<form method="get" action="Transferencias" class="alert">
 <div>
-	<form action="" method="">
 		<input type="submit" name="btntranferencia1mismo" value="Transferir a una cuenta propia">
 		<input type="submit" name="btntranferencia3ro" value=" Transferir a un tercero ">	
-	</form>
+</div><br>
+<%if(request.getAttribute("miscuentas")!=null){%>
+	<div>
+		<label>Seleccionar cuenta desde la cual realizara la trasnferencia </label><br>
+		<b>cuentas</b>
+		<select name="cuentas">
+			<option>cuenta 1</option>
+			<option>cuenta 2</option>
+			<option>cuenta 3</option>
+		</select>
+	</div><br>
+	<div>
+		<label>Seleccionar cuenta destino </label><br>
+		<b>cuentas</b>
+		<select name="cuentas">
+			<option>cuenta 1</option>
+			<option>cuenta 2</option>
+			<option>cuenta 3</option>
+		</select>
+	</div></br></br><%	
+}%>
+<%if(request.getAttribute("3ros")!=null){%>
+	<div>
+		<label>Selecionar medio </label>
+		<div class="form-check form-check-inline">
+	  		<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="CBU">
+	  		<label class="form-check-label" for="inlineRadio1"> CBU</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Alias">
+		  <label class="form-check-label" for="inlineRadio2"> Alias</label>
+		</div><br><br>
+		<input type="text" value="" placeholder=""></br></br>	
+<%}%>
+<%if(request.getAttribute("3ros")!=null || request.getAttribute("miscuentas")!=null) {%>
+	<input type="text" value="" placeholder="Ingresar monto"></br></br>
+<%}%>
+	
+	<input   class="btn btn-success"  type="submit"    name="btnvolver" value="Volver">
+<%if(request.getAttribute("3ros")!=null || request.getAttribute("miscuentas")!=null) {%>
+	<input   class="btn btn-info"  type="submit" name="btntransferir" value="Transferir">	
+<%}%>
 </div>
+</form>
 </body>
 </html>

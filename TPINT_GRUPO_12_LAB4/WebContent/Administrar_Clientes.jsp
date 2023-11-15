@@ -118,7 +118,45 @@
 	%>
 	<br />
 	
-	
+	<div class="container text-center">
+		<div class="row justify-content-md-center">
+			<div class="col col-lg-2"></div>
+			<div class="col-md-auto">
+				<h3>Tienes solicitudes de los siguientes clientes:</h3>
+					<table class="table table-hover">
+						<thead>
+							<td>DNI</td>
+							<td>Nombre</td>
+							<td>Apellido</td>
+							<td>Email</td>
+							<td>Fecha Nac</td>
+							<td>Modificar</td>
+							<td>Eliminar</td>
+						</thead>
+						<%
+							int i = 0;
+								while (i < 3) {
+						%>
+						<tr>
+							<td>42899522</td>
+							<td>Ivan</td>
+							<td>Linares</td>
+							<td>lalala@gmail.com</td>
+							<td>26/09/2000</td>
+							<td><input type="submit" value="Modificar"
+								class="btn btn-primary"></td>
+							<td><input type="submit" value="Eliminar"
+								class="btn btn-primary"></td>
+						</tr>
+						<%
+							i++;
+								}
+						%>
+					</table>
+				</div>
+			<div class="col col-lg-2"></div>
+		</div>
+	</div>
 
 </body>
 </html>

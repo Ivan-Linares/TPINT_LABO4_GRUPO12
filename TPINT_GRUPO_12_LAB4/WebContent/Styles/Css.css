@@ -1,0 +1,28 @@
+.Caja-1{
+	position: absolute;
+	top:0px;
+	right:70%;
+	width: 340px;
+	height: 100%;
+	background-color: skyblue;
+	border: 1px solid black;
+}
+.Caja-1-5{
+	display: grid;
+	place-items: center;
+	margin-top:15px;
+}
+.Cajahome1{
+	position: absolute;
+	top:120px;
+	right:40%;
+	width: 340px;
+	height: 400px;
+	background-color: skyblue;
+	border: 2px solid black;
+}
+.Cajahome2{
+	display: grid;
+	place-items: center;
+	margin-top:20px;
+}

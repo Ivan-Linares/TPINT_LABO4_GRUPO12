@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Detalle Clientes por Aprobar</title>
+<title>Modificar cliente</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -127,41 +127,48 @@
         <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">CUIL:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Apellido:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
-        
-        <label for="nombre">Sexo:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Email:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        
+        <label for="nombre">Usuario:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        
+        <label for="nombre">Contraseña:</label>
+        <input type="password" id="nombre" name="nombre" class="form-control"><br>        
 	  </div>
 	  <div class="col">
+	  	<label for="nombre">Sexo:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+	  
  		<label for="nombre">Pais:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Provincia:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Localidad:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
 	  </div>
 	</div>
-	<input type="submit" value="Volver">
+	<input type="submit" value="Cancelar" class="btn btn-danger">
+	<input type="submit" value="Confirmar" class="btn btn-success">
 </form>
 
 </body>

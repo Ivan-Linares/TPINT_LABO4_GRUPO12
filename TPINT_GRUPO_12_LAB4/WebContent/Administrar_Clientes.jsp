@@ -122,7 +122,7 @@
 		<div class="row justify-content-md-center">
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
-				<h3>Tienes solicitudes de los siguientes clientes:</h3>
+				<h3>Clientes activos:</h3>
 					<table class="table table-hover">
 						<thead>
 							<td>DNI</td>

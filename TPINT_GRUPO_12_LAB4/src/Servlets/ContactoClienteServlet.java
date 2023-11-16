@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cliente;
+import Entidad.Pais;
 import dao.ClienteDao;
 import daoImpl.ClienteDaoImpl;
 
@@ -45,11 +46,16 @@ public class ContactoClienteServlet extends HttpServlet {
 		if(request.getParameter("btnRegistrar")!= null) {
 			
 			Cliente cte = new Cliente();
+			Pais p = new Pais();
 			cte.setApellido(request.getParameter("txtApellido"));
 			cte.setNombre(request.getParameter("txtNombre"));
 			cte.setDni(request.getParameter("txtDNI"));
 			cte.setCuil(request.getParameter("txtCUIL"));
-			//Continuar
+			cte.setSexo(request.getParameter("selSexo"));
+			
+			//Desarrollo
+			
+			cte.setPais(pais);
 			
 			ClienteDaoImpl cteDao = new ClienteDaoImpl();
 			insert = cteDao.insertar(cte);

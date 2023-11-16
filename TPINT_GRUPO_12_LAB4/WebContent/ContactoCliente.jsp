@@ -25,7 +25,7 @@
             <input type="text" id="cuil" name="txtCUIL" required>
             
             <label for="lblSexo">Sexo:</label>
-            <select id="sexo" name="SelSexo" required>
+            <select id="sexo" name="selSexo" required>
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
                 <option value="NA">Prefiero no decirlo</option>
@@ -52,9 +52,33 @@
             <label for="lblEmail">Email:</label>
             <input type="email" id="email" name="txtEmail" required>
             
+            <label for="lblUser">Nombre de Usuario:</label>
+            <input type="text" id="user" name="txtUser" required>
+            
+            <label for="lblPass">Contraseña:</label>
+            <input type="text" id="pass" name="txtPass" required>
+            
+            <label for="lblPass2">Repetetir Contraseña:</label>
+            <input type="text" id="pass2" name="txtPass2" required>
+            
             <input type="submit" value="Registrar" name="btnRegistrar">
         </form>
     </div>
+    
+<%
+	boolean insert = false;
+	if(request.getAttribute("insert")!=null)
+		insert = (boolean)request.getAttribute("insert");		
+	
+%>
+
+<% if(insert)
+     { %>
+     
+	Solicitud procesada con exito
+	
+<% } %>
+
 
 </body>
 </html>

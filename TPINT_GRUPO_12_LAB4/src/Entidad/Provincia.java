@@ -2,33 +2,37 @@ package Entidad;
 
 public class Provincia {
 	
-	private int code;
-	private String name;
+	private int codPais;
+	private int codProvincia;
+	private String NombreProvincia;
 	
 	public Provincia() {
 		
 	}
 
-	public int getCode() {
-		return code;
+	public int getCodPais() {
+		return codPais;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setCodPais(int codPais) {
+		this.codPais = codPais;
 	}
 
-	public String getName() {
-		return name;
+	public int getCodProvincia() {
+		return codProvincia;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCodProvincia(int codProvincia) {
+		this.codProvincia = codProvincia;
 	}
 
-	@Override
-	public String toString() {
-		return name;
+	public String getNombreProvincia() {
+		return NombreProvincia;
 	}
-	
+
+	public void setNombreProvincia(String nombreProvincia) {
+		NombreProvincia = nombreProvincia;
+	}
+
 	
 }

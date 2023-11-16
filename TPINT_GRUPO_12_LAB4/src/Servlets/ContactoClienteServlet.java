@@ -53,12 +53,11 @@ public class ContactoClienteServlet extends HttpServlet {
 			cte.setCuil(request.getParameter("txtCUIL"));
 			cte.setSexo(request.getParameter("selSexo"));
 			
-			//Desarrollo
-			
-			cte.setPais(pais);
-			
-			ClienteDaoImpl cteDao = new ClienteDaoImpl();
-			insert = cteDao.insertar(cte);
+			System.out.println(cte.getApellido());
+			System.out.println(cte.getNombre());
+			System.out.println(cte.getSexo());
+			/*ClienteDaoImpl cteDao = new ClienteDaoImpl();
+			insert = cteDao.insertar(cte);*/
 		}
 		
 		request.setAttribute("insert", insert);

@@ -52,7 +52,7 @@ public class Cliente {
 		this.nombre=n;
 		this.sexo=s;
 		this.fechaNac=fechanac;
-		this.prov.setCode(p);
+		this.prov.setCodProvincia(p);
 		this.localidad=l;
 		this.email=mail;
 		this.usuario=u;

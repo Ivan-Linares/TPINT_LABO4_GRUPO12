@@ -31,11 +31,25 @@
                 <option value="NA">Prefiero no decirlo</option>
             </select>
             
-            <label for="lblPais">País:</label>
-            <input type="text" id="pais" name="txtPais" required>
-            
+            <!-- <label for="lblPais">País:</label>
+            <input type="text" id="pais" name="txtPais" required>  -->
+            <label for="lblPais">Pais:</label>
+            <select id="pais" name="selPais" required>
+                <option value="Argentina">Argentina</option>
+                <option value="Chile">Chile</option>
+                <option value="Uruguay">Uruguay</option>
+            </select>
+           	
             <label for="lblProvincia">Provincia:</label>
-            <input type="text" id="provincia" name="txtProvincia" required>
+            <!-- <input type="text" id="provincia" name="txtProvincia" required> -->
+            <select id="provincia" name="selProvincia" required>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="Cordoba">Cordoba</option>
+                <option value="ProvChile1">ProvChile1</option>
+                <option value="ProvChile2">ProvChile2</option>
+                <option value="ProvUru1">ProvUru1</option>
+                <option value="ProvUru2">ProvUru2</option>
+            </select>
             
             <label for="lblLocalidad">Localidad:</label>
             <input type="text" id="localidad" name="txtLocalidad" required>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Clientes</title>
+<title>Modificar Cuentas</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -16,8 +16,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-
-	<%!boolean admin = true;%>
+<%!boolean admin = true;%>
 	<!-- Navbar Admin -->
 	<%
 		if (admin) {
@@ -58,7 +57,8 @@
 				<li class="nav-item"><a class="nav-link" href="#">Informes</a>
 				</li>
 				<li class="nav-item">
-					<button class="btn btn-outline-danger" type="submit">LogOut</button>
+					<button class="btn btn-outline-danger" type="submit">Log
+						Out</button>
 				</li>
 			</ul>
 		</div>
@@ -117,44 +117,34 @@
 		}
 	%>
 	<br />
-	
-	<div class="container text-center">
-		<div class="row justify-content-md-center">
-			<div class="col col-lg-2"></div>
-			<div class="col-md-auto">
-				<h3>Clientes activos:</h3>
-					<table class="table table-hover">
-						<thead>
-							<td>Cliente</td>
-							<td>Nombre</td>
-							<td>Apellido</td>
-							<td>Usuario</td>
-							<td>Modificar</td>
-							<td>Eliminar</td>
-						</thead>
-						<%
-							int i = 0;
-								while (i < 3) {
-						%>
-						<tr>
-							<td>42899522</td>
-							<td>Ivan</td>
-							<td>Linares</td>
-							<td>User007</td>
-							<td><input type="submit" value="Modificar"
-								class="btn btn-primary"></td>
-							<td><input type="submit" value="Eliminar"
-								class="btn btn-primary"></td>
-						</tr>
-						<%
-							i++;
-								}
-						%>
-					</table>
-				</div>
-			<div class="col col-lg-2"></div>
-		</div>
-	</div>
 
+
+<form action="" method="post">
+	<div class="row">
+	  <div class="col">
+	    <label for="nombre">Numero Cuenta:</label>
+        <input type="text" id="Numero" name="nombre" value="lalala" class="form-control" disabled><br>
+        
+        <label for="nombre">Saldo:</label>
+        <input type="text" id="Saldo" name="nombre" value="lalala" class="form-control" disabled><br>
+        
+	    <label for="nombre">Cliente Asignado:</label>
+        <input type="text" id="Cliente" name="nombre" value="lalala" class="form-control"><br>               
+	  </div>
+	  <div class="col">
+		<label for="nombre">Tipo Cuenta:</label>
+        <input type="text" id="Tipo" name="nombre" value="lalala" class="form-control"><br>
+	  
+ 		<label for="nombre">CBU:</label>
+        <input type="text" id="CBU" name="nombre" value="lalala" class="form-control"><br>
+        
+        <label for="nombre">Fecha Creacion:</label>
+        <input type="text" id="Fec" name="nombre" value="lalala" class="form-control"><br>
+        
+	  </div>
+	</div>
+	<input type="submit" value="Cancelar" class="btn btn-danger">
+	<input type="submit" value="Confirmar" class="btn btn-success">
+</form>
 </body>
 </html>

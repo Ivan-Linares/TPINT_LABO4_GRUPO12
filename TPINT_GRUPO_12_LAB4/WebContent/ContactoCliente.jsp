@@ -1,5 +1,14 @@
+<%@page import="Entidad.Provincia"%>
+<%@page import="NegocioImpl.ProvinciaNegocioImpl"%>
+<%@page import="Negocio.ProvinciaNegocio"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="Entidad.Pais"%>
+<%@ page import="Negocio.PaisNegocio"%>
+<%@ page import="NegocioImpl.PaisNegocioImpl"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,20 +44,21 @@
             <input type="text" id="pais" name="txtPais" required>  -->
             <label for="lblPais">Pais:</label>
             <select id="pais" name="selPais" required>
-                <option value="Argentina">Argentina</option>
-                <option value="Chile">Chile</option>
-                <option value="Uruguay">Uruguay</option>
+                <%PaisNegocio pNeg = new PaisNegocioImpl();
+				for (Pais p : pNeg.listar()) {
+				%>
+				<option><%=p.getName()%></option>			
+				<% } %>
             </select>
            	
             <label for="lblProvincia">Provincia:</label>
             <!-- <input type="text" id="provincia" name="txtProvincia" required> -->
             <select id="provincia" name="selProvincia" required>
-                <option value="Buenos Aires">Buenos Aires</option>
-                <option value="Cordoba">Cordoba</option>
-                <option value="ProvChile1">ProvChile1</option>
-                <option value="ProvChile2">ProvChile2</option>
-                <option value="ProvUru1">ProvUru1</option>
-                <option value="ProvUru2">ProvUru2</option>
+                <%ProvinciaNegocio prNeg = new ProvinciaNegocioImpl(); 
+                for (Provincia pr : prNeg.listar()){
+                %>
+                <option><%=pr.getNombreProvincia()%><option>
+                <%} %>
             </select>
             
             <label for="lblLocalidad">Localidad:</label>

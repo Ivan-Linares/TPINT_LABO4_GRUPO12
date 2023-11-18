@@ -15,6 +15,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Formulario de Registro</title>
 <link rel="stylesheet" type="text/css" href="CSS/ContactoCliente.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#pais").change(function () {
+                var paisId = $(this).val();
+                $.post("ContactoClienteServlet", {action: "getProvincias", paisId: paisId}, function (data) {
+                    $("#provincia").html(data);
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -43,22 +54,24 @@
             <!-- <label for="lblPais">País:</label>
             <input type="text" id="pais" name="txtPais" required>  -->
             <label for="lblPais">Pais:</label>
-            <select id="pais" name="selPais" required>
+            <select id="pais" name="selPais">
+            	<option value="0">Seleccione una opcion</option>
                 <%PaisNegocio pNeg = new PaisNegocioImpl();
 				for (Pais p : pNeg.listar()) {
 				%>
-				<option><%=p.getName()%></option>			
+				<option value=<%=p.getCode()%>> <%=p.getName()%></option>			
 				<% } %>
             </select>
            	
             <label for="lblProvincia">Provincia:</label>
-            <!-- <input type="text" id="provincia" name="txtProvincia" required> -->
             <select id="provincia" name="selProvincia" required>
-                <%ProvinciaNegocio prNeg = new ProvinciaNegocioImpl(); 
+            	<!-- Comentado porque se carga desde el servlet -->
+            	
+                <%-- <%ProvinciaNegocio prNeg = new ProvinciaNegocioImpl(); 
                 for (Provincia pr : prNeg.listar()){
                 %>
                 <option><%=pr.getNombreProvincia()%><option>
-                <%} %>
+                <%} %> --%>
             </select>
             
             <label for="lblLocalidad">Localidad:</label>

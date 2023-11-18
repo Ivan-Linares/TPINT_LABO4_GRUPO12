@@ -99,7 +99,7 @@
           <a class="nav-link" href="Transferencias.jsp">Transferir</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Datos Personales</a>
+          <a class="nav-link" href="Datos_Personales_cte.jsp">Datos Personales</a>
         </li>
         <li class="nav-item">
          <button class="btn btn-outline-danger" type="submit">Log Out</button>

@@ -79,8 +79,6 @@
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp" >Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
             <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
             <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
@@ -90,7 +88,7 @@
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="CuentasCliente.jsp" >Ver Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_del_Cliente.jsp" >Ver Cuentas</a></li>
             <li><a class="dropdown-item" href="#">Administrar</a></li>
           </ul>
         </li>

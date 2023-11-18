@@ -99,7 +99,7 @@
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="CuentasCliente.jsp" >Ver Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_del_Cliente.jsp" >Ver Cuentas</a></li>
             <li><a class="dropdown-item" href="#">Administrar</a></li>
           </ul>
         </li>

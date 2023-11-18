@@ -12,8 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-<%! boolean admin = true; %>
-
+<%! boolean admin = false; %>
 <!-- Navbar Admin -->
 <%if (admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -65,7 +64,6 @@
   </div>
 </nav>
 <%} %>
-
 <!-- Navbar Cliente -->
 <%if (!admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -84,10 +82,10 @@
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="SolicitudPrestamo.jsp" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp" >Pedir Prestamos</a></li>
             <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
-            <li><a class="dropdown-item" href="#">Pagar Cuotas</a></li>
+            <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

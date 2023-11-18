@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <title>Mis Cuentas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -60,13 +61,12 @@
     </style>
 </head>
 <body>
-<%! boolean admin = true; %>
-
+<%! boolean admin = false; %>
 <!-- Navbar Admin -->
 <%if (admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Lio MessiÂ´s Bank</a>
+    <a class="navbar-brand" href="#">Lio Messi´s Bank</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -113,12 +113,11 @@
   </div>
 </nav>
 <%} %>
-
 <!-- Navbar Cliente -->
 <%if (!admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Lio MessiÂ´s Bank</a>
+    <a class="navbar-brand" href="#">Lio Messi´s Bank</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -132,10 +131,10 @@
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="SolicitudPrestamo.jsp" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp" >Pedir Prestamos</a></li>
             <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
-            <li><a class="dropdown-item" href="#">Pagar Cuotas</a></li>
+            <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -163,7 +162,7 @@
 <%} %>
 <br />
 
-<h2>Bienvenido, Juan PÃ©rez</h2> 
+<h2>Bienvenido, Juan Pérez</h2> 
 <h3>Tus cuentas:</h3>
 
 <select id="listaCuentas" onchange="cargarHistorial()">
@@ -174,13 +173,12 @@
     <% } %>
 </select>
 
-<h3>InformaciÃ³n de la cuenta:</h3>
+<h3>Información de la cuenta:</h3>
 <div id="infoCuenta">
  
 </div>
 
 <h3>Historial de Movimientos:</h3>
 <ul id="historialMovimientos"></ul>
-
 </body>
 </html>

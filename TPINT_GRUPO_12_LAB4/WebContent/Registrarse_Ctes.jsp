@@ -9,123 +9,48 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-<%! boolean admin = true; %>
-
-<!-- Navbar Admin -->
-<%if (admin){ %>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Lio Messi´s Bank</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="Index.jsp">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Prestamos
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Prestamo_Aprobar.jsp">Aprobar Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Cuentas
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
-            <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Administrar
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
-            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Informes.jsp">Informes</a>
-        </li>
-        <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<%} %>
-
-<!-- Navbar Cliente -->
-<%if (!admin){ %>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Lio Messi´s Bank</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="Index.jsp">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Prestamos  
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="SolicitudPrestamo.jsp" >Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
-            <li><a class="dropdown-item" href="#">Pagar Cuotas</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Cuentas
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="CuentasCliente.jsp" >Ver Cuentas</a></li>
-            <li><a class="dropdown-item" href="#">Administrar</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Datos Personales</a>
-        </li>
-        <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<%} %>
-<br />
-
-<div>
-	<h2>Datos personales</h2></br>
-		Apellido <input>
-		Nombre <input>
-		sexo <select>
-				<option>Masculino</option>
-				<option>Femenino</option>
-				<option>Otro</option>
-			</select>	
-		DNI <input></br></br>
-		CUIL <input> Telefono <input> Email <input> Fecha de nacimiento <input type="date"></br></br>
-		Nacionalidad <input> Provincia <input>	Localidad  <input> Direccion <input></br></br>
-		
-		<input type="submit" value="volver"> <input type="submit" value="Envia solicitud">
-</div>
+<form action="" method="post">
+	<div class="row">
+	  <div class="col">
+	    <label for="nombre">DNI:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        
+        <label for="nombre">CUIL:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        
+        <label for="nombre">Apellido:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        
+        <label for="nombre">Sexo:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        
+        <label for="nombre">Email:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+	  </div>
+	  <div class="col">
+ 		<label for="nombre">Pais:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        
+        <label for="nombre">Provincia:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        
+        <label for="nombre">Localidad:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        
+        <label for="nombre">Direccion:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+       
+        <label for="nombre">Fecha Nacimiento:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        
+        <label for="nombre">Telefono:</label>
+        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+	  </div>
+	</div>
+	<input type="submit" value="volver"> <input type="submit" value="Envia solicitud">
+</form>
 </body>
 </html>

@@ -6,13 +6,17 @@ import Entidad.Cliente;
 import Entidad.Usuario;
 import Negocio.ClienteNegocio;
 import dao.ClienteDao;
+import dao.UsuarioDao;
 import daoImpl.ClienteDaoImpl;
+import daoImpl.UsuarioDaoImpl;
 
 public class ClienteNegocioImpl implements ClienteNegocio{
 	
 	private ClienteDao cDao;
 	@Override
 	public boolean insertar(Cliente cliente) {
+		cDao = new ClienteDaoImpl();
+		if(cDao.insertar(cliente)) return true;
 		return false;
 	}
 

@@ -1,6 +1,9 @@
 package Servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cliente;
+import Entidad.Fecha;
 import Entidad.Pais;
 import Entidad.Provincia;
+import Entidad.TipoUsuario;
+import Entidad.Usuario;
+import Negocio.ClienteNegocio;
+import Negocio.UsuarioNegocio;
+import NegocioImpl.ClienteNegocioImpl;
+import NegocioImpl.UsuarioNegocioImpl;
 import dao.ClienteDao;
 import dao.ProvinciaDao;
 import daoImpl.ClienteDaoImpl;
@@ -47,7 +57,8 @@ public class ContactoClienteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		boolean insert = false;
+		boolean insertCte, insertUser, insertOk = false;
+		
 		String action = request.getParameter("action");
 
         if ("getProvincias".equals(action)) {
@@ -59,26 +70,56 @@ public class ContactoClienteServlet extends HttpServlet {
 		
 		if(request.getParameter("btnRegistrar")!= null) {
 			
-			Cliente cte = new Cliente();
-			Pais p = new Pais();
-			cte.setApellido(request.getParameter("txtApellido"));
-			cte.setNombre(request.getParameter("txtNombre"));
-			cte.setDni(request.getParameter("txtDNI"));
-			cte.setCuil(request.getParameter("txtCUIL"));
-			cte.setSexo(request.getParameter("selSexo"));
+			ClienteNegocio cNeg = new ClienteNegocioImpl();
+			UsuarioNegocio uNeg = new UsuarioNegocioImpl();
 			
-			System.out.println(cte.getApellido());
-			System.out.println(cte.getNombre());
-			System.out.println(cte.getSexo());
-			ClienteDaoImpl cteDao = new ClienteDaoImpl();
-			insert = cteDao.insertar(cte);
+			try {
+				
+				Cliente cte = new Cliente();
+				Usuario user = new Usuario();
+				
+				cte.setApellido(request.getParameter("txtApellido"));
+				cte.setNombre(request.getParameter("txtNombre"));
+				cte.setDni(request.getParameter("txtDNI"));
+				cte.setCuil(request.getParameter("txtCUIL"));
+				cte.setSexo(request.getParameter("selSexo"));
+				cte.setPais(new Pais());
+				cte.getPais().setCode(Integer.parseInt(request.getParameter("selPais")));
+				cte.setProv(new Provincia());
+				cte.getProv().setCodPais(Integer.parseInt(request.getParameter("selPais")));
+				cte.getProv().setCodProvincia(Integer.parseInt(request.getParameter("selProvincia")));
+				cte.setLocalidad(request.getParameter("txtLocalidad"));
+				cte.setDireccion(request.getParameter("txtDireccion"));			
+				cte.setFechaNac(LocalDate.parse(request.getParameter("dateFechaNacimiento"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				cte.setTelefono(request.getParameter("txtTelefono"));
+				cte.setEmail(request.getParameter("txtEmail"));
+				cte.setUsuario(request.getParameter("txtUser"));
+				cte.setPass(request.getParameter("txtPass"));
+				cte.setEstado("P");
+				
+				user.setPersona(cte);
+				//Leer desde DB?
+				user.setTipoUsuario(new TipoUsuario());
+				user.getTipoUsuario().setTipo(2);
+				user.getTipoUsuario().setDescripcion("");
+				user.setUser(cte.getUsuario());
+				user.setPass(cte.getPass());
+				user.setEstado(true);
+				
+				insertUser = uNeg.insertar(user);
+				insertCte = cNeg.insertar(cte);
+				
+				if(insertUser && insertCte) insertOk = true;
+				
+			} catch (Exception e) {
+				request.setAttribute("usuarioCreado", "Ocurrio un error al crear el usuario");
+				throw e;
+			}
 			
-			request.setAttribute("insert", insert);
+			request.setAttribute("insert", insertOk);
 			RequestDispatcher rd = request.getRequestDispatcher("/ContactoCliente.jsp");
-			rd.forward(request, response);
-			
+			rd.forward(request, response);	
 		}
-		
 	}
 	
 	private ArrayList<Provincia> getProvinciasPorPais(int paisId) {
@@ -100,7 +141,6 @@ public class ContactoClienteServlet extends HttpServlet {
     private String cargarProvinciasEnSelect(ArrayList<Provincia> listaProv) {
         StringBuilder dropdown = new StringBuilder();
         for (Provincia provincia : listaProv) {
-        	System.out.println(provincia.getCodPais());
             dropdown.append("<option value=\"").append(provincia.getCodProvincia()).append("\">")
                     .append(provincia.getNombreProvincia()).append("</option>");
         }

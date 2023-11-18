@@ -25,9 +25,10 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		//metodo insertar usuario antes??
+		//German: ???
 		
 		try {
-			statement = con.prepareStatement("INSERT into clientes values(?,?,?,?,?,?,?,?,?,?,?)");
+			statement = con.prepareStatement("INSERT into clientes values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, cliente.getDni());
 			statement.setString(2, cliente.getCuil());
 			statement.setString(3, cliente.getApellido());
@@ -36,13 +37,11 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setString(6, cliente.getFechaNac().toString());
 			statement.setString(7, cliente.getDireccion());
 			statement.setString(8, cliente.getLocalidad());
-			statement.setInt(9, cliente.getProv().getCode());
+			statement.setInt(9, cliente.getProv().getCodProvincia());
 			statement.setInt(10, cliente.getPais().getCode());
 			statement.setString(11, cliente.getEmail());
 			statement.setString(12, cliente.getUsuario());
-			statement.setString(13, cliente.getEstado());
-			
-			
+			statement.setString(13, cliente.getEstado());			
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();
@@ -84,7 +83,7 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setString(5, cliente.getFechaNac().toString());
 			statement.setString(6, cliente.getDireccion());
 			statement.setString(7, cliente.getLocalidad());
-			statement.setInt(8, cliente.getProv().getCode());
+			statement.setInt(8, cliente.getProv().getCodProvincia());
 			statement.setInt(9, cliente.getPais().getCode());
 			statement.setString(10, cliente.getEmail());
 			statement.setString(11, cliente.getEstado());
@@ -152,8 +151,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		cliente.setDireccion(rs.getString("c.Direccion"));
 		cliente.setLocalidad(rs.getString("c.Localidad"));
 		cliente.setUsuario(rs.getString("c.Usuario"));
-		pro.setName(rs.getString("p.NombreProvincia"));
-		pro.setCode((rs.getInt("p.codProvincia")));
+		pro.setNombreProvincia(rs.getString("p.NombreProvincia"));
+		pro.setCodProvincia((rs.getInt("p.codProvincia")));
 		cliente.setProv(pro);
 		cliente.setSexo(rs.getString("c.Sexo"));
 		cliente.setEmail(rs.getString("c.email"));
@@ -163,8 +162,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		cliente.setPass(rs.getString("u.Password"));
 		cliente.setEstado(rs.getString("c.Estado"));
 		String fe=rs.getString("c.FechaNac");
-		Fecha f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
-		cliente.setFechaNac(f);
+		//LocalDate f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
+		//cliente.setFechaNac(f);
 		return cliente;
 	}
 

@@ -24,7 +24,7 @@
                     $("#provincia").html(data);
                 });
             });
-        });
+        });    
     </script>
 </head>
 <body>
@@ -46,9 +46,9 @@
             
             <label for="lblSexo">Sexo:</label>
             <select id="sexo" name="selSexo" required>
-                <option value="masculino">Masculino</option>
-                <option value="femenino">Femenino</option>
-                <option value="NA">Prefiero no decirlo</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+                <option value="X">Prefiero no decirlo</option>
             </select>
             
             <!-- <label for="lblPais">País:</label>
@@ -59,7 +59,7 @@
                 <%PaisNegocio pNeg = new PaisNegocioImpl();
 				for (Pais p : pNeg.listar()) {
 				%>
-				<option value=<%=p.getCode()%>> <%=p.getName()%></option>			
+				<option value=<%=p.getCode() %>> <%=p.getName()%></option>			
 				<% } %>
             </select>
            	
@@ -109,11 +109,10 @@
 	
 %>
 
-<% if(insert)
-     { %>
-     
-	Solicitud procesada con exito
-	
+<% if(insert) { %>
+     <script>
+     	alert('Solicitud Procesada con exito!');
+     </script>
 <% } %>
 
 

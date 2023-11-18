@@ -1,5 +1,6 @@
 package Entidad;
 
+import java.time.LocalDate;
 
 public class Cliente {
 	
@@ -10,9 +11,10 @@ public class Cliente {
 	private Pais pais;
 	private String sexo;
 	private String direccion;
-	private Fecha fechaNac;
+	//private Fecha fechaNac;
+	private LocalDate fechaNac;
 	private Provincia prov;
-	private String telefono[];
+	private String telefono;
 	private String localidad;
 	private String email;
 	private String usuario;
@@ -23,7 +25,7 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, String a, String n, String s, Fecha fechanac, String di, String l, Provincia p, Pais pa, String mail, String u, String e, String ps, String tel) {
+	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, String l, Provincia p, Pais pa, String mail, String u, String e, String ps, String tel) {
 		
 		this.dni=d;
 		this.cuil=c;
@@ -33,7 +35,7 @@ public class Cliente {
 		this.sexo=s;
 		this.fechaNac=fechanac;
 		this.prov=p;
-		this.telefono[0]=tel;
+		this.telefono=tel;
 		this.localidad=l;
 		this.email=mail;
 		this.usuario=u;
@@ -43,7 +45,7 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, String a, String n, String s, Fecha fechanac, String di, String l, int p, int pa, String mail, String u, String e) {
+	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, String l, int p, int pa, String mail, String u, String e) {
 		
 		this.dni=d;
 		this.cuil=c;
@@ -110,11 +112,11 @@ public class Cliente {
 		this.sexo = sexo;
 	}
 
-	public Fecha getFechaNac() {
+	public LocalDate getFechaNac() {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Fecha fechaNac) {
+	public void setFechaNac(LocalDate fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
@@ -126,11 +128,11 @@ public class Cliente {
 		this.prov = prov;
 	}
 
-	public String[] getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(String[] telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 

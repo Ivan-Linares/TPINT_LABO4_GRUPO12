@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-<%! boolean admin = false; %>
+<%! boolean admin = true; %>
 
 <!-- Navbar Admin -->
 <%if (admin){ %>
@@ -22,37 +22,37 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="Index.jsp">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Prestamos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Aprobar Prestamos</a></li>
-            <li><a class="dropdown-item" href="#">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Aprobar.jsp">Aprobar Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Asignar Cuentas</a></li>
-            <li><a class="dropdown-item" href="#">Ver Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Administrar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Admin Clientes</a></li>
-            <li><a class="dropdown-item" href="#">Admin Cuentas</a></li>
+            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
+            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Informes</a>
+          <a class="nav-link" href="Informes.jsp">Informes</a>
         </li>
         <li class="nav-item">
          <button class="btn btn-outline-danger" type="submit">Log Out</button>
@@ -74,30 +74,30 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="Index.jsp">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="#">Ver Estado Solicitud</a></li>
-            <li><a class="dropdown-item" href="#">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="SolicitudPrestamo.jsp" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
             <li><a class="dropdown-item" href="#">Pagar Cuotas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Ver Cuentas</a></li>
+            <li><a class="dropdown-item" href="CuentasCliente.jsp" >Ver Cuentas</a></li>
             <li><a class="dropdown-item" href="#">Administrar</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Transferir</a>
+          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Datos Personales</a>

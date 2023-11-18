@@ -16,106 +16,108 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<%!boolean admin = true;%>
-	<!-- Navbar Admin -->
-	<%
-		if (admin) {
-	%>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Lio Messi큦 Bank</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="#">Home</a></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> Prestamos </a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Aprobar Prestamos</a></li>
-						<li><a class="dropdown-item" href="#">Ver Prestamos</a></li>
-					</ul></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> Cuentas </a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Asignar Cuentas</a></li>
-						<li><a class="dropdown-item" href="#">Ver Cuentas</a></li>
-					</ul></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> Administrar </a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Admin Clientes</a></li>
-						<li><a class="dropdown-item" href="#">Admin Cuentas</a></li>
-					</ul></li>
-				<li class="nav-item"><a class="nav-link" href="#">Informes</a>
-				</li>
-				<li class="nav-item">
-					<button class="btn btn-outline-danger" type="submit">LogOut</button>
-				</li>
-			</ul>
-		</div>
-	</div>
-	</nav>
-	<%
-		}
-	%>
+<%! boolean admin = true; %>
 
-	<!-- Navbar Cliente -->
-	<%
-		if (!admin) {
-	%>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Lio Messi큦 Bank</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="#">Home</a></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> Prestamos </a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Pedir Prestamos</a></li>
-						<li><a class="dropdown-item" href="#">Ver Estado
-								Solicitud</a></li>
-						<li><a class="dropdown-item" href="#">Ver Prestamos</a></li>
-						<li><a class="dropdown-item" href="#">Pagar Cuotas</a></li>
-					</ul></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> Cuentas </a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Ver Cuentas</a></li>
-						<li><a class="dropdown-item" href="#">Admin Cuentas</a></li>
-					</ul></li>
-				<li class="nav-item"><a class="nav-link" href="#">Transferir</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Datos
-						Personales</a></li>
-				<li class="nav-item">
-					<button class="btn btn-outline-danger" type="submit">Log
-						Out</button>
-				</li>
-			</ul>
-		</div>
-	</div>
-	</nav>
-	<%
-		}
-	%>
-	<br />
+<!-- Navbar Admin -->
+<%if (admin){ %>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Lio Messi큦 Bank</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="Index.jsp">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Prestamos
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="Prestamo_Aprobar.jsp">Aprobar Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Cuentas
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Administrar
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
+            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Informes.jsp">Informes</a>
+        </li>
+        <li class="nav-item">
+         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<%} %>
+
+<!-- Navbar Cliente -->
+<%if (!admin){ %>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Lio Messi큦 Bank</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="Index.jsp">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Prestamos  
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="SolicitudPrestamo.jsp" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="#">Pagar Cuotas</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Cuentas
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="CuentasCliente.jsp" >Ver Cuentas</a></li>
+            <li><a class="dropdown-item" href="#">Administrar</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Datos Personales</a>
+        </li>
+        <li class="nav-item">
+         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<%} %>
+<br />
 	
 	<div class="container text-center">
 		<div class="row justify-content-md-center">

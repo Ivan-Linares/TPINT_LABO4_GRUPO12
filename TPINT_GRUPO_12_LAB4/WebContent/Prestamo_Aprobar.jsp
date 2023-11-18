@@ -119,6 +119,7 @@
 <br />
 
 	<%!boolean SolicitudPrestamo = true;%>
+<form action="Prestamo_Aprobar_Sevlet" method="post">
 	<div class="container text-center">
 		<div class="row justify-content-md-center">
 			<div class="col col-lg-2"></div>
@@ -171,6 +172,6 @@
 			<div class="col col-lg-2"></div>
 		</div>
 	</div>
-
+</form>
 </body>
 </html>

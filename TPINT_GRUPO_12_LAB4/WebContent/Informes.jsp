@@ -113,22 +113,6 @@
 <%} %>
 <br />
 
-<div class="navbar">
-	<div>
-		*Logo del banco*
-	</div>
-	<ul>
-		<li><a href="#ASIGNARCUENTA">ASIGNAR CUENTA</a></li>
-    	<li><a href="#PRESTAMOSSOLICITUD">PRESTAMOS EN SOLICITUD</a></li>
-    	<li><a href="#INFORMES">INFORMES</a></li>
-    	<li><a href="#CUENTAS">CUENTAS</a></li>
-   		<li><a href="#TRANSFERENCIAS">TRANSFERENCIAS</a></li>
-   		<li><a href="#PRESTAMOS">PRESTAMOS</a></li>
-	</ul>
-	<div>
-		*Bienvenido usuario x*
-	</div>
-</div>
 
 <h1>Seleccione un Informe</h1>
     <div action="servlet" method="post">

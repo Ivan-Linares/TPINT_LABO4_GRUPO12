@@ -25,12 +25,12 @@
 
 <%if(request.getAttribute("Validar")!=null){
 		String resp=(String)request.getAttribute("Validar");%>
-		<h2><%= resp %></h2>
+		<h3><%= resp %></h3>
 <%}%>
 
 <%if(request.getAttribute("Client")!=null){
 		Usuario resp=(Usuario)request.getAttribute("Client");%>
-		<h2><%=resp.getPersona().getNombre()%></h2>
+		<h3><%=resp.getPersona().getNombre()%></h3>
 <%}%>
 </body>
 </html>

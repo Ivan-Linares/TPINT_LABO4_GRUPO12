@@ -48,6 +48,7 @@ public class validarLoginServlet extends HttpServlet {
 		String User=request.getParameter("txtusuario");
 		String Pass=request.getParameter("txtcontraseña");
 		String resp=new String();
+		RequestDispatcher rd = null;
 		
 		Usuario utest=new Usuario();
 		UsuarioNegocio uDao=new UsuarioNegocioImpl();
@@ -57,7 +58,19 @@ public class validarLoginServlet extends HttpServlet {
 				if (uDao.validar(User, Pass)) {
 				
 					utest=uDao.obtenerUsuario(User);
-					utest=uDao.asignarCliente(utest);
+					
+					if(utest.getEstado()) {
+						
+						rd = request.getRequestDispatcher("/Index.jsp");
+						if(utest.getTipoUsuario().getTipo()==2) {
+							utest=uDao.asignarCliente(utest);
+						}
+						request.setAttribute("Client", utest);
+					}
+					
+					else {
+						resp="Usuario no habilitado";
+					}
 				}
 				
 				else {
@@ -73,14 +86,12 @@ public class validarLoginServlet extends HttpServlet {
 			resp="falló conexión a DB";
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
 		
-		if(resp!=null) {
+		
+		if(resp.trim().length()>0) {
+			rd = request.getRequestDispatcher("/Login.jsp");
 			request.setAttribute("Validar", resp);
-		}
-		
-		else {
-			request.setAttribute("Client", utest);
+			
 		}
 		
 		rd.forward(request, response);

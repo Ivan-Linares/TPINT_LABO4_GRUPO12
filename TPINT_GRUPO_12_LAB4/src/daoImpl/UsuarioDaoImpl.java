@@ -150,7 +150,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Usuario usuario=new Usuario();
 		
 		try {
-			statement = con.prepareStatement("Select * From Usuarios u inner join clientes c on c.Usuario=u.Usuario inner join Tipos_Usuarios ts on ts.Tipo_usuario=u.Tipo_usuario where u.Usuario=?");
+			statement = con.prepareStatement("Select * From Usuarios u inner join Tipos_Usuarios ts on ts.Tipo_usuario=u.Tipo_usuario where u.Usuario=?");
 			statement.setString(1, user);
 			
 			ResultSet r=statement.executeQuery();

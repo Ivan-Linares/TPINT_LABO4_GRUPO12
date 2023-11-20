@@ -57,26 +57,17 @@ public class ContactoClienteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		boolean insertCte, insertUser, insertOk = false;
-		
-		String action = request.getParameter("action");
-
-        if ("getProvincias".equals(action)) {
-            int paisId = Integer.parseInt(request.getParameter("paisId"));
-            ArrayList<Provincia> provincias = getProvinciasPorPais(paisId);
-            response.setContentType("text/html");
-            response.getWriter().write(cargarProvinciasEnSelect(provincias));
-        }
+		/*boolean insertCte, insertUser, insertOk = false;*/
 		
 		if(request.getParameter("btnRegistrar")!= null) {
 			
 			ClienteNegocio cNeg = new ClienteNegocioImpl();
 			UsuarioNegocio uNeg = new UsuarioNegocioImpl();
+			Cliente cte = new Cliente();
+			Usuario user = new Usuario();
+			String resp = "test";
 			
 			try {
-				
-				Cliente cte = new Cliente();
-				Usuario user = new Usuario();
 				
 				cte.setApellido(request.getParameter("txtApellido"));
 				cte.setNombre(request.getParameter("txtNombre"));
@@ -97,54 +88,39 @@ public class ContactoClienteServlet extends HttpServlet {
 				cte.setPass(request.getParameter("txtPass"));
 				cte.setEstado("P");
 				
-				user.setPersona(cte);
-				//Leer desde DB?
+				user.setPersona(cte);	
 				user.setTipoUsuario(new TipoUsuario());
 				user.getTipoUsuario().setTipo(2);
-				user.getTipoUsuario().setDescripcion("");
+				//Leer desde DB?
+				user.getTipoUsuario().setDescripcion("Cliente");
+				//
 				user.setUser(cte.getUsuario());
 				user.setPass(cte.getPass());
 				user.setEstado(true);
 				
-				insertUser = uNeg.insertar(user);
-				insertCte = cNeg.insertar(cte);
+				if(!uNeg.verificarExistencia(user.getUser())) {
+					if(uNeg.insertar2(user) && cNeg.insertar(cte)) {
+						resp = "Solicitud procesada!";
+					}
+					
+					else {
+						resp = "Error al insertar cliente";
+					}
+				}
 				
-				if(insertUser && insertCte) insertOk = true;
+				else {
+					resp = "El usuario ya existe";
+				}
+				
 				
 			} catch (Exception e) {
-				request.setAttribute("usuarioCreado", "Ocurrio un error al crear el usuario");
+				resp = "Ocurrio un error al crear el usuario";
 				throw e;
 			}
 			
-			request.setAttribute("insert", insertOk);
+			request.setAttribute("usuarioCreado", resp);
 			RequestDispatcher rd = request.getRequestDispatcher("/ContactoCliente.jsp");
 			rd.forward(request, response);	
 		}
 	}
-	
-	private ArrayList<Provincia> getProvinciasPorPais(int paisId) {
-		
-        ProvinciaDao pd = new ProvinciaDaoImpl();
-		ArrayList<Provincia> listaProv = pd.listar();
-		
-        ArrayList<Provincia> listaProvFiltradas = new ArrayList<>();
-
-        for (Provincia provincia : listaProv) {  	
-            if (provincia.getCodPais() == paisId) { 
-            	listaProvFiltradas.add(provincia);
-            }
-        }
-
-        return listaProvFiltradas;     
-    }
-
-    private String cargarProvinciasEnSelect(ArrayList<Provincia> listaProv) {
-        StringBuilder dropdown = new StringBuilder();
-        for (Provincia provincia : listaProv) {
-            dropdown.append("<option value=\"").append(provincia.getCodProvincia()).append("\">")
-                    .append(provincia.getNombreProvincia()).append("</option>");
-        }
-        return dropdown.toString();
-    }
-
 }

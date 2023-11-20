@@ -20,7 +20,7 @@
         $(document).ready(function () {
             $("#pais").change(function () {
                 var paisId = $(this).val();
-                $.post("ContactoClienteServlet", {action: "getProvincias", paisId: paisId}, function (data) {
+                $.post("cargarDropdownsServlet", {action: "getProvincias", paisId: paisId}, function (data) {
                     $("#provincia").html(data);
                 });
             });
@@ -103,15 +103,14 @@
     </div>
     
 <%
-	boolean insert = false;
-	if(request.getAttribute("insert")!=null)
-		insert = (boolean)request.getAttribute("insert");		
-	
+	String msj = " ";
+	if(request.getAttribute("usuarioCreado")!=null)
+		msj = request.getAttribute("usuarioCreado").toString();
 %>
 
-<% if(insert) { %>
+<% if(!msj.equals(" ")) { %>
      <script>
-     	alert('Solicitud Procesada con exito!');
+     	alert('<%=msj %>');
      </script>
 <% } %>
 

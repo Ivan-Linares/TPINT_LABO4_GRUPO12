@@ -81,6 +81,11 @@ public class UsuarioNegocioImpl implements UsuarioNegocio{
 		user.setPersona(c);
 		return user;
 	}
+
+	@Override
+	public boolean insertar2(Usuario usuario) {
+		return uDao.insertar(usuario);
+	}
 	
 	
 

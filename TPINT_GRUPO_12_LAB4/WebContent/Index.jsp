@@ -12,7 +12,7 @@
 <body>
 
 <%
-boolean admin=true;
+boolean admin=false;
 if(request.getAttribute("Client")!=null){
 		Usuario user=(Usuario)request.getAttribute("Client");
 		if(user.getTipoUsuario().getTipo()==2){

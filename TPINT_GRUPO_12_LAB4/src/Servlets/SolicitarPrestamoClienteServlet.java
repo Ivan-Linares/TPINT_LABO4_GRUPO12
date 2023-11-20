@@ -33,7 +33,7 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 			int p=1;
 			request.setAttribute("nuevasolicitud", p);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/SolicitudPrestamoCliente.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Solicitud_Prestamo_Cte.jsp");
 			rd.forward(request, response);	
 			doGet(request, response);
 		}
@@ -41,7 +41,7 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 			int p=1;
 			request.setAttribute("Prestamo", p);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/SolicitudPrestamoCliente.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Solicitud_Prestamo_Cte.jsp");
 			rd.forward(request, response);	
 			doGet(request, response);			
 		}

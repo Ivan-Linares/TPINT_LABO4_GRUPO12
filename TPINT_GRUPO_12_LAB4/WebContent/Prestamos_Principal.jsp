@@ -81,6 +81,7 @@
               Prestamos  
           </a>
           <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="Solicitud_Prestamo_Cte.jsp" >Pedir Prestamos</a></li>
             <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
             <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
@@ -109,7 +110,22 @@
 </nav>
 <%} %>
 <br />
-	<div><h3>Prestamos</h3></div>
+	<div><h3>Prestamos</h3></div></br>
+	<div>
+		Buscar prestamos por estado:
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+		  <label class="form-check-label" for="inlineRadio1"> Proceso </label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+		  <label class="form-check-label" for="inlineRadio2"> Cancelado </label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+		  <label class="form-check-label" for="inlineRadio3"> Aceptado </label>
+		</div> 
+	</div></br>
 	<table class="table accordion-collapse">
 		<form>
 			<tr>
@@ -138,7 +154,7 @@
 			</tr>
 		</form>
 	</table>
-</div>
+</div></br>
 <div class="btn-group" role="group" aria-label="Basic example">
   <input type="submit" class="btn btn-success" Value="Volver">
 </div>

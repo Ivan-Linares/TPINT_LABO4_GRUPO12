@@ -93,6 +93,7 @@ if(request.getAttribute("Client")!=null){
               Prestamos  
           </a>
           <ul class="dropdown-menu">
+          	<li><a class="dropdown-item" href="Solicitud_Prestamo_Cte.jsp" >Pedir Prestamos</a></li>
             <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
             <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>

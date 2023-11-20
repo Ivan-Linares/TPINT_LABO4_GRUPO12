@@ -98,7 +98,7 @@ public class ContactoClienteServlet extends HttpServlet {
 				user.setPass(cte.getPass());
 				user.setEstado(true);
 				
-				if(!uNeg.verificarExistencia(user.getUser())) {
+				if(!uNeg.verificarExistencia(user.getUser()) && !cNeg.verificarExistencia(cte) ) {
 					if(uNeg.insertar2(user) && cNeg.insertar(cte)) {
 						resp = "Solicitud procesada!";
 					}
@@ -109,7 +109,7 @@ public class ContactoClienteServlet extends HttpServlet {
 				}
 				
 				else {
-					resp = "El usuario ya existe";
+					resp = "Usuario o Cliente invalido";
 				}
 				
 				

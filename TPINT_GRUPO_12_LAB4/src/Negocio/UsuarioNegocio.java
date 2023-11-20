@@ -1,6 +1,5 @@
 package Negocio;
 
-import Entidad.Cliente;
 import Entidad.Usuario;
 
 public interface UsuarioNegocio {

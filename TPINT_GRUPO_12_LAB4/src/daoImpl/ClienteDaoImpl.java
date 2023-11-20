@@ -132,9 +132,34 @@ public class ClienteDaoImpl implements ClienteDao{
 	}
 
 	@Override
-	public Cliente getClientePorDNI(String DNI) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cliente existeDNI(String DNI) {
+		
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		Cliente cliente = new Cliente();
+		
+		try {
+			statement = con.prepareStatement("Select * From Clientes c where c.DNI=?");
+			statement.setString(1, DNI);
+			
+			ResultSet rs = statement.executeQuery();
+			cliente.setDni(rs.getString("c.DNI"));
+			
+			}
+			
+			catch (Exception e) {
+			e.printStackTrace();
+				try {
+					con.rollback();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return cliente;
 	}
 	
 	

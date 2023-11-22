@@ -11,10 +11,11 @@
 </head>
 <body>
 
-<%
-boolean admin=false;
-if(request.getAttribute("Client")!=null){
-		Usuario user=(Usuario)request.getAttribute("Client");
+<%!
+boolean admin=true;
+Usuario user=new Usuario();%>
+<%if(session!=null){
+	user=(Usuario)session.getAttribute("Client");
 		if(user.getTipoUsuario().getTipo()==2){
 			admin=false;
 		}
@@ -74,7 +75,6 @@ if(request.getAttribute("Client")!=null){
 <%} %>
 <!-- Navbar Cliente -->
 <%if (!admin){ 
-	Usuario user=(Usuario)request.getAttribute("Client");
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">

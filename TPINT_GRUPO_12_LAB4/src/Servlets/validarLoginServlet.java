@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Entidad.Usuario;
 import Negocio.ClienteNegocio;
@@ -65,7 +66,8 @@ public class validarLoginServlet extends HttpServlet {
 						if(utest.getTipoUsuario().getTipo()==2) {
 							utest=uDao.asignarCliente(utest);
 						}
-						request.setAttribute("Client", utest);
+						HttpSession session = request.getSession(true);
+						session.setAttribute("Client", utest);
 					}
 					
 					else {
@@ -91,10 +93,11 @@ public class validarLoginServlet extends HttpServlet {
 		if(resp.trim().length()>0) {
 			rd = request.getRequestDispatcher("/Login.jsp");
 			request.setAttribute("Validar", resp);
+			rd.forward(request, response);
 			
 		}
 		
-		rd.forward(request, response);
+		response.sendRedirect("Index.jsp");
 	}
 
 }

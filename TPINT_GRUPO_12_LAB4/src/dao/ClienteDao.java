@@ -13,5 +13,6 @@ public interface ClienteDao {
 	public Cliente existeDNI(String DNI);
 	public Cliente getClientePorUsuario(Usuario usuario);
 	public ArrayList<Cliente> listar();
+	public ArrayList<Cliente> listarPendientes();
 
 }

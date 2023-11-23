@@ -10,6 +10,7 @@ public interface ClienteNegocio {
 	public boolean modificar (Cliente cliente);
 	public boolean verificarExistencia(Cliente cliente);
 	public ArrayList<Cliente> listar();
+	public ArrayList<Cliente> listarPendientes();
 	public Cliente clientePorUsuario(Usuario usuario);
 }
 

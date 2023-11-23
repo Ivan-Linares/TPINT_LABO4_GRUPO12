@@ -224,4 +224,24 @@ public class ClienteDaoImpl implements ClienteDao{
 		
 		return cli;
 	}
+
+	@Override
+	public ArrayList<Cliente> listarPendientes() {
+		
+		Cliente cliente = new Cliente();
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'P'");
+			while(rs.next()) {
+				cliente = setCliente(rs);
+				clientes.add(cliente);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return clientes;
+	}
 }

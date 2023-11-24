@@ -2,7 +2,7 @@ package Entidad;
 
 public class Provincia {
 	
-	private int codPais;
+	private Pais pais;
 	private int codProvincia;
 	private String NombreProvincia;
 	
@@ -10,13 +10,19 @@ public class Provincia {
 		
 	}
 
-	public int getCodPais() {
-		return codPais;
+
+
+	public Pais getPais() {
+		return pais;
 	}
 
-	public void setCodPais(int codPais) {
-		this.codPais = codPais;
+
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
+
+
 
 	public int getCodProvincia() {
 		return codProvincia;

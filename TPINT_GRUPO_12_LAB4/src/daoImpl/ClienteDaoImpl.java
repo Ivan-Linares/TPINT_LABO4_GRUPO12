@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 import Entidad.Cliente;
 import Entidad.Fecha;
+import Entidad.Localidad;
 import Entidad.Pais;
 import Entidad.Provincia;
 import Entidad.Usuario;
@@ -28,20 +29,18 @@ public class ClienteDaoImpl implements ClienteDao{
 		//German: ???
 		
 		try {
-			statement = con.prepareStatement("INSERT into clientes values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			statement = con.prepareStatement("INSERT into clientes values(?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, cliente.getDni());
 			statement.setString(2, cliente.getCuil());
 			statement.setString(3, cliente.getApellido());
 			statement.setString(4, cliente.getNombre());
 			statement.setString(5, cliente.getSexo());
 			statement.setString(6, cliente.getFechaNac().toString());
-			statement.setString(7, cliente.getDireccion());
-			statement.setString(8, cliente.getLocalidad());
-			statement.setInt(9, cliente.getProv().getCodProvincia());
-			statement.setInt(10, cliente.getPais().getCode());
-			statement.setString(11, cliente.getEmail());
-			statement.setString(12, cliente.getUsuario());
-			statement.setString(13, cliente.getEstado());			
+			statement.setInt(7, cliente.getLocalidad().getCodLocalidad());
+			statement.setString(8, cliente.getDireccion());
+			statement.setString(9, cliente.getEmail());
+			statement.setString(10, cliente.getUsuario());
+			statement.setString(11, cliente.getEstado());			
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();
@@ -75,20 +74,18 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Cuentas SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Direccion=?, Localidad=?, Provincia=?, Pais=?, Email=?, Usuario=?, Estado=? Where DNI=?");
+			statement = con.prepareStatement("Update Cuentas SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Localidad=?,Direccion=?,Email=?, Usuario=?, Estado=? Where DNI=?");
 			statement.setString(1, cliente.getCuil());
 			statement.setString(2, cliente.getApellido());
 			statement.setString(3, cliente.getNombre());
 			statement.setString(4, cliente.getSexo());
 			statement.setString(5, cliente.getFechaNac().toString());
-			statement.setString(6, cliente.getDireccion());
-			statement.setString(7, cliente.getLocalidad());
-			statement.setInt(8, cliente.getProv().getCodProvincia());
-			statement.setInt(9, cliente.getPais().getCode());
-			statement.setString(10, cliente.getEmail());
-			statement.setString(11, cliente.getEstado());
-			statement.setString(12, cliente.getUsuario());
-			statement.setString(13, cliente.getDni());
+			statement.setInt(6, cliente.getLocalidad().getCodLocalidad());
+			statement.setString(7, cliente.getDireccion());
+			statement.setString(8, cliente.getEmail());
+			statement.setString(9, cliente.getEstado());
+			statement.setString(10, cliente.getUsuario());
+			statement.setString(11, cliente.getDni());
 			
 			
 			
@@ -119,7 +116,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Provincia p on c.provincia=p.codprovincia inner join Pais pa on c.pais=pa.codpais;");
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Localidades l on l.codLocalidad=c.Localidad inner join Provincia p on l.codProvincia=p.codprovincia inner join Pais pa on p.codpais=pa.codpais;");
 			while(rs.next()) {
 				cliente = setCliente(rs);
 				clientes.add(cliente);
@@ -167,6 +164,7 @@ public class ClienteDaoImpl implements ClienteDao{
 	private Cliente setCliente(ResultSet rs) throws SQLException {
 		
 		Cliente cliente = new Cliente();
+		Localidad l=new Localidad();
 		Provincia pro =new Provincia();
 		Pais pais=new Pais();
 		cliente.setDni(rs.getString("c.DNI"));
@@ -174,16 +172,18 @@ public class ClienteDaoImpl implements ClienteDao{
 		cliente.setApellido(rs.getString("c.Apellido"));
 		cliente.setNombre(rs.getString("c.Nombre"));
 		cliente.setDireccion(rs.getString("c.Direccion"));
-		cliente.setLocalidad(rs.getString("c.Localidad"));
-		cliente.setUsuario(rs.getString("c.Usuario"));
-		pro.setNombreProvincia(rs.getString("p.NombreProvincia"));
-		pro.setCodProvincia((rs.getInt("p.codProvincia")));
-		cliente.setProv(pro);
-		cliente.setSexo(rs.getString("c.Sexo"));
-		cliente.setEmail(rs.getString("c.email"));
 		pais.setCode((rs.getInt("pa.codPais")));
 		pais.setName(rs.getString("pa.NombrePais"));
-		cliente.setPais(pais);
+		pro.setNombreProvincia(rs.getString("p.NombreProvincia"));
+		pro.setCodProvincia((rs.getInt("p.codProvincia")));
+		pro.setPais(pais);
+		l.setNombreLocalidad(rs.getString("l.NombreLocalidad"));
+		l.setCodLocalidad((rs.getInt("l.codLocalidad")));
+		l.setProvincia(pro);
+		cliente.setLocalidad(l);
+		cliente.setUsuario(rs.getString("c.Usuario"));
+		cliente.setSexo(rs.getString("c.Sexo"));
+		cliente.setEmail(rs.getString("c.email"));
 		cliente.setPass(rs.getString("u.Password"));
 		cliente.setEstado(rs.getString("c.Estado"));
 		String fe=rs.getString("c.FechaNac");
@@ -200,7 +200,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Cliente cli=new Cliente();
 		
 		try {
-			statement = con.prepareStatement("select * from Clientes c inner join Usuarios u on u.Usuario=c.usuario inner join Provincia p on c.provincia=p.codprovincia inner join Pais pa on c.pais=pa.codpais where c.Usuario=?;");
+			statement = con.prepareStatement("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Localidades l on l.codLocalidad=c.Localidad inner join Provincia p on l.codProvincia=p.codprovincia inner join Pais pa on p.codpais=pa.codpais where c.Usuario=?;");
 			statement.setString(1, usuario.getUser());
 			
 			ResultSet r=statement.executeQuery();
@@ -233,7 +233,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'P'");
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Localidades l on l.codLocalidad=c.Localidad inner join Provincia p on l.codProvincia=p.codprovincia inner join Pais pa on p.codpais=pa.codpais where c.Estado = 'P'");
 			while(rs.next()) {
 				cliente = setCliente(rs);
 				clientes.add(cliente);

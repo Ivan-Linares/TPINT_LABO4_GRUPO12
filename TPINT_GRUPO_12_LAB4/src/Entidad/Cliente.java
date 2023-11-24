@@ -8,14 +8,12 @@ public class Cliente {
 	private String cuil;
 	private String apellido;
 	private String nombre;
-	private Pais pais;
 	private String sexo;
 	private String direccion;
 	//private Fecha fechaNac;
 	private LocalDate fechaNac;
-	private Provincia prov;
 	private String telefono;
-	private String localidad;
+	private Localidad localidad;
 	private String email;
 	private String usuario;
 	private String pass;
@@ -25,16 +23,14 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, String l, Provincia p, Pais pa, String mail, String u, String e, String ps, String tel) {
+	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, Localidad l, String mail, String u, String e, String ps, String tel) {
 		
 		this.dni=d;
 		this.cuil=c;
 		this.apellido=a;
-		this.pais=pa;
 		this.nombre=n;
 		this.sexo=s;
 		this.fechaNac=fechanac;
-		this.prov=p;
 		this.telefono=tel;
 		this.localidad=l;
 		this.email=mail;
@@ -45,17 +41,15 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, String l, int p, int pa, String mail, String u, String e) {
+	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, int l, String mail, String u, String e) {
 		
 		this.dni=d;
 		this.cuil=c;
 		this.apellido=a;
-		this.pais.setCode(pa);;
+		this.localidad.setCodLocalidad(l);
 		this.nombre=n;
 		this.sexo=s;
 		this.fechaNac=fechanac;
-		this.prov.setCodProvincia(p);
-		this.localidad=l;
 		this.email=mail;
 		this.usuario=u;
 		this.estado=e;
@@ -64,13 +58,6 @@ public class Cliente {
 	}
 
 
-	public Pais getPais() {
-		return pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
-	}
 
 	public String getDni() {
 		return dni;
@@ -120,13 +107,6 @@ public class Cliente {
 		this.fechaNac = fechaNac;
 	}
 
-	public Provincia getProv() {
-		return prov;
-	}
-
-	public void setProv(Provincia prov) {
-		this.prov = prov;
-	}
 
 	public String getTelefono() {
 		return telefono;
@@ -136,11 +116,12 @@ public class Cliente {
 		this.telefono = telefono;
 	}
 
-	public String getLocalidad() {
+
+	public Localidad getLocalidad() {
 		return localidad;
 	}
 
-	public void setLocalidad(String localidad) {
+	public void setLocalidad(Localidad localidad) {
 		this.localidad = localidad;
 	}
 

@@ -63,7 +63,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
-            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
+            <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1">Admin Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">

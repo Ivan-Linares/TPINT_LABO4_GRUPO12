@@ -13,44 +13,45 @@
 	<div class="row">
 	  <div class="col">
 	    <label for="nombre">DNI:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="Dni" placeholder="Dni" class="form-control"><br>
         
         <label for="nombre">CUIL:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="Cuil" placeholder="Cuil" class="form-control"><br>
         
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" placeholder="Nombre" class="form-control"><br>
         
         <label for="nombre">Apellido:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Apellido" placeholder="Apellido" class="form-control" ><br>
         
         <label for="nombre">Sexo:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Sexo" placeholder="Sexo" class="form-control" ><br>
         
         <label for="nombre">Email:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Email" placeholder="Email" class="form-control" ><br>
 	  </div>
 	  <div class="col">
  		<label for="nombre">Pais:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Pais" placeholder="Pais" class="form-control" ><br>
         
         <label for="nombre">Provincia:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Provincia" placeholder="Provincia" class="form-control" ><br>
         
         <label for="nombre">Localidad:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Localidad" placeholder="Localidad" class="form-control" ><br>
         
         <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Direccion" placeholder="Direccion" class="form-control" ><br>
        
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="date" id="FechaNac" placeholder="" class="form-control" ><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" ><br>
+        <input type="text" id="Telefono" placeholder="Telefono" class="form-control" ><br>
 	  </div>
 	</div>
-	<input type="submit" value="volver"> <input type="submit" value="Envia solicitud">
+	<input type="submit" name="enviar" value="Envia solicitud">
+	<a Style=margin-left:20px; href="Login.jsp">Volver</a>
 </form>
 </body>
 </html>

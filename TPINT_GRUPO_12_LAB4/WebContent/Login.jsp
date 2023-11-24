@@ -10,15 +10,16 @@
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</br></br>
 <div class="container text-center" style=padding-top:100px>
   <div class="row align-items-center">
     <div class="col align-self-center">
       		<form action="validarLoginServlet" method="post">
 			<input  type="text"  placeholder="Usuario..."  required name="txtusuario"></br></br>
-			<input  type="text"  placeholder="Contraseña.."  required name="txtcontraseña"></br>
-			<a Style=margin-left:20px; href="servlet">Olvidaste la clave?</a></br></br>
-			<input   class="btn btn-info"  type="submit"    name="btningresar" value="Ingresar">
-			<input   class="btn btn-success"  type="submit"    name="btnregistrarse" value="registrarse">
+			<input  type="text"  placeholder="Contraseña.."  required name="txtcontraseña"></br></br>
+			<input   class="btn btn-info"  type="submit"    name="btningresar" value="Ingresar"></br></br>
+			<a Style=margin-left:20px; href="servlet">Olvidaste la clave?</a>
+			<a Style=margin-left:20px; href="Registrarse_Ctes.jsp">Registrate!</a>
     </div>
   </div>
 </div>

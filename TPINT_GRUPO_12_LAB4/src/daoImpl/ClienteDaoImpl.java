@@ -302,4 +302,52 @@ public class ClienteDaoImpl implements ClienteDao{
 		
 		return false;
 	}
+
+	@Override
+	public boolean baja(String DNI) {
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("Update Clientes SET Estado='I' Where DNI=?");
+			statement.setString(1, DNI);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public ArrayList<Cliente> listarActivos() {
+		Cliente cliente = new Cliente();
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'A'");
+			while(rs.next()) {
+				cliente = setCliente(rs);
+				clientes.add(cliente);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return clientes;
+	}
 }

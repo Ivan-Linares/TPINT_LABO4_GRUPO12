@@ -93,16 +93,7 @@ public class cuentasAsignarServlet extends HttpServlet {
 						cta.getTipoCuenta().setName("Caja de ahorro");
 						cta.setCBU("12345...");
 						cta.setSaldo(10000);
-						cta.setEstado("I");
-						
-						System.out.println("Número de cuenta: " + cta.getNumero());
-				        System.out.println("DNI: " + cta.getDni());
-				        System.out.println("Fecha de creación: " + cta.getFechaCreacion().getDia() + "/"
-				                + cta.getFechaCreacion().getMes() + "/" + cta.getFechaCreacion().getYear());
-				        System.out.println("Tipo de cuenta: " + cta.getTipoCuenta().getName());
-				        System.out.println("CBU: " + cta.getCBU());
-				        System.out.println("Saldo: " + cta.getSaldo());
-				        System.out.println("Estado: " + cta.getEstado());
+						cta.setEstado("A");
 						
 						if(ctaNeg.insertar(cta)) {
 							msj = "Cliente aprobado con exito!";

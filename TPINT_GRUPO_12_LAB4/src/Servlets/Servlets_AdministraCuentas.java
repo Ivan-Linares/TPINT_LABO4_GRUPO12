@@ -40,6 +40,17 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			
 			request.setAttribute("listadocompleto", listado);
 			
+			for(Cuenta cuenta : listado) {
+				System.out.println("Información de la cuenta:");
+		        System.out.println("DNI: " + cuenta.getDni());
+		        System.out.println("Número: " + cuenta.getNumero());
+		        System.out.println("Fecha de Creación: " + cuenta.getFechaCreacion());
+		        System.out.println("Tipo de Cuenta: " + cuenta.getTipoCuenta());
+		        System.out.println("CBU: " + cuenta.getCBU());
+		        System.out.println("Saldo: " + cuenta.getSaldo());
+		        System.out.println("Estado: " + cuenta.getEstado());
+			}
+			
 			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
 			rd.forward(request, response);
 		}
@@ -54,13 +65,35 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas_Modificar.jsp");
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnMostrarCuentas")!=null) {
+			ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
+			CuentaNegocioImpl cni= new CuentaNegocioImpl();
+			listado=cni.listar();
+			
+			request.setAttribute("listadocompleto", listado);
+			
+			for(Cuenta cuenta : listado) {
+				System.out.println("Información de la cuenta:");
+		        System.out.println("DNI: " + cuenta.getDni());
+		        System.out.println("Número: " + cuenta.getNumero());
+		        System.out.println("Fecha de Creación: " + cuenta.getFechaCreacion());
+		        System.out.println("Tipo de Cuenta: " + cuenta.getTipoCuenta());
+		        System.out.println("CBU: " + cuenta.getCBU());
+		        System.out.println("Saldo: " + cuenta.getSaldo());
+		        System.out.println("Estado: " + cuenta.getEstado());
+			}
+			
+			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

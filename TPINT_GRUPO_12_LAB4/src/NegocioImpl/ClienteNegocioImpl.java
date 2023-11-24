@@ -81,4 +81,17 @@ public class ClienteNegocioImpl implements ClienteNegocio{
 		return false;
 	}
 
+	@Override
+	public boolean baja(String DNI) {
+		cDao = new ClienteDaoImpl();
+		if(cDao.baja(DNI)) return true;
+		return false;
+	}
+
+	@Override
+	public ArrayList<Cliente> listarActivos() {
+		cDao = new ClienteDaoImpl();
+		return cDao.listarActivos();
+	}
+
 }

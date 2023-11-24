@@ -1,3 +1,5 @@
+<%@page import="Entidad.Cliente"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -11,10 +13,13 @@
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="Styles/Css.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="JS/script.js"></script>
 </head>
 <body>
 
@@ -27,6 +32,14 @@ Usuario user=new Usuario();%>
 			admin=false;
 		}
 }%>
+
+<%
+	ArrayList<Cliente> listaClientes = null;
+	if(request.getAttribute("listaClientes") != null){
+		listaClientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
+	}
+%>
+
 
 <!-- Navbar Admin -->
 <%if (admin){ %>
@@ -136,6 +149,9 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<h3>Clientes activos:</h3>
+				<form method="post" action="admClientes_Servlet">
+					<input type="submit" name="btnMostrarClientes" value="Mostrar Clientes">
+				</form>
 					<table class="table table-hover">
 						<thead>
 							<td>Cliente</td>
@@ -146,28 +162,50 @@ Usuario user=new Usuario();%>
 							<td>Eliminar</td>
 						</thead>
 						<%
-							int i = 0;
-								while (i < 3) {
-						%>
-						<tr>
-							<td>42899522</td>
-							<td>Ivan</td>
-							<td>Linares</td>
-							<td>User007</td>
-							<td><input type="submit" value="Modificar"
-								class="btn btn-primary"></td>
-							<td><input type="submit" value="Eliminar"
-								class="btn btn-primary"></td>
-						</tr>
+						if (listaClientes != null) 
+							for(Cliente cliente : listaClientes){
+					%>
+					<tr>
+						<form action="admClientes_Servlet" method="post">
+						<td><%=cliente.getDni()%> <input type="hidden" name="dniCliente" value="<%=cliente.getDni()%>"> </td>
+						<td><%=cliente.getNombre() %></td>
+						<td><%=cliente.getApellido() %></td>
+						<td><%=cliente.getUsuario() %></td>
+						<td><input type="submit" value="Modificar" name="btnModificar" class="btn btn-info"></td>
+						<td><input id="btnEliminar" type="submit" value="Eliminar" name="btnEliminar" class="btn btn-primary"></td>
+						<!-- <td><input id="btnEliminar" type="submit" value="Eliminar" name="btnEliminar" onclick="mostrarModal()" class="btn btn-primary"></td> -->
+						
+						</form>
+					</tr>
 						<%
-							i++;
-								}
+							}
 						%>
 					</table>
 				</div>
 			<div class="col col-lg-2"></div>
 		</div>
 	</div>
+	
+	<div class="modal" id="modalConfirmacion">
+        <div class="modal-contenido">
+            <p>Confirmar accion</p>
+            <button onclick="confirmarAccion()">Sí</button>
+            <button onclick="cerrarModal()">No</button>
+        </div>
+    </div>
+    
+	
+<%
+	String msj = " ";
+	if(request.getAttribute("msj")!=null)
+		msj = request.getAttribute("msj").toString();
+%>
+
+<% if(!msj.equals(" ")) { %>
+     <script>
+     	alert('<%=msj %>');
+     </script>
+<% } %>
 
 </body>
 </html>

@@ -61,4 +61,9 @@ public class ClienteNegocioImpl implements ClienteNegocio{
 		else return false;
 	}
 
+	@Override
+	public ArrayList<Cliente> listarPendientes() {
+		return cDao.listarPendientes();
+	}
+
 }

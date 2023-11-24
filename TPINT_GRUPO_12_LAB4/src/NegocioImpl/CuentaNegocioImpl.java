@@ -26,13 +26,13 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 
 	@Override
 	public boolean modificar(Cuenta cuenta) {
-		if(cuenta.getDni().trim().length()>0 && cuenta.getFechaCreacion() != null && cuenta.getNumero().trim().length()>0 &&
-				cuenta.getTipoCuenta()!=null && cuenta.getCBU().trim().length()>0 && cuenta.getEstado().trim().length()>0 &&
-				cuenta.getSaldo()>=0)
+		return cDao.modificar(cuenta);
+		/*if(cuenta.getFechaCreacion() != null && cuenta.getSaldo()>=0 && cuenta.getDni().trim().length()>0 && cuenta.getNumero().trim().length()>0 &&
+				cuenta.getTipoCuenta()!=null && cuenta.getCBU().trim().length()>0 && cuenta.getEstado().trim().length()>0)
 		{
-			return cDao.insertar(cuenta);
+			return cDao.modificar(cuenta);
 		}
-		return false;
+		return false;*/
 	}
 
 	@Override
@@ -56,6 +56,12 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public ArrayList<Cuenta> listarXcuenta(String numerocuenta) {
 		cDao = new CuentaDaoImpl();
 		return cDao.listarPorCuenta(numerocuenta);
+	}
+
+	@Override
+	public boolean Eliminar(Cuenta cuenta) {
+		cDao = new CuentaDaoImpl();
+		return cDao.eliminar(cuenta);
 	}
 	
 	

@@ -162,13 +162,10 @@ Usuario user=new Usuario();%>
 								<td><%= cuenta.getNumero()%><input type="hidden" name="CuentaSeleccionada" value="<%= cuenta.getNumero()%>" ></td>
 								<td><%= cuenta.getTipoCuenta().getName()%></td>
 								<td><%= cuenta.getCBU()%></td>
-								<td><input type="submit" value="Modificar"
-									class="btn btn-primary"></td>
-								<td><input type="submit" value="Eliminar"
-									class="btn btn-primary"></td>								
+								<td><input type="submit" name="btnModificar" value="Modificar" class="btn btn-primary"></td>
+								<td><input type="submit" name="btnEliminar" value="Eliminar" class="btn btn-primary" ></td>																
 								</form>
 							</tr>
-								
 							<%}
 						}
 						%>

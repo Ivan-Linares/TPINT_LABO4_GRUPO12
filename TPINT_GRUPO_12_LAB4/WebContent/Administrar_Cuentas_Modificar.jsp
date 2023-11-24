@@ -1,3 +1,4 @@
+<%@page import="Entidad.TipoCuenta"%>
 <%@page import="Entidad.Cuenta"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -132,7 +133,7 @@ Usuario user=new Usuario();%>
 <%} %>
 <br />
 
-<form action="" method="post">
+<form action="Servlet_Modificar_Cuenta" method="get">
 	<div class="row">
 	  <div class="col">
 	  <%ArrayList<Cuenta> seleccionada = new ArrayList<Cuenta>();
@@ -140,33 +141,40 @@ Usuario user=new Usuario();%>
 	  		seleccionada = (ArrayList<Cuenta>)request.getAttribute("seleccionada");
 	  		for(Cuenta cuenta : seleccionada){%>
 	  		
-			    <label for="nombre">Numero Cuenta:</label>
-		        <input type="text" id="Numero" name="nombre" value="<%=cuenta.getNumero()%>" class="form-control" disabled><br>
+			    <label for="nombre">Numero Cuenta </label>
+		        <input type="text" name="Numero" value="<%=cuenta.getNumero()%>" class="form-control"><br>
 		        
-		        <label for="nombre">Saldo:</label>
-		        <input type="text" id="Saldo" name="nombre" value="<%= cuenta.getSaldo()%>" class="form-control" disabled><br>
+		        <label for="nombre">Saldo </label>
+		        <input type="text"  name="Saldo" value="<%= cuenta.getSaldo()%>" class="form-control" disabled><br>
 		        
-			    <label for="nombre">DNI</label>
-		        <input type="text" id="Cliente" name="nombre" value="<%=cuenta.getDni() %>" class="form-control"><br>               
+			    <label for="nombre">DNI </label>
+		        <input type="text" name="DNI" value="<%=cuenta.getDni() %>" class="form-control"><br>               
 			  </div>
-			  <div class="col">
-				<label for="nombre">Tipo Cuenta:</label>
-		        <input type="text" id="Tipo" name="nombre" value="<%=cuenta.getTipoCuenta().getName() %>" class="form-control"><br>
-			  
-		 		<label for="nombre">CBU:</label>
-		        <input type="text" id="CBU" name="nombre" value="<%=cuenta.getCBU() %>" class="form-control"><br>
+			  <div class="col">			  				  
+		 		<label for="nombre">CBU </label>
+		        <input type="text"  name="CBU" value="<%=cuenta.getCBU() %>" class="form-control"><br>
 		        
-		        <label for="nombre">Estado</label>
-		        <input type="text" id="Fec" name="nombre" value="dd" class="form-control"><br>
+		        <label for="nombre">Estado </label>
+		        <input type="text"  name="Estado" value="<%=cuenta.getEstado() %>" class="form-control"><br>
+		        
+		        <label for="nombre">Tipo Cuenta:</label><br>
+					  	<Select Name="Tipo Cuenta" class="ratio w-25">
+		        <%
+		        ArrayList<TipoCuenta> tiposeleccionada = new ArrayList<TipoCuenta>();
+			        if(request.getAttribute("ListaDeCuentas")!=null){
+			        tiposeleccionada=(ArrayList<TipoCuenta>)request.getAttribute("ListaDeCuentas");
+				        for(TipoCuenta tipocuenta : tiposeleccionada){%>
+					  		<option Value="<%= tipocuenta.getCode()%>"><%=tipocuenta.getName() %></option>
+			        <%}
+			     }%>		        
+					  	</Select><br>
 			  </div>
 			</div>
-	  			
-	  			
 	  		<%}
 	  	}
 	  %>
-	<input type="submit" value="Cancelar" class="btn btn-danger">
-	<input type="submit" value="Confirmar" class="btn btn-success">
+	<input type="submit" name="btnCancelar" value="Cancelar" class="btn btn-danger">
+	<input type="submit" name="btnConfirmar" value="Confirmar" class="btn btn-success">
 </form>
 </body>
 </html>

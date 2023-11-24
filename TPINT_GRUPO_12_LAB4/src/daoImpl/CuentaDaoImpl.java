@@ -97,11 +97,12 @@ public class CuentaDaoImpl implements CuentaDao {
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Cuentas SET Tipo_De_Cuenta=?, Saldo=?, Estado=? Where Cuenta=?");
+			statement = con.prepareStatement("Update Cuentas SET Tipo_De_Cuenta=?, DNI=?, Estado=?,CBU=? Where Cuenta=?");
 			statement.setInt(1, cuenta.getTipoCuenta().getCode());
-			statement.setDouble(2, cuenta.getSaldo());
+			statement.setString(2, cuenta.getDni());
 			statement.setString(3, cuenta.getEstado());
-			statement.setString(4, cuenta.getNumero());
+			statement.setString(4, cuenta.getCBU());
+			statement.setString(5, cuenta.getNumero());
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();
@@ -130,7 +131,7 @@ public class CuentaDaoImpl implements CuentaDao {
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta;");
+			ResultSet rs = st.executeQuery("SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='a';");
 			while(rs.next()) {
 				Cuenta cuenta = new Cuenta();
 				cuenta.setCBU(rs.getString("CBU"));

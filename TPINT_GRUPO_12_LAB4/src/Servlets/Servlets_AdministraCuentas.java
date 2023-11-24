@@ -54,7 +54,7 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
 			rd.forward(request, response);
 		}
-		if(request.getParameter("CuentaSeleccionada")!=null) {
+		if(request.getParameter("btnModificar")!=null) {
 			String seleccionada= request.getParameter("CuentaSeleccionada");
 			ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
 			CuentaNegocioImpl cni= new CuentaNegocioImpl();
@@ -62,7 +62,20 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			
 			request.setAttribute("seleccionada", listado);
 			
-			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas_Modificar.jsp");
+			RequestDispatcher rd= request.getRequestDispatcher("Servlet_Modificar_Cuenta");
+			rd.forward(request, response);
+		}
+		
+		if (request.getParameter("btnEliminar")!=null) {
+			Cuenta obj= new Cuenta();
+			String estado="I";
+			obj.setNumero(request.getParameter("CuentaSeleccionada"));
+			obj.setEstado(estado);
+			
+			CuentaNegocioImpl cni= new CuentaNegocioImpl();
+			cni.Eliminar(obj);
+			
+			RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
 			rd.forward(request, response);
 		}
 		

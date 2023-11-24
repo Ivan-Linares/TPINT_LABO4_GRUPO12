@@ -63,7 +63,22 @@ public class ClienteNegocioImpl implements ClienteNegocio{
 
 	@Override
 	public ArrayList<Cliente> listarPendientes() {
+		cDao = new ClienteDaoImpl();
 		return cDao.listarPendientes();
+	}
+
+	@Override
+	public boolean rechazar(String DNI) {
+		cDao = new ClienteDaoImpl();
+		if(cDao.rechazar(DNI)) return true;
+		return false;
+	}
+
+	@Override
+	public boolean aprobar(String DNI) {
+		cDao = new ClienteDaoImpl();
+		if(cDao.aprobar(DNI)) return true;
+		return false;
 	}
 
 }

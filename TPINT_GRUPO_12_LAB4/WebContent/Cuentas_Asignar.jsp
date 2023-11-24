@@ -1,3 +1,5 @@
+<%@page import="Entidad.Cliente"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -26,6 +28,13 @@ Usuario user=new Usuario();%>
 			admin=false;
 		}
 }%>
+
+<%
+	ArrayList<Cliente> listaPendientes = null;
+	if(request.getAttribute("listaPendientes") != null){
+		listaPendientes = (ArrayList<Cliente>)request.getAttribute("listaPendientes");
+	}
+%>
 
 <!-- Navbar Admin -->
 <%if (admin){ %>
@@ -143,6 +152,11 @@ Usuario user=new Usuario();%>
 					} else {
 				%>
 				<h3>Tienes solicitudes de los siguientes clientes:</h3>
+				
+				<form method="post" action="cuentasAsignarServlet">
+					<input type="submit" name="btnMostrarClientes" value="Mostrar usuarios">
+				</form>
+				
 				<table class="table table-hover">
 					<thead>
 						<td>DNI</td>
@@ -155,28 +169,29 @@ Usuario user=new Usuario();%>
 						<td>Enviar</td>
 					</thead>
 					<%
-						int i = 0;
-							while (i < 3) {
+						if (listaPendientes != null) 
+							for(Cliente cliente : listaPendientes){
 					%>
 					<tr>
-						<td>42899522</td>
-						<td>Ivan</td>
-						<td>Linares</td>
-						<td>lalala@gmail.com</td>
-						<td>26/09/2000</td>
+						<form action="cuentasAsignarServlet" method="post">
+						<td><%=cliente.getDni()%> <input type="hidden" name="dniCliente" value="<%=cliente.getDni()%>"> </td>
+						<td><%=cliente.getNombre() %></td>
+						<td><%=cliente.getApellido() %></td>
+						<td><%=cliente.getEmail() %></td>
+						<td><%=cliente.getFechaNac() %></td>
 						<td> <input type="submit" value="Ver Detalle"
 							class="btn btn-info"></td>
 						<td><select class="form-select"
-							aria-label="Default select example">
-								<option selected>Aprobar</option>
-								<option value="1">Rechazar</option>
+							aria-label="Default select example" name="selectAction">
+								<option selected value="1">Aprobar</option>
+								<option value="2">Rechazar</option>
 						</select></td>
-						<td><input type="submit" value="Enviar"
+						<td><input type="submit" name="btnEnviar" value="Enviar"
 							class="btn btn-primary"></td>
+						</form>
 					</tr>
 					<%
-						i++;
-							}
+					}
 					%>
 				</table>
 				<%
@@ -187,6 +202,18 @@ Usuario user=new Usuario();%>
 		</div>
 	</div>
 	
+<%
+	String msj = " ";
+	if(request.getAttribute("msj")!=null)
+		msj = request.getAttribute("msj").toString();
+%>
+
+<% if(!msj.equals(" ")) { %>
+     <script>
+     	alert('<%=msj %>');
+     </script>
+<% } %>
+
 	
 </body>
 </html>

@@ -14,5 +14,7 @@ public interface ClienteDao {
 	public Cliente getClientePorUsuario(Usuario usuario);
 	public ArrayList<Cliente> listar();
 	public ArrayList<Cliente> listarPendientes();
+	public boolean rechazar(String DNI);
+	public boolean aprobar(String DNI);
 
 }

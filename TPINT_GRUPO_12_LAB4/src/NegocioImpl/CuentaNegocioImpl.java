@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import Entidad.Cuenta;
 import Negocio.CuentaNegocio;
 import dao.CuentaDao;
+import daoImpl.ClienteDaoImpl;
+import daoImpl.CuentaDaoImpl;
 
 public class CuentaNegocioImpl implements CuentaNegocio{
 
 	private CuentaDao cDao;
 	@Override
 	public boolean insertar(Cuenta cuenta) {
+		
+			cDao = new CuentaDaoImpl();
+			
 			if(cuenta.getDni().trim().length()>0 && cuenta.getFechaCreacion() != null && cuenta.getNumero().trim().length()>0 &&
 					cuenta.getTipoCuenta()!=null && cuenta.getCBU().trim().length()>0 && cuenta.getEstado().trim().length()>0)
 			{

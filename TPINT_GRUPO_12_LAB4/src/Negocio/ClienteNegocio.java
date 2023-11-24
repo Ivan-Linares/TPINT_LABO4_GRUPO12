@@ -12,6 +12,8 @@ public interface ClienteNegocio {
 	public ArrayList<Cliente> listar();
 	public ArrayList<Cliente> listarPendientes();
 	public Cliente clientePorUsuario(Usuario usuario);
+	public boolean rechazar(String DNI);
+	public boolean aprobar(String DNI);
 }
 
 

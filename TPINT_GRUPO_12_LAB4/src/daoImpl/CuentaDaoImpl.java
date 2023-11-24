@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,15 +21,21 @@ public class CuentaDaoImpl implements CuentaDao {
 		
 		PreparedStatement statement;
 		Connection con = Conexion.getConexion().getSQLConexion();
-		
+		LocalDate localDate = LocalDate.now();
+        java.sql.Date fecha = java.sql.Date.valueOf(localDate);
+        fecha.setDate(cuenta.getFechaCreacion().getDia());
+        fecha.setMonth(cuenta.getFechaCreacion().getMes());
+        fecha.setYear(cuenta.getFechaCreacion().getYear());
+        
 		try {
-			statement = con.prepareStatement("INSERT into cuentas values(?,?,?,?,?,?)");
+			statement = con.prepareStatement("INSERT into cuentas values(?,?,?,?,?,?,?)");
 			statement.setString(1, cuenta.getNumero());
-			statement.setString(2, cuenta.getFechaCreacion().toString());
-			statement.setInt(3, cuenta.getTipoCuenta().getCode());
-			statement.setString(4, cuenta.getCBU());
-			statement.setDouble(5, 10000.00);
-			statement.setString(6, cuenta.getEstado());
+			statement.setString(2, cuenta.getDni());
+			statement.setDate(3, fecha);
+			statement.setInt(4, cuenta.getTipoCuenta().getCode());
+			statement.setString(5, cuenta.getCBU());
+			statement.setDouble(6, 10000.00);
+			statement.setString(7, cuenta.getEstado());
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();

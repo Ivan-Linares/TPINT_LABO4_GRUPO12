@@ -244,4 +244,62 @@ public class ClienteDaoImpl implements ClienteDao{
 		
 		return clientes;
 	}
+
+	@Override
+	public boolean rechazar(String DNI) {
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("Update Clientes SET Estado='I' Where DNI=?");
+			statement.setString(1, DNI);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean aprobar(String DNI) {
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("Update Clientes SET Estado='A' Where DNI=?");
+			statement.setString(1, DNI);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return false;
+	}
 }

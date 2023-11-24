@@ -12,6 +12,7 @@ import dao.ProvinciaDao;
 public class ProvinciaDaoImpl implements ProvinciaDao{
 	
 	private Provincia provincia;
+	private Pais pais;
 
 	@Override
 	public boolean insertar(Provincia p) {
@@ -43,12 +44,14 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select codPais, codProvincia, NombreProvincia from Provincia");
+			ResultSet rs = st.executeQuery("Select p.codPais, p.codProvincia, p.NombreProvincia, pa.NombrePais from Provincia p inner join Pais pa on p.codpais=pa.codpais;");
 			while(rs.next()) {
 				iniciar();
-				provincia.setCodPais(rs.getInt("codPais"));
-				provincia.setCodProvincia(rs.getInt("codProvincia"));
-				provincia.setNombreProvincia(rs.getString("NombreProvincia"));
+				pais.setCode(rs.getInt("p.codPais"));
+				pais.setName(rs.getString("pa.NombrePais"));
+				provincia.setPais(pais);
+				provincia.setCodProvincia(rs.getInt("p.codProvincia"));
+				provincia.setNombreProvincia(rs.getString("p.NombreProvincia"));
 				lista.add(provincia);
 			}
 		} catch (Exception e) {

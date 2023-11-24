@@ -1,3 +1,5 @@
+<%@page import="Entidad.Cuenta"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -133,27 +135,36 @@ Usuario user=new Usuario();%>
 <form action="" method="post">
 	<div class="row">
 	  <div class="col">
-	    <label for="nombre">Numero Cuenta:</label>
-        <input type="text" id="Numero" name="nombre" value="lalala" class="form-control" disabled><br>
-        
-        <label for="nombre">Saldo:</label>
-        <input type="text" id="Saldo" name="nombre" value="lalala" class="form-control" disabled><br>
-        
-	    <label for="nombre">Cliente Asignado:</label>
-        <input type="text" id="Cliente" name="nombre" value="lalala" class="form-control"><br>               
-	  </div>
-	  <div class="col">
-		<label for="nombre">Tipo Cuenta:</label>
-        <input type="text" id="Tipo" name="nombre" value="lalala" class="form-control"><br>
-	  
- 		<label for="nombre">CBU:</label>
-        <input type="text" id="CBU" name="nombre" value="lalala" class="form-control"><br>
-        
-        <label for="nombre">Fecha Creacion:</label>
-        <input type="text" id="Fec" name="nombre" value="lalala" class="form-control"><br>
-        
-	  </div>
-	</div>
+	  <%ArrayList<Cuenta> seleccionada = new ArrayList<Cuenta>();
+	  	if(request.getAttribute("seleccionada")!=null){
+	  		seleccionada = (ArrayList<Cuenta>)request.getAttribute("seleccionada");
+	  		for(Cuenta cuenta : seleccionada){%>
+	  		
+			    <label for="nombre">Numero Cuenta:</label>
+		        <input type="text" id="Numero" name="nombre" value="<%=cuenta.getNumero()%>" class="form-control" disabled><br>
+		        
+		        <label for="nombre">Saldo:</label>
+		        <input type="text" id="Saldo" name="nombre" value="<%= cuenta.getSaldo()%>" class="form-control" disabled><br>
+		        
+			    <label for="nombre">DNI</label>
+		        <input type="text" id="Cliente" name="nombre" value="<%=cuenta.getDni() %>" class="form-control"><br>               
+			  </div>
+			  <div class="col">
+				<label for="nombre">Tipo Cuenta:</label>
+		        <input type="text" id="Tipo" name="nombre" value="<%=cuenta.getTipoCuenta().getName() %>" class="form-control"><br>
+			  
+		 		<label for="nombre">CBU:</label>
+		        <input type="text" id="CBU" name="nombre" value="<%=cuenta.getCBU() %>" class="form-control"><br>
+		        
+		        <label for="nombre">Estado</label>
+		        <input type="text" id="Fec" name="nombre" value="dd" class="form-control"><br>
+			  </div>
+			</div>
+	  			
+	  			
+	  		<%}
+	  	}
+	  %>
 	<input type="submit" value="Cancelar" class="btn btn-danger">
 	<input type="submit" value="Confirmar" class="btn btn-success">
 </form>

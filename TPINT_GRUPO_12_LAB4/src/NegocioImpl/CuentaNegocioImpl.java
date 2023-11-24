@@ -37,6 +37,7 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 
 	@Override
 	public ArrayList<Cuenta> listar() {
+		cDao = new CuentaDaoImpl();
 		return cDao.listar();
 	}
 
@@ -49,6 +50,12 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public ArrayList<Cuenta> listar(float Importe, int compare) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ArrayList<Cuenta> listarXcuenta(String numerocuenta) {
+		cDao = new CuentaDaoImpl();
+		return cDao.listarPorCuenta(numerocuenta);
 	}
 	
 	

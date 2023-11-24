@@ -26,7 +26,9 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 
 	@Override
 	public boolean modificar(Cuenta cuenta) {
+		cDao= new CuentaDaoImpl();
 		return cDao.modificar(cuenta);
+		
 		/*if(cuenta.getFechaCreacion() != null && cuenta.getSaldo()>=0 && cuenta.getDni().trim().length()>0 && cuenta.getNumero().trim().length()>0 &&
 				cuenta.getTipoCuenta()!=null && cuenta.getCBU().trim().length()>0 && cuenta.getEstado().trim().length()>0)
 		{

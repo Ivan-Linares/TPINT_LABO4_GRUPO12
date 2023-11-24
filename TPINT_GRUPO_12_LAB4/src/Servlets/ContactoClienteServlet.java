@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cliente;
 import Entidad.Fecha;
+import Entidad.Localidad;
 import Entidad.Pais;
 import Entidad.Provincia;
 import Entidad.TipoUsuario;
@@ -74,12 +75,16 @@ public class ContactoClienteServlet extends HttpServlet {
 				cte.setDni(request.getParameter("txtDNI"));
 				cte.setCuil(request.getParameter("txtCUIL"));
 				cte.setSexo(request.getParameter("selSexo"));
-				cte.setPais(new Pais());
-				cte.getPais().setCode(Integer.parseInt(request.getParameter("selPais")));
-				cte.setProv(new Provincia());
-				cte.getProv().setCodPais(Integer.parseInt(request.getParameter("selPais")));
-				cte.getProv().setCodProvincia(Integer.parseInt(request.getParameter("selProvincia")));
-				cte.setLocalidad(request.getParameter("txtLocalidad"));
+				cte.setLocalidad(new Localidad());
+				cte.getLocalidad().setProvincia(new Provincia());
+				cte.getLocalidad().getProvincia().setPais(new Pais());
+				cte.getLocalidad().getProvincia().getPais().setCode(Integer.parseInt(request.getParameter("selPais")));
+				cte.getLocalidad().getProvincia().setCodProvincia(Integer.parseInt(request.getParameter("selProvincia")));
+				
+				//Hacer metodos 
+				cte.getLocalidad().setCodLocalidad(1);
+				cte.getLocalidad().setNombreLocalidad("Mendoza");
+				
 				cte.setDireccion(request.getParameter("txtDireccion"));			
 				cte.setFechaNac(LocalDate.parse(request.getParameter("dateFechaNacimiento"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				cte.setTelefono(request.getParameter("txtTelefono"));

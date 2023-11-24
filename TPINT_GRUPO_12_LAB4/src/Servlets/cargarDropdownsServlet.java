@@ -60,7 +60,7 @@ public class cargarDropdownsServlet extends HttpServlet {
         ArrayList<Provincia> listaProvFiltradas = new ArrayList<>();
 
         for (Provincia provincia : listaProv) {  	
-            if (provincia.getCodPais() == paisId) { 
+            if (provincia.getPais().getCode() == paisId) { 
             	listaProvFiltradas.add(provincia);
             }
         }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Entidad.Cuenta;
 import Negocio.CuentaNegocio;
 import dao.CuentaDao;
+import daoImpl.CuentaDaoImpl;
 
 public class CuentaNegocioImpl implements CuentaNegocio{
 
@@ -32,6 +33,7 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 
 	@Override
 	public ArrayList<Cuenta> listar() {
+		cDao = new CuentaDaoImpl();
 		return cDao.listar();
 	}
 
@@ -44,6 +46,12 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public ArrayList<Cuenta> listar(float Importe, int compare) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ArrayList<Cuenta> listarXcuenta(String numerocuenta) {
+		cDao = new CuentaDaoImpl();
+		return cDao.listarPorCuenta(numerocuenta);
 	}
 	
 	

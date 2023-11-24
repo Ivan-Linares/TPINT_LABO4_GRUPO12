@@ -1,3 +1,5 @@
+<%@page import="Entidad.Cuenta"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -146,22 +148,26 @@ Usuario user=new Usuario();%>
 							<td>Eliminar</td>
 						</thead>
 						<%
-							int i = 0;
-								while (i < 3) {
-						%>
-						<tr>
-							<td>42899522</td>
-							<td>1001</td>
-							<td>Caja Ahorro</td>
-							<td>0303456</td>
-							<td><input type="submit" value="Modificar"
-								class="btn btn-primary"></td>
-							<td><input type="submit" value="Eliminar"
-								class="btn btn-primary"></td>
-						</tr>
-						<%
-							i++;
-								}
+						ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+						if(request.getAttribute("listadocompleto")!=null){
+							lista=(ArrayList<Cuenta>)request.getAttribute("listadocompleto");
+							
+							for(Cuenta cuenta: lista){%>
+							<tr>
+								<form method="get" action="Servlets_AdministraCuentas">
+								<td><%= cuenta.getDni()%></td>
+								<td><%= cuenta.getNumero()%><input type="hidden" name="CuentaSeleccionada" value="<%= cuenta.getNumero()%>" ></td>
+								<td><%= cuenta.getTipoCuenta().getName()%></td>
+								<td><%= cuenta.getCBU()%></td>
+								<td><input type="submit" value="Modificar"
+									class="btn btn-primary"></td>
+								<td><input type="submit" value="Eliminar"
+									class="btn btn-primary"></td>								
+								</form>
+							</tr>
+								
+							<%}
+						}
 						%>
 					</table>
 				</div>

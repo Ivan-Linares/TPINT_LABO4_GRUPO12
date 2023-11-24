@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import Entidad.Cuenta;
 import Entidad.Fecha;
+import Entidad.TipoCuenta;
 import dao.CuentaDao;
 
 public class CuentaDaoImpl implements CuentaDao {
@@ -118,21 +119,29 @@ public class CuentaDaoImpl implements CuentaDao {
 	@Override
 	public ArrayList<Cuenta> listar() {
 		
-		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
-		Cuenta cuenta = new Cuenta();
 		Connection cn = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM cuentas;");
+			ResultSet rs = st.executeQuery("SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta;");
 			while(rs.next()) {
-				cuenta = setCuenta(rs, cuenta);
-				cuentas.add(cuenta);
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+				
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setTipoCuenta(obj);
+				
+				lista.add(cuenta);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return cuentas;
-		
+		return lista;
 	}
 	
 	private Cuenta setCuenta(ResultSet rs, Cuenta cuenta) throws SQLException {
@@ -203,6 +212,38 @@ public class CuentaDaoImpl implements CuentaDao {
 	public int total_cuentas(int dni) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ArrayList<Cuenta> listarPorCuenta(String numero) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		try {
+			Statement st = cn.createStatement();
+			String query="SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.cuenta=?;";
+			PreparedStatement pst= cn.prepareStatement(query);
+			pst.setString(1, numero);
+			ResultSet rs = pst.executeQuery();
+
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+				
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setEstado(rs.getString("estado"));
+				cuenta.setTipoCuenta(obj);
+				
+				lista.add(cuenta);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	

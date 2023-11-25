@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -62,6 +63,34 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	
 	public void iniciar() {
 		provincia = new Provincia();
+		pais=new Pais();
+	}
+
+	@Override
+	public ArrayList<Provincia> filtrarPorPais(int id) {
+		
+		PreparedStatement statement;
+		ArrayList<Provincia> lista = new ArrayList<Provincia>();
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			statement = cn.prepareStatement("Select * From Provincia p inner join pais pa on pa.codPais=p.codPais where p.codPais=?");
+			statement.setInt(1, id);
+			
+			ResultSet r=statement.executeQuery();
+			while(r.next()) {
+				iniciar();
+				pais.setCode(r.getInt("p.codPais"));
+				pais.setName(r.getString("pa.NombrePais"));
+				provincia.setPais(pais);
+				provincia.setCodProvincia(r.getInt("p.codProvincia"));
+				provincia.setNombreProvincia(r.getString("p.NombreProvincia"));
+				lista.add(provincia);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
+
 	}
 
 }

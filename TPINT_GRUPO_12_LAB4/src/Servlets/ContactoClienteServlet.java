@@ -114,7 +114,7 @@ public class ContactoClienteServlet extends HttpServlet {
 				}
 				
 				else {
-					resp = "Usuario o Cliente invalido";
+					resp = "Usuario o Cliente ya registrado";
 				}
 				
 				

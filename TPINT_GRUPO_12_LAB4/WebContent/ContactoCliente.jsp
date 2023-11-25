@@ -20,7 +20,7 @@
         $(document).ready(function () {
             $("#pais").change(function () {
                 var paisId = $(this).val();
-                $.post("cargarDropdownsServlet", {action: "getProvincias", paisId: paisId}, function (data) {
+                $.post("cargarPaisesServlet", {action: "getProvincias", paisId: paisId}, function (data) {
                     $("#provincia").html(data);
                 });
             });

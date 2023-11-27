@@ -17,11 +17,25 @@
 <link rel="stylesheet" type="text/css" href="CSS/ContactoCliente.css">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+ 
+    	
         $(document).ready(function () {
+        	
+            $.post("CargarPaisesServlet", {action: "getPaises"}, function (data) {
+                $("#pais").html(data);
+            });
+        	
             $("#pais").change(function () {
                 var paisId = $(this).val();
-                $.post("cargarPaisesServlet", {action: "getProvincias", paisId: paisId}, function (data) {
+                $.post("CargarPaisesServlet", {action: "getProvincias", paisId: paisId}, function (data) {
                     $("#provincia").html(data);
+                });
+            });
+            
+            $("#provincia").change(function () {
+                var provinciaId = $(this).val();
+                $.post("CargarPaisesServlet", {action: "getLocalidades", provinciaId: provinciaId}, function (data) {
+                    $("#localidad").html(data);
                 });
             });
         });    
@@ -44,38 +58,26 @@
             <label for="lblCUIL">CUIL:</label>
             <input type="text" id="cuil" name="txtCUIL" required>
             
-            <label for="lblSexo">Sexo:</label>
-            <select id="sexo" name="selSexo" required>
+            <label for="Sexo">Sexo:</label>
+            <select id="Sexo" name="Sexo" required>
                 <option value="M">Masculino</option>
                 <option value="F">Femenino</option>
                 <option value="X">Prefiero no decirlo</option>
             </select>
             
-            <!-- <label for="lblPais">País:</label>
-            <input type="text" id="pais" name="txtPais" required>  -->
-            <label for="lblPais">Pais:</label>
-            <select id="pais" name="selPais">
-            	<option value="0">Seleccione una opcion</option>
-                <%PaisNegocio pNeg = new PaisNegocioImpl();
-				for (Pais p : pNeg.listar()) {
-				%>
-				<option value=<%=p.getCode() %>> <%=p.getName()%></option>			
-				<% } %>
-            </select>
-           	
-            <label for="lblProvincia">Provincia:</label>
-            <select id="provincia" name="selProvincia" required>
-            	<!-- Comentado porque se carga desde el servlet -->
-            	
-                <%-- <%ProvinciaNegocio prNeg = new ProvinciaNegocioImpl(); 
-                for (Provincia pr : prNeg.listar()){
-                %>
-                <option><%=pr.getNombreProvincia()%><option>
-                <%} %> --%>
+            
+            <label for="pais">Pais:</label>
+            <select id="pais" name="pais">
             </select>
             
-            <label for="lblLocalidad">Localidad:</label>
-            <input type="text" id="localidad" name="txtLocalidad" required>
+            <label for="provincia">Provincia:</label>
+            <select id="provincia" name="provincia" required>
+            </select>
+            
+            <label for="localidad">Localidad:</label>
+            <select id="localidad" name="localidad" required>
+            </select>
+            
             
             <label for="lblDireccion">Dirección:</label>
             <input type="text" id="direccion" name="txtDireccion" required>

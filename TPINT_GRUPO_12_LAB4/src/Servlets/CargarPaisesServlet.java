@@ -15,9 +15,11 @@ import Entidad.Pais;
 import Entidad.Provincia;
 import Negocio.ClienteNegocio;
 import Negocio.LocalidadNegocio;
+import Negocio.PaisNegocio;
 import Negocio.ProvinciaNegocio;
 import NegocioImpl.ClienteNegocioImpl;
 import NegocioImpl.LocalidadNegocioImpl;
+import NegocioImpl.PaisNegocioImpl;
 import NegocioImpl.ProvinciaNegocioImpl;
 
 /**
@@ -25,30 +27,17 @@ import NegocioImpl.ProvinciaNegocioImpl;
  */
 @WebServlet("/CargarPaisesServlet")
 public class CargarPaisesServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CargarPaisesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
     	String action = request.getParameter("action");
+       
+    	if ("getPaises".equals(action)) {
+            List<Pais> paises = getPaises();
+            response.setContentType("text/html");
+            response.getWriter().write(cargarPaisesEnSelect(paises));
+        }   	
+    	
 
         if ("getProvincias".equals(action)) {
             int paisId = Integer.parseInt(request.getParameter("paisId"));
@@ -65,7 +54,24 @@ public class CargarPaisesServlet extends HttpServlet {
         }
     }
 
-    private List<Provincia> getProvinciasPorPais(int paisId) {
+    private String cargarPaisesEnSelect(List<Pais> paises) {
+        StringBuilder dropdown = new StringBuilder();
+        for (Pais pais : paises) {
+            dropdown.append("<option value=\"").append(pais.getCode()).append("\">")
+                    .append(pais.getName()).append("</option>");
+        }
+        return dropdown.toString();
+	}
+
+	private List<Pais> getPaises() {
+		
+    	PaisNegocio pNeg = new PaisNegocioImpl();
+        List<Pais> paises = new ArrayList<>();
+        paises=pNeg.listar();
+        return paises;  
+	}
+
+	private List<Provincia> getProvinciasPorPais(int paisId) {
     	
     	ProvinciaNegocio pNeg = new ProvinciaNegocioImpl();
         List<Provincia> provincias = new ArrayList<>();

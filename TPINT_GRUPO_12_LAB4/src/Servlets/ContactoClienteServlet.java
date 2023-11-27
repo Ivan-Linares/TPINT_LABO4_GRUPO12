@@ -78,12 +78,11 @@ public class ContactoClienteServlet extends HttpServlet {
 				cte.setLocalidad(new Localidad());
 				cte.getLocalidad().setProvincia(new Provincia());
 				cte.getLocalidad().getProvincia().setPais(new Pais());
-				cte.getLocalidad().getProvincia().getPais().setCode(Integer.parseInt(request.getParameter("selPais")));
-				cte.getLocalidad().getProvincia().setCodProvincia(Integer.parseInt(request.getParameter("selProvincia")));
+				cte.getLocalidad().getProvincia().getPais().setCode(Integer.parseInt(request.getParameter("pais")));
+				cte.getLocalidad().getProvincia().setCodProvincia(Integer.parseInt(request.getParameter("provincia")));
 				
 				//Hacer metodos 
-				cte.getLocalidad().setCodLocalidad(1);
-				cte.getLocalidad().setNombreLocalidad("Mendoza");
+				cte.getLocalidad().setCodLocalidad(Integer.parseInt(request.getParameter("localidad")));
 				
 				cte.setDireccion(request.getParameter("txtDireccion"));			
 				cte.setFechaNac(LocalDate.parse(request.getParameter("dateFechaNacimiento"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));

@@ -86,9 +86,19 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 				provincia.setNombreProvincia(r.getString("p.NombreProvincia"));
 				lista.add(provincia);
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
-		}
+			try {
+				cn.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+	}
+	finally {
+		Conexion.instancia.cerrarConexion();
+	}
+	
 		return lista;
 
 	}

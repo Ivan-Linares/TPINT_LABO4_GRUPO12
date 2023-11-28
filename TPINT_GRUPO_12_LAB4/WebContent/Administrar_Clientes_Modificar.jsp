@@ -1,3 +1,4 @@
+<%@page import="Entidad.Cliente"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -65,8 +66,8 @@ Usuario user=new Usuario();%>
             Administrar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
-            <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1">Admin Cuentas</a></li>
+            <li><a class="dropdown-item" href="admClientes_Servlet?Param=1"> Admin Clientes </a></li>
+            <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1"> Admin Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -135,48 +136,57 @@ Usuario user=new Usuario();%>
 <form action="" method="post">
 	<div class="row">
 	  <div class="col">
+	  <%
+	  Cliente obj = new Cliente();
+	  if(request.getAttribute("Seleccionado")!=null){
+		  obj= (Cliente)request.getAttribute("Seleccionado");
+
+		  %>
 	    <label for="nombre">DNI:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="DNI" value="<%= obj.getDni() %>" class="form-control" disabled><br>
         
         <label for="nombre">CUIL:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="cuil" value="<%= obj.getCuil() %>" class="form-control"><br>
         
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getNombre() %>" class="form-control"><br>
         
         <label for="nombre">Apellido:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getApellido() %>" class="form-control"><br>
         
         <label for="nombre">Email:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getEmail() %>" class="form-control"><br>
         
         <label for="nombre">Usuario:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getUsuario() %>" class="form-control"><br>
         
         <label for="nombre">Contraseña:</label>
-        <input type="password" id="nombre" name="nombre" class="form-control"><br>        
+        <input type="password" id="nombre" name="nombre" value="<%= obj.getPass() %>" class="form-control"><br>        
 	  </div>
 	  <div class="col">
 	  	<label for="nombre">Sexo:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getSexo() %>" class="form-control"><br>
 	  
  		<label for="nombre">Pais:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getProvincia().getPais().getName() %>" class="form-control"><br>
         
         <label for="nombre">Provincia:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getProvincia().getNombreProvincia() %>" class="form-control"><br>
         
         <label for="nombre">Localidad:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getNombreLocalidad() %>" class="form-control"><br>
         
         <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getDireccion() %>" class="form-control"><br>
         
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getFechaNac()%>" class="form-control"><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control"><br>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getTelefono() %>" class="form-control"><br>
+        <%  
+	  }
+	  %>
 	  </div>
 	</div>
 	<input type="submit" value="Cancelar" class="btn btn-danger">

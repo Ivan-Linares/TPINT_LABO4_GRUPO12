@@ -94,4 +94,10 @@ public class ClienteNegocioImpl implements ClienteNegocio{
 		return cDao.listarActivos();
 	}
 
+	@Override
+	public Cliente Cte_Seleccionado(String DNI) {
+		cDao = new ClienteDaoImpl();
+		return cDao.Cte_Seleccinado(DNI);
+	}
+
 }

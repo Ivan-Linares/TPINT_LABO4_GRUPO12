@@ -2,6 +2,9 @@ package daoImpl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -167,6 +170,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Localidad l=new Localidad();
 		Provincia pro =new Provincia();
 		Pais pais=new Pais();
+		
 		cliente.setDni(rs.getString("c.DNI"));
 		cliente.setCuil(rs.getString("c.Cuil"));
 		cliente.setApellido(rs.getString("c.Apellido"));
@@ -349,5 +353,23 @@ public class ClienteDaoImpl implements ClienteDao{
 		}
 		
 		return clientes;
+	}
+
+	@Override
+	public Cliente Cte_Seleccinado(String DNI) {
+		
+		Cliente cliente = new Cliente();
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.DNI='"+ DNI +"';");
+			while(rs.next()) {
+				cliente = setCliente(rs);
+				return cliente;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cliente;
 	}
 }

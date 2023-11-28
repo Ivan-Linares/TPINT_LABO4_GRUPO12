@@ -11,6 +11,7 @@ public interface ClienteDao {
 	public boolean eliminar(Cliente cliente);
 	public boolean modificar(Cliente cliente);
 	public Cliente existeDNI(String DNI);
+	public Cliente Cte_Seleccinado(String DNI);
 	public Cliente getClientePorUsuario(Usuario usuario);
 	public ArrayList<Cliente> listar();
 	public ArrayList<Cliente> listarPendientes();

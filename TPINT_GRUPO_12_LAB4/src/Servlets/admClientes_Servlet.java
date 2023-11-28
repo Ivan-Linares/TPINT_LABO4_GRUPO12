@@ -33,8 +33,15 @@ public class admClientes_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(request.getParameter("Param")!=null) {
+			ClienteNegocio cNeg = new ClienteNegocioImpl();
+			ArrayList<Cliente> lista = cNeg.listarActivos();
+			
+			request.setAttribute("listaClientes", lista);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -42,18 +49,19 @@ public class admClientes_Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(request.getParameter("btnMostrarClientes") != null) {
+		if(request.getParameter("btnModificar")!=null) {
+			String DNI = request.getParameter("dniCliente");
+			ClienteNegocio ctn = new ClienteNegocioImpl();
 			
-			ClienteNegocio cNeg = new ClienteNegocioImpl();
-			ArrayList<Cliente> lista = cNeg.listarActivos();
+			Cliente obj = new Cliente();
+			obj = ctn.Cte_Seleccionado(DNI);
 			
-			request.setAttribute("listaClientes", lista);
+
+			request.setAttribute("Seleccionado", obj);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
-			rd.forward(request, response);	
-			
+			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes_Modificar.jsp");
+			rd.forward(request, response);
 		}
-		
 		if(request.getParameter("btnEliminar") != null) {
 			
 			ClienteNegocio cNeg = new ClienteNegocioImpl();
@@ -77,6 +85,17 @@ public class admClientes_Servlet extends HttpServlet {
 			rd.forward(request, response);
 			
 		}
+		/*if(request.getParameter("btnMostrarClientes") != null) {
+			
+			ClienteNegocio cNeg = new ClienteNegocioImpl();
+			ArrayList<Cliente> lista = cNeg.listarActivos();
+			
+			request.setAttribute("listaClientes", lista);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
+			rd.forward(request, response);	
+			
+		}*/
 		
 		
 	}

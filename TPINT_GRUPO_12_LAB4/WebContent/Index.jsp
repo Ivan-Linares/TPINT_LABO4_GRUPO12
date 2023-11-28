@@ -59,7 +59,7 @@ Usuario user=new Usuario();%>
             Administrar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Administrar_Clientes.jsp"> Admin Clientes </a></li>
+            <li><a class="dropdown-item" href="admClientes_Servlet?Param=1"> Admin Clientes </a></li>
             <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1"> Admin Cuentas</a></li>
           </ul>
         </li>

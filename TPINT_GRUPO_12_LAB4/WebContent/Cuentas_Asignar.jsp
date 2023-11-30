@@ -139,23 +139,23 @@ Usuario user=new Usuario();%>
 <%} %>
 <br />
 
-<%!boolean CuentasPendientes = true;%>
 	<div class="container text-center">
 		<div class="row justify-content-md-center">
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<%
-					if (!CuentasPendientes) {
+				ArrayList<Cliente> listaJSP = new ArrayList<>();
+				if(request.getAttribute("listaPendientes") != null)
+					listaJSP = (ArrayList<Cliente>)request.getAttribute("listaPendientes");
+				
+				if (listaJSP.isEmpty()) {
 				%>
 				<h3>No hay solicitudes pendientes de aprobacion!</h3>
 				<%
-					} else {
+					} 
+				else {
 				%>
 				<h3>Tienes solicitudes de los siguientes clientes:</h3>
-				
-				<form method="post" action="cuentasAsignarServlet">
-					<input type="submit" name="btnMostrarClientes" value="Mostrar usuarios">
-				</form>
 				
 				<table class="table table-hover">
 					<thead>
@@ -169,8 +169,8 @@ Usuario user=new Usuario();%>
 						<td>Enviar</td>
 					</thead>
 					<%
-						if (listaPendientes != null) 
-							for(Cliente cliente : listaPendientes){
+						if (listaJSP != null) 
+							for(Cliente cliente : listaJSP){
 					%>
 					<tr>
 						<form action="cuentasAsignarServlet" method="post">

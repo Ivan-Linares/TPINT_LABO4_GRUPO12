@@ -50,7 +50,7 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="cuentasAsignarServlet?Param=1">Asignar Cuentas</a></li>
             <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>

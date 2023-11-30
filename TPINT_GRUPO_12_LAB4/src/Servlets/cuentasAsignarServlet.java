@@ -39,16 +39,7 @@ public class cuentasAsignarServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		if(request.getParameter("btnMostrarClientes") != null) {
+		if(request.getParameter("Param")!=null) {
 			
 			ClienteNegocio cNeg = new ClienteNegocioImpl();
 			ArrayList<Cliente> lista = cNeg.listarPendientes();
@@ -57,8 +48,14 @@ public class cuentasAsignarServlet extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/Cuentas_Asignar.jsp");
 			rd.forward(request, response);	
-			
 		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 		if(request.getParameter("btnEnviar") != null) {
 			

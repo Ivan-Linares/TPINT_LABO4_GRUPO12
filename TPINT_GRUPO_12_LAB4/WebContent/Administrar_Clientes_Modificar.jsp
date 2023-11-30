@@ -140,7 +140,6 @@ Usuario user=new Usuario();%>
 	  Cliente obj = new Cliente();
 	  if(request.getAttribute("Seleccionado")!=null){
 		  obj= (Cliente)request.getAttribute("Seleccionado");
-
 		  %>
 	    <label for="nombre">DNI:</label>
         <input type="text" id="nombre" name="DNI" value="<%= obj.getDni() %>" class="form-control" disabled><br>
@@ -164,9 +163,23 @@ Usuario user=new Usuario();%>
         <input type="password" id="nombre" name="nombre" value="<%= obj.getPass() %>" class="form-control"><br>        
 	  </div>
 	  <div class="col">
-	  	<label for="nombre">Sexo:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getSexo() %>" class="form-control"><br>
-	  
+	  	<label for="nombre">Sexo:</label><br>
+	  	<select name="Sexo">
+	  		<option selected="true" disabled="disabled"> <%= obj.getSexo() %> </option>
+	  		<option value="F">F</option>
+	  		<option value="M">M</option>
+	  		<option value="X">X</option>
+	  	</select><br><br>
+       
+        <label for="nombre">Fecha Nacimiento:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getFechaNac()%>" class="form-control"><br>
+        
+        <label for="nombre">Telefono:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getTelefono() %>" class="form-control"><br>
+        
+        <label for="nombre">Direccion:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= obj.getDireccion() %>" class="form-control"><br>
+        
  		<label for="nombre">Pais:</label>
         <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getProvincia().getPais().getName() %>" class="form-control"><br>
         
@@ -175,18 +188,9 @@ Usuario user=new Usuario();%>
         
         <label for="nombre">Localidad:</label>
         <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getNombreLocalidad() %>" class="form-control"><br>
-        
-        <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getDireccion() %>" class="form-control"><br>
-        
-        <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getFechaNac()%>" class="form-control"><br>
-        
-        <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getTelefono() %>" class="form-control"><br>
-        <%  
-	  }
-	  %>
+        <%
+        }
+       %>
 	  </div>
 	</div>
 	<input type="submit" value="Cancelar" class="btn btn-danger">

@@ -100,7 +100,7 @@ public class Cliente {
 	}
 
 	public LocalDate getFechaNac() {
-		return fechaNac;
+		return this.fechaNac;
 	}
 
 	public void setFechaNac(LocalDate fechaNac) {

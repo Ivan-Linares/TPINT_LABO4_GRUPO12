@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
+    <%@page import="Entidad.Cliente"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -130,50 +131,55 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <br />
-
-<form action="" method="post">
-	<div class="row">
-	  <div class="col">
-	    <label for="nombre">DNI:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+<%!
+    Cliente cliente = new Cliente();
+%>
+<%	
+    if(request.getAttribute("ClientePend") != null) {
+        cliente = (Cliente) request.getAttribute("ClientePend");
+    }
+%>
+<div class="row">
+    <div class="col">
+        <label for="nombre">DNI:</label>
+        <input type="text" name="DNI" value="<%= cliente.getDni() %>" class="form-control" disabled><br>
         
         <label for="nombre">CUIL:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="CUIL" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="nombre" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Apellido:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Apellido" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Sexo:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Sexo" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Email:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Email" value="lalala" class="form-control" disabled><br>
 	  </div>
 	  <div class="col">
  		<label for="nombre">Pais:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Pais" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Provincia:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Provincia" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Localidad:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Localidad" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Direccion" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="FechaNac" value="lalala" class="form-control" disabled><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Telefono" value="lalala" class="form-control" disabled><br>
 	  </div>
 	</div>
-	<input type="submit" value="Volver">
-</form>
+	<a class="dropdown-item" class="btn btn-primary" href="cuentasAsignarServlet?Param=1">Volver</a>
 
 </body>
 </html>

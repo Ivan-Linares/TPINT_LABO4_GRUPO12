@@ -179,7 +179,7 @@ Usuario user=new Usuario();%>
 						<td><%=cliente.getApellido() %></td>
 						<td><%=cliente.getEmail() %></td>
 						<td><%=cliente.getFechaNac() %></td>
-						<td> <input type="submit" value="Ver Detalle"
+						<td> <input type="submit" name="BtnVerDetalle" value="Ver Detalle"
 							class="btn btn-info"></td>
 						<td><select class="form-select"
 							aria-label="Default select example" name="selectAction">

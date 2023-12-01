@@ -56,6 +56,25 @@ public class cuentasAsignarServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(request.getParameter("BtnVerDetalle") != null) {
+			
+			String DNI = request.getParameter("dniCliente");
+			
+			ClienteNegocio cNeg = new ClienteNegocioImpl();
+			ArrayList<Cliente> lista = cNeg.listarPendientes();
+			
+			if(!lista.isEmpty()) {
+				for (Cliente cliente : lista) {
+					if(cliente.getDni() == DNI) {
+						
+						request.setAttribute("ClientePend", cliente);
+						
+						RequestDispatcher rd = request.getRequestDispatcher("/Cuentas_VerDetalle.jsp");
+						rd.forward(request, response);	
+					}
+				}
+			}
+		}
 		
 		if(request.getParameter("btnEnviar") != null) {
 			

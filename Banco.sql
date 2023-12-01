@@ -27,7 +27,7 @@ NombrePais varchar(50) not null unique
 create table Provincia
 (
 codPais INT NOT NULL,
-codProvincia INT NOT NULL,
+codProvincia INT NOT NULL auto_increment,
 NombreProvincia VARCHAR(50) NOT NULL,
 PRIMARY KEY (codPais, codProvincia),
 FOREIGN KEY (codPais) REFERENCES Pais(codPais),
@@ -39,7 +39,7 @@ index idx_codProvincia (codProvincia)
 CREATE table Localidades(
 codPais int not null,
 codProvincia int not null,
-codLocalidad int not null,
+codLocalidad int not null auto_increment,
 NombreLocalidad varchar(50) not null unique,
 primary key(codPais,codProvincia, codLocalidad),
 FOREIGN KEY (codPais) REFERENCES Pais(codPais),
@@ -57,16 +57,12 @@ Apellido VARCHAR(50) NOT NULL,
 Nombre VARCHAR(50) NOT NULL,
 Sexo CHAR(1) check(Sexo='F' or Sexo='M' or Sexo='X'),
 FechaNac date NOT NULL,
-Pais int NOT NULL,
-Provincia int NOT NULL,
 Localidad int NOT NULL,
 Direccion VARCHAR(100) NOT NULL,
 Email VARCHAR(100) NOT NULL,
 Usuario VARCHAR(25) not null unique,
 Estado CHAR(1) NOT NULL default 'P' check(Estado='P' or Estado='A' or Estado='I'),
 foreign key (Usuario) references Usuarios(Usuario),
-foreign key (Provincia) references Provincia(codProvincia),
-foreign key (Pais) references Pais(codPais),
 foreign key (Localidad) references Localidades(codLocalidad)
 );
 

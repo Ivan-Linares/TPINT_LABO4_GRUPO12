@@ -132,7 +132,7 @@ Usuario user=new Usuario();%>
 <%} %>
 <br />
 <%!
-    Cliente cliente = new Cliente();
+    Cliente cliente = null;
 %>
 <%	
     if(request.getAttribute("ClientePend") != null) {
@@ -144,39 +144,39 @@ Usuario user=new Usuario();%>
         <label for="nombre">DNI:</label>
         <input type="text" name="DNI" value="<%= cliente.getDni() %>" class="form-control" disabled><br>
         
-        <label for="nombre">CUIL:</label>
-        <input type="text" name="CUIL" value="lalala" class="form-control" disabled><br>
+        <label for="CUIL">CUIL:</label>
+        <input type="text" name="CUIL" value="<%= cliente.getCuil() %>" class="form-control" disabled><br>
         
         <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="nombre" value="<%= cliente.getNombre() %>" class="form-control" disabled><br>
         
         <label for="nombre">Apellido:</label>
-        <input type="text" name="Apellido" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Apellido" value="<%= cliente.getApellido() %>" class="form-control" disabled><br>
         
         <label for="nombre">Sexo:</label>
-        <input type="text" name="Sexo" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Sexo" value="<%= cliente.getSexo() %>" class="form-control" disabled><br>
         
         <label for="nombre">Email:</label>
-        <input type="text" name="Email" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Email" value="<%= cliente.getEmail() %>" class="form-control" disabled><br>
 	  </div>
 	  <div class="col">
  		<label for="nombre">Pais:</label>
-        <input type="text" name="Pais" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Pais" value="<%= cliente.getLocalidad().getProvincia().getPais() %>" class="form-control" disabled><br>
         
         <label for="nombre">Provincia:</label>
-        <input type="text" name="Provincia" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Provincia" value="<%= cliente.getLocalidad().getProvincia() %>" class="form-control" disabled><br>
         
         <label for="nombre">Localidad:</label>
-        <input type="text" name="Localidad" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Localidad" value="<%= cliente.getLocalidad() %>" class="form-control" disabled><br>
         
         <label for="nombre">Direccion:</label>
-        <input type="text" name="Direccion" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Direccion" value="<%= cliente.getDireccion() %>" class="form-control" disabled><br>
         
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" name="FechaNac" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="FechaNac" value="<%= cliente.getFechaNac() %>" class="form-control" disabled><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" name="Telefono" value="lalala" class="form-control" disabled><br>
+        <input type="text" name="Telefono" value="<%= cliente.getTelefono() %>" class="form-control" disabled><br>
 	  </div>
 	</div>
 	<a class="dropdown-item" class="btn btn-primary" href="cuentasAsignarServlet?Param=1">Volver</a>

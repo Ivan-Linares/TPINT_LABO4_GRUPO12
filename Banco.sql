@@ -27,23 +27,26 @@ NombrePais varchar(50) not null unique
 create table Provincia
 (
 codPais INT NOT NULL,
-codProvincia INT NOT NULL AUTO_INCREMENT,
+codProvincia INT NOT NULL,
 NombreProvincia VARCHAR(50) NOT NULL,
 PRIMARY KEY (codPais, codProvincia),
 FOREIGN KEY (codPais) REFERENCES Pais(codPais),
-INDEX idx_codProvincia (codProvincia)
+INDEX idx_codPais (codPais),
+index idx_codProvincia (codProvincia)
 );
 
 
 CREATE table Localidades(
 codPais int not null,
 codProvincia int not null,
-codLocalidad int not null auto_increment,
+codLocalidad int not null,
 NombreLocalidad varchar(50) not null unique,
-foreign key (codProvincia) references Provincia(codProvincia),
-foreign key (codPais) references Pais(codPais),
 primary key(codPais,codProvincia, codLocalidad),
-INDEX idx_codLocalidad (codLocalidad)
+FOREIGN KEY (codPais) REFERENCES Pais(codPais),
+FOREIGN KEY (codProvincia) REFERENCES Provincia(codProvincia),
+INDEX idx_codPais (codPais),
+INDEX idx_codProvincia (codProvincia),
+INDEX idx_codLoc(codLocalidad)
 );
 
 create table clientes

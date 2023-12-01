@@ -17,68 +17,52 @@ insert into Pais (NombrePais) values
 ("Chile"),
 ("Brasil");
 
-INSERT INTO Provincia (codPais, NombreProvincia) VALUES
-(1,"Buenos Aires"),
-(1,"Cordoba"),
-(1,"Mendoza"),
-(2,"Santiago"),
-(2,"Concepcion"),
-(2,"Valdivia"),
-(3,"San pablo"),
-(3,"Rio de janeiro"),
-(3,"Bahia");
+INSERT INTO Provincia (codPais, codProvincia, NombreProvincia) VALUES
+(1, 1,"Buenos Aires"),
+(1, 2,"Cordoba"),
+(1, 3,"Mendoza"),
+(2, 1,"Santiago"),
+(2, 2,"Concepcion"),
+(2, 3,"Valdivia"),
+(3, 1,"San pablo"),
+(3, 2,"Rio de janeiro"),
+(3, 3,"Bahia");
 
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(1, 1, 'La Plata'),
-(1, 1, 'Mar del Plata'),
-(1, 1, 'Quilmes');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(1, 2, 'Córdoba'),
-(1, 2, 'Villa María'),
-(1, 2, 'Río Cuarto');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(1, 3, 'Mendoza'),
-(1, 3, 'San Rafael'),
-(1, 3, 'Tunuyán');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(2, 4, 'Santiago'),
-(2, 4, 'Rancagua'),
-(2, 4, 'Curicó');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(2, 5, 'Concepción'),
-(2, 5, 'Talcahuano'),
-(2, 5, 'Chillán');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(2, 6, 'Valdivia'),
-(2, 6, 'Osorno'),
-(2, 6, 'Puerto Montt');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(3, 7, 'Sao Paulo'),
-(3, 7, 'Campinas'),
-(3, 7, 'Guarulhos');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(3, 8, 'Río de Janeiro'),
-(3, 8, 'Niterói'),
-(3, 8, 'São Gonçalo');
-
-INSERT INTO Localidades (codPais, codProvincia, NombreLocalidad) VALUES
-(3, 9, 'Salvador'),
-(3, 9, 'Feira de Santana'),
-(3, 9, 'Vitória da Conquista');
+INSERT INTO Localidades (codPais, codProvincia, codLocalidad, NombreLocalidad) VALUES
+(1, 1, 1, 'La Plata'),
+(1, 1, 2, 'Mar del Plata'),
+(1, 1, 3, 'Quilmes'),
+(1, 2, 1, 'Córdoba'),
+(1, 2, 2, 'Villa María'),
+(1, 2, 3, 'Río Cuarto'),
+(1, 3, 1, 'Mendoza'),
+(1, 3, 2, 'San Rafael'),
+(1, 3, 3, 'Tunuyán'),
+(2, 1, 1, 'Santiago'),
+(2, 1, 2, 'Rancagua'),
+(2, 1, 3, 'Curicó'),
+(2, 2, 1, 'Concepción'),
+(2, 2, 2,'Talcahuano'),
+(2, 2, 3,'Chillán'),
+(2, 3, 1,'Valdivia'),
+(2, 3, 2,'Osorno'),
+(2, 3, 3,'Puerto Montt'),
+(3, 1, 1,'Sao Paulo'),
+(3, 1, 2,'Campinas'),
+(3, 1, 3,'Guarulhos'),
+(3, 2, 1,'Río de Janeiro'),
+(3, 2, 2,'Niterói'),
+(3, 2, 3,'São Gonçalo'),
+(3, 3, 1,'Salvador'),
+(3, 3, 2,'Feira de Santana'),
+(3, 3, 3,'Vitória da Conquista');
 
 INSERT INTO clientes (DNI, Cuil, Apellido, Nombre, Sexo, FechaNac, Direccion, pais, provincia, Localidad, Email, Usuario, Estado)
 VALUES
 
 ('12345678', '20345678901', 'Gomez', 'Juan', 'M', '1990-01-15', 'Calle 123',1, 1, 1, 'juan@gmail.com', 'user1', 'P'),
-('23456789', '30345678901', 'Lopez', 'Ana', 'F', '1995-05-20', 'Calle 456', 1, 3, 8, 'ana@gmail.com', 'user2', 'P'),
-('34567890', '40345678901', 'Martinez', 'Pedro', 'M', '1988-08-10', 'Calle 789', 1, 2, 4, 'pedro@gmail.com', 'user3', 'P'),
+('23456789', '30345678901', 'Lopez', 'Ana', 'F', '1995-05-20', 'Calle 456', 1, 3, 3, 'ana@gmail.com', 'user2', 'P'),
+('34567890', '40345678901', 'Martinez', 'Pedro', 'M', '1988-08-10', 'Calle 789', 1, 2, 3, 'pedro@gmail.com', 'user3', 'P'),
 ('45678901', '50345678901', 'Fernandez', 'Luis', 'M', '1992-07-08', 'Avenida A', 1, 1, 1, 'luis@gmail.com', 'user4', 'P');
 
 

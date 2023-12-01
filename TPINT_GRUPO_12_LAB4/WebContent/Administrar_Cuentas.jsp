@@ -138,9 +138,6 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<h3>Cuentas Activas:</h3>
-				<form method="post" action="Servlets_AdministraCuentas">
-					<input type="submit" name="btnMostrarCuentas" value="Mostrar cuentas">
-				</form>
 					<table class="table table-hover">
 						<thead>
 							<td>Cliente Asignado</td>

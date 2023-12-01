@@ -59,7 +59,7 @@ public class admClientes_Servlet extends HttpServlet {
 
 			request.setAttribute("Seleccionado", obj);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes_Modificar.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("admCtes_Modificar_Servlets?Param1=1");
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnEliminar") != null) {
@@ -85,22 +85,5 @@ public class admClientes_Servlet extends HttpServlet {
 			rd.forward(request, response);
 			
 		}
-		/*if(request.getParameter("btnMostrarClientes") != null) {
-			
-			ClienteNegocio cNeg = new ClienteNegocioImpl();
-			ArrayList<Cliente> lista = cNeg.listarActivos();
-			
-			request.setAttribute("listaClientes", lista);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
-			rd.forward(request, response);	
-			
-		}*/
-		
-		
 	}
-	
-	
-	
-	
 }

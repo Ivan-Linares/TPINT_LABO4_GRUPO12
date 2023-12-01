@@ -13,8 +13,8 @@ public class LocalidadNegocioImpl implements LocalidadNegocio {
 	private LocalidadDAO ldao;
 	@Override
 	public ArrayList<Localidad> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		ldao = new LocalidadDAOImpl();
+		return ldao.listar();
 	}
 
 	@Override

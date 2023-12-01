@@ -149,9 +149,6 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<h3>Clientes activos:</h3>
-				<form method="post" action="admClientes_Servlet">
-					<input type="submit" name="btnMostrarClientes" value="Mostrar Clientes">
-				</form>
 					<table class="table table-hover">
 						<thead>
 							<td>Cliente</td>

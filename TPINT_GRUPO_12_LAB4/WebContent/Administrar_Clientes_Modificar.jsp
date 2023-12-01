@@ -1,3 +1,5 @@
+<%@page import="Entidad.Localidad"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Entidad.Cliente"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -159,12 +161,10 @@ Usuario user=new Usuario();%>
         <label for="nombre">Usuario:</label>
         <input type="text" id="nombre" name="nombre" value="<%= obj.getUsuario() %>" class="form-control"><br>
         
-        <label for="nombre">Contraseña:</label>
-        <input type="password" id="nombre" name="nombre" value="<%= obj.getPass() %>" class="form-control"><br>        
 	  </div>
 	  <div class="col">
 	  	<label for="nombre">Sexo:</label><br>
-	  	<select name="Sexo">
+	  	<select name="Sexo" class="ratio w-25 tooltip-inner">
 	  		<option selected="true" disabled="disabled"> <%= obj.getSexo() %> </option>
 	  		<option value="F">F</option>
 	  		<option value="M">M</option>
@@ -180,14 +180,25 @@ Usuario user=new Usuario();%>
         <label for="nombre">Direccion:</label>
         <input type="text" id="nombre" name="nombre" value="<%= obj.getDireccion() %>" class="form-control"><br>
         
- 		<label for="nombre">Pais:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getProvincia().getPais().getName() %>" class="form-control"><br>
-        
-        <label for="nombre">Provincia:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getProvincia().getNombreProvincia() %>" class="form-control"><br>
-        
-        <label for="nombre">Localidad:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getLocalidad().getNombreLocalidad() %>" class="form-control"><br>
+ 		<label for="nombre">Localidad  -  Provincia  -  Pais</label><br><br>
+ 		<select name="localidad" class="ratio w-50 tooltip-inner">
+ 			<option selected="true" disabled="disabled" ><%= obj.getLocalidad().getNombreLocalidad()+"  -  "+obj.getLocalidad().getProvincia().getNombreProvincia()+"  -  "+obj.getLocalidad().getProvincia().getPais().getName() %></option>
+	 		<%
+	 		ArrayList<Localidad> listado = new ArrayList<Localidad>();
+	 		if(request.getAttribute("listaLocalidades")!=null){
+	 			listado = (ArrayList<Localidad>)request.getAttribute("listaLocalidades");
+	 			for(Localidad loc : listado){
+	 				%>
+	 				<option value="<% loc.getCodLocalidad(); %>"><%= loc.getNombreLocalidad() + " - " + loc.getProvincia().getNombreProvincia() + " - " + loc.getProvincia().getPais().getName()%></option>
+	 			<%	
+	 			}
+	 		}
+	 		%>
+ 			<option></option>
+ 		</select><br><br>
+ 		        
+        <label for="nombre">Contraseña:</label>
+        <input type="password" id="nombre" name="nombre" value="<%= obj.getPass() %>" class="form-control"><br>
         <%
         }
        %>

@@ -139,7 +139,8 @@ Usuario user=new Usuario();%>
 	  <%ArrayList<Cuenta> seleccionada = new ArrayList<Cuenta>();
 	  	if(request.getAttribute("seleccionada")!=null){
 	  		seleccionada = (ArrayList<Cuenta>)request.getAttribute("seleccionada");
-	  		for(Cuenta cuenta : seleccionada){%>
+	  		for(Cuenta cuenta : seleccionada){
+	  		%>
 	  		
 			    <label for="nombre">Numero Cuenta </label>
 		        <input type="text" name="Numero" value="<%=cuenta.getNumero()%>" class="form-control"><br>
@@ -159,6 +160,7 @@ Usuario user=new Usuario();%>
 		        
 		        <label for="nombre">Tipo Cuenta:</label><br>
 					  	<Select Name="Tipo Cuenta" class="ratio w-25">
+					  		<option selected="true" disabled="disabled"><%= cuenta.getTipoCuenta().getName() %></option>
 		        <%
 		        ArrayList<TipoCuenta> tiposeleccionada = new ArrayList<TipoCuenta>();
 			        if(request.getAttribute("ListaDeCuentas")!=null){

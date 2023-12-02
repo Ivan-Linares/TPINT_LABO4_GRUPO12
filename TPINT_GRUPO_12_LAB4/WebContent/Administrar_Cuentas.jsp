@@ -14,6 +14,7 @@
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="Styles/Css.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -154,13 +155,13 @@ Usuario user=new Usuario();%>
 							
 							for(Cuenta cuenta: lista){%>
 							<tr>
-								<form method="get" action="Servlets_AdministraCuentas">
+								<form method="get" action="Servlets_AdministraCuentas" id="cuentasForm">
 								<td><%= cuenta.getDni()%></td>
 								<td><%= cuenta.getNumero()%><input type="hidden" name="CuentaSeleccionada" value="<%= cuenta.getNumero()%>" ></td>
 								<td><%= cuenta.getTipoCuenta().getName()%></td>
 								<td><%= cuenta.getCBU()%></td>
 								<td><input type="submit" name="btnModificar" value="Modificar" class="btn btn-primary"></td>
-								<td><input type="submit" name="btnEliminar" value="Eliminar" class="btn btn-primary" ></td>																
+								<td><input type="submit" id="btnEliminar" onclick="return confirmacionEliminar()" name="btnEliminar" value="Eliminar" class="btn btn-primary" ></td>																
 								</form>
 							</tr>
 							<%}
@@ -171,5 +172,44 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 		</div>
 	</div>
+	
+	<div class="modal" id="modalConfirmacion">
+        <div class="modal-contenido">
+            <p>¿Estás seguro de realizar esta acción?</p>
+            <button onclick="confirmarAccion()">Sí</button>
+            <button onclick="cerrarModal()">No</button>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="JS/script.js"></script>
+    
+<!-- <script>
+    $(document).ready(function () {
+        $("#btnEliminar").click(function () {
+            var confirmacion = confirm("¿Estás seguro de eliminar esta cuenta?");
+            if (confirmacion) {
+                $("#Servlets_AdministraCuentas").submit();
+            }
+        });
+    });
+</script> -->
+
+<!-- <script>
+    function confirmarEliminar(numeroCuenta) {
+        var confirmacion = confirm("¿Está seguro de que desea eliminar la cuenta con número " + numeroCuenta + "?");
+        if (confirmacion) {
+            document.getElementById('cuentasForm').submit();
+        } 
+    }
+</script> -->
+
+<script>
+    function confirmacionEliminar() {
+        var respuesta = confirm("¿Estás seguro de dar de baja esta cuenta?");
+        return respuesta; 
+    }
+</script>	
+	
 </body>
 </html>

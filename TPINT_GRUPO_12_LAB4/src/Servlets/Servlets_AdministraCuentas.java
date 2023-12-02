@@ -107,7 +107,7 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+
 	}
 
 }

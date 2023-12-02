@@ -8,9 +8,10 @@ function cerrarModal() {
 
 function confirmarAccion() {
 	
-    $.post("Servlets/admClientes_Servlet", {accion: "confirmar"}, function (respuesta) {
+    $.post("Servlets_AdministraCuentas", {accion: "confirmar"}, function (respuesta) {
     	
     	console.log(respuesta);
+    	alert(respuesta);
     });
 
     cerrarModal();

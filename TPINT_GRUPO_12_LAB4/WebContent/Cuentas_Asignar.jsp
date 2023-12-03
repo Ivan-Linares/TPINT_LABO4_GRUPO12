@@ -178,7 +178,7 @@ Usuario user=new Usuario();%>
 						<td><%=cliente.getNombre() %></td>
 						<td><%=cliente.getApellido() %></td>
 						<td><%=cliente.getEmail() %></td>
-						<td><%=cliente.getFechaNac() %></td>
+						<td><%=cliente.getFechaNac().toString() %></td>
 						<td> <input type="submit" name="BtnVerDetalle" value="Ver Detalle"
 							class="btn btn-info"></td>
 						<td><select class="form-select"

@@ -161,25 +161,25 @@ Usuario user=new Usuario();%>
 	  </div>
 	  <div class="col">
  		<label for="nombre">Pais:</label>
-        <input type="text" name="Pais" value="<%= cliente.getLocalidad().getProvincia().getPais() %>" class="form-control" disabled><br>
+        <input type="text" name="Pais" value="<%= cliente.getLocalidad().getProvincia().getPais().getName() %>" class="form-control" disabled><br>
         
         <label for="nombre">Provincia:</label>
-        <input type="text" name="Provincia" value="<%= cliente.getLocalidad().getProvincia() %>" class="form-control" disabled><br>
+        <input type="text" name="Provincia" value="<%= cliente.getLocalidad().getProvincia().getNombreProvincia() %>" class="form-control" disabled><br>
         
         <label for="nombre">Localidad:</label>
-        <input type="text" name="Localidad" value="<%= cliente.getLocalidad() %>" class="form-control" disabled><br>
+        <input type="text" name="Localidad" value="<%= cliente.getLocalidad().getNombreLocalidad() %>" class="form-control" disabled><br>
         
         <label for="nombre">Direccion:</label>
         <input type="text" name="Direccion" value="<%= cliente.getDireccion() %>" class="form-control" disabled><br>
         
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" name="FechaNac" value="<%= cliente.getFechaNac() %>" class="form-control" disabled><br>
+        <input type="text" name="FechaNac" value="<%= cliente.getFechaNac().toString() %>" class="form-control" disabled><br>
         
         <label for="nombre">Telefono:</label>
         <input type="text" name="Telefono" value="<%= cliente.getTelefono() %>" class="form-control" disabled><br>
 	  </div>
-	</div>
-	<a class="dropdown-item" class="btn btn-primary" href="cuentasAsignarServlet?Param=1">Volver</a>
+	</div> <br>
+	<a class="btn btn-primary" href="cuentasAsignarServlet?Param=1">Volver</a>
 
 </body>
 </html>

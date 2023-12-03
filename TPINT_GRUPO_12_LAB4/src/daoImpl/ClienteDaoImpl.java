@@ -191,8 +191,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		cliente.setPass(rs.getString("u.Password"));
 		cliente.setEstado(rs.getString("c.Estado"));
 		String fe=rs.getString("c.FechaNac");
-		//LocalDate f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
-		//cliente.setFechaNac(f);
+		cliente.setFechaNac(rs.getDate("FechaNac"));
+		
 		return cliente;
 	}
 

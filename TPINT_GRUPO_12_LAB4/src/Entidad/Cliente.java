@@ -1,5 +1,6 @@
 package Entidad;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Cliente {
@@ -10,8 +11,7 @@ public class Cliente {
 	private String nombre;
 	private String sexo;
 	private String direccion;
-	//private Fecha fechaNac;
-	private LocalDate fechaNac;
+	private Date fechaNac;
 	private String telefono;
 	private Localidad localidad;
 	private String email;
@@ -23,7 +23,7 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, Localidad l, String mail, String u, String e, String ps, String tel) {
+	public Cliente(String d, String c, String a, String n, String s, Date fechanac, String di, Localidad l, String mail, String u, String e, String ps, String tel) {
 		
 		this.dni=d;
 		this.cuil=c;
@@ -38,10 +38,9 @@ public class Cliente {
 		this.pass=ps;
 		this.estado=e;
 		this.direccion=di;
-		
 	}
 	
-	public Cliente(String d, String c, String a, String n, String s, LocalDate fechanac, String di, int l, String mail, String u, String e) {
+	public Cliente(String d, String c, String a, String n, String s, Date fechanac, String di, int l, String mail, String u, String e) {
 		
 		this.dni=d;
 		this.cuil=c;
@@ -56,7 +55,6 @@ public class Cliente {
 		this.direccion=di;
 		
 	}
-
 
 
 	public String getDni() {
@@ -99,11 +97,11 @@ public class Cliente {
 		this.sexo = sexo;
 	}
 
-	public LocalDate getFechaNac() {
+	public Date getFechaNac() {
 		return this.fechaNac;
 	}
 
-	public void setFechaNac(LocalDate fechaNac) {
+	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 

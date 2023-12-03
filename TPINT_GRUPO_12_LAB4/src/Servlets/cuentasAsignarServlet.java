@@ -61,19 +61,12 @@ public class cuentasAsignarServlet extends HttpServlet {
 			String DNI = request.getParameter("dniCliente");
 			
 			ClienteNegocio cNeg = new ClienteNegocioImpl();
-			ArrayList<Cliente> lista = cNeg.listarPendientes();
+			Cliente cli = cNeg.Cte_Seleccionado(DNI);
 			
-			if(!lista.isEmpty()) {
-				for (Cliente cliente : lista) {
-					if(cliente.getDni() == DNI) {
-						
-						request.setAttribute("ClientePend", cliente);
-						
-						RequestDispatcher rd = request.getRequestDispatcher("/Cuentas_VerDetalle.jsp");
-						rd.forward(request, response);	
-					}
-				}
-			}
+			request.setAttribute("ClientePend", cli);
+			RequestDispatcher rd = request.getRequestDispatcher("/Cuentas_VerDetalle.jsp");
+			rd.forward(request, response);
+			
 		}
 		
 		if(request.getParameter("btnEnviar") != null) {

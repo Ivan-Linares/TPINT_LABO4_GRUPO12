@@ -33,6 +33,13 @@ public class admClientes_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(request.getParameter("Param")!=null) {
 			ClienteNegocio cNeg = new ClienteNegocioImpl();
 			ArrayList<Cliente> lista = cNeg.listarActivos();
@@ -42,12 +49,6 @@ public class admClientes_Servlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
 			rd.forward(request, response);
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getParameter("btnModificar")!=null) {
 			String DNI = request.getParameter("dniCliente");

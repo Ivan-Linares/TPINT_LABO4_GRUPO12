@@ -135,7 +135,7 @@ Usuario user=new Usuario();%>
 <%} %>
 <br />
 
-<form action="" method="post">
+<form action="admCtes_Modificar_Servlets" method="post">
 	<div class="row">
 	  <div class="col">
 	  <%
@@ -144,7 +144,7 @@ Usuario user=new Usuario();%>
 		  obj= (Cliente)request.getAttribute("Seleccionado");
 		  %>
 	    <label for="nombre">DNI:</label>
-        <input type="text" id="nombre" name="DNI" value="<%= obj.getDni() %>" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="DNI" value="<%= obj.getDni() %>" class="form-control"><br>
         
         <label for="nombre">CUIL:</label>
         <input type="text" id="nombre" name="cuil" value="<%= obj.getCuil() %>" class="form-control"><br>
@@ -153,36 +153,36 @@ Usuario user=new Usuario();%>
         <input type="text" id="nombre" name="nombre" value="<%= obj.getNombre() %>" class="form-control"><br>
         
         <label for="nombre">Apellido:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getApellido() %>" class="form-control"><br>
+        <input type="text" id="nombre" name="Apellido" value="<%= obj.getApellido() %>" class="form-control"><br>
         
         <label for="nombre">Email:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getEmail() %>" class="form-control"><br>
+        <input type="text" id="nombre" name="Email" value="<%= obj.getEmail() %>" class="form-control"><br>
         
         <label for="nombre">Usuario:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getUsuario() %>" class="form-control"><br>
+        <input type="text" id="nombre" name="Usuario" value="<%= obj.getUsuario() %>" class="form-control"><br>
         
 	  </div>
 	  <div class="col">
 	  	<label for="nombre">Sexo:</label><br>
 	  	<select name="Sexo" class="ratio w-25 tooltip-inner">
-	  		<option selected="true" disabled="disabled"> <%= obj.getSexo() %> </option>
+	  		<option value="<%= obj.getSexo() %>" selected> <%= obj.getSexo() %> </option>
 	  		<option value="F">F</option>
 	  		<option value="M">M</option>
 	  		<option value="X">X</option>
 	  	</select><br><br>
        
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getFechaNac()%>" class="form-control"><br>
+        <input type="text" id="nombre" name="FechaNac" value="<%= obj.getFechaNac()%>" class="form-control"><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getTelefono() %>" class="form-control"><br>
+        <input type="text" id="nombre" name="Tel" value="<%= obj.getTelefono() %>" class="form-control"><br>
         
         <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getDireccion() %>" class="form-control"><br>
+        <input type="text" id="nombre" name="Direccion" value="<%= obj.getDireccion() %>" class="form-control"><br>
         
  		<label for="nombre">Localidad  -  Provincia  -  Pais</label><br><br>
  		<select name="localidad" class="ratio w-50 tooltip-inner">
- 			<option selected="true" disabled="disabled" ><%= obj.getLocalidad().getNombreLocalidad()+"  -  "+obj.getLocalidad().getProvincia().getNombreProvincia()+"  -  "+obj.getLocalidad().getProvincia().getPais().getName() %></option>
+ 			<option value="<%= obj.getLocalidad().getCodLocalidad() %>" selected ><%= obj.getLocalidad().getNombreLocalidad() + "  -  " + obj.getLocalidad().getProvincia().getNombreProvincia()+"  -  "+obj.getLocalidad().getProvincia().getPais().getName() %></option>
 	 		<%
 	 		ArrayList<Localidad> listado = new ArrayList<Localidad>();
 	 		if(request.getAttribute("listaLocalidades")!=null){
@@ -198,14 +198,14 @@ Usuario user=new Usuario();%>
  		</select><br><br>
  		        
         <label for="nombre">Contraseña:</label>
-        <input type="password" id="nombre" name="nombre" value="<%= obj.getPass() %>" class="form-control"><br>
+        <input type="password" id="nombre" name="Contraseña" value="<%= obj.getPass() %>" class="form-control"><br>
         <%
         }
        %>
 	  </div>
 	</div>
-	<input type="submit" value="Cancelar" class="btn btn-danger">
-	<input type="submit" value="Confirmar" class="btn btn-success">
+	<input type="submit" value="Cancelar" name="btncancelar" class="btn btn-danger">
+	<input type="submit" value="Confirmar" name="btnconfirmar" class="btn btn-success">
 </form>
 
 </body>

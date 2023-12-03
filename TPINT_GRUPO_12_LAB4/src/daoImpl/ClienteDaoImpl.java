@@ -77,7 +77,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Cuentas SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Localidad=?,Direccion=?,Email=?, Usuario=?, Estado=? Where DNI=?");
+			statement = con.prepareStatement("Update clientes SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Localidad=? ,Direccion=?, Email=?, Usuario=?, Estado='A' Where DNI=?");
 			statement.setString(1, cliente.getCuil());
 			statement.setString(2, cliente.getApellido());
 			statement.setString(3, cliente.getNombre());
@@ -86,12 +86,10 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setInt(6, cliente.getLocalidad().getCodLocalidad());
 			statement.setString(7, cliente.getDireccion());
 			statement.setString(8, cliente.getEmail());
-			statement.setString(9, cliente.getEstado());
-			statement.setString(10, cliente.getUsuario());
-			statement.setString(11, cliente.getDni());
-			
-			
-			
+			//statement.setString(9, cliente.getEstado());
+			statement.setString(9, cliente.getUsuario());
+			statement.setString(10, cliente.getDni());
+						
 			if(statement.executeUpdate() > 0) {
 				con.commit();
 				return true;
@@ -164,7 +162,7 @@ public class ClienteDaoImpl implements ClienteDao{
 	
 	
 
-	private Cliente setCliente(ResultSet rs) throws SQLException {
+private Cliente setCliente(ResultSet rs) throws SQLException {
 		
 		Cliente cliente = new Cliente();
 		Localidad l=new Localidad();
@@ -191,8 +189,9 @@ public class ClienteDaoImpl implements ClienteDao{
 		cliente.setPass(rs.getString("u.Password"));
 		cliente.setEstado(rs.getString("c.Estado"));
 		String fe=rs.getString("c.FechaNac");
-		cliente.setFechaNac(rs.getDate("FechaNac"));
-		
+		LocalDate ld = LocalDate.parse(fe);
+		//LocalDate f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
+		cliente.setFechaNac(ld);
 		return cliente;
 	}
 

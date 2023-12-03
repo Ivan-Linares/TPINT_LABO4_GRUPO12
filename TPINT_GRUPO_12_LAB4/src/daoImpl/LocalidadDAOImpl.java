@@ -78,5 +78,34 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 		}
 		return lista;
 	}
+	
+
+	@Override
+	public Localidad Seleccionado(int cod) {
+		PreparedStatement statement;
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			statement = cn.prepareStatement("Select * From Localidades l inner join Provincia p on p.codProvincia=l.codProvincia inner join pais pa on pa.codPais=p.codPais where l.codlocalidad=?");
+			statement.setInt(1, cod);
+			
+			ResultSet r=statement.executeQuery();
+			while(r.next()) {
+				iniciar();
+				pais.setCode(r.getInt("p.codPais"));
+				pais.setName(r.getString("pa.NombrePais"));
+				provincia.setPais(pais);
+				provincia.setCodProvincia(r.getInt("l.codProvincia"));
+				provincia.setNombreProvincia(r.getString("p.NombreProvincia"));
+				localidad.setProvincia(provincia);
+				localidad.setCodLocalidad(r.getInt("l.codLocalidad"));
+				localidad.setNombreLocalidad(r.getString("l.NombreLocalidad"));
+				
+				return localidad;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

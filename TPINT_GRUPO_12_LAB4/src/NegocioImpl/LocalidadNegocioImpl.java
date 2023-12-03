@@ -24,4 +24,9 @@ public class LocalidadNegocioImpl implements LocalidadNegocio {
 		return ldao.filtrar(id);
 	}
 
+	@Override
+	public Localidad Seleccionado(int cod) {
+		ldao=new LocalidadDAOImpl();
+		return ldao.Seleccionado(cod);
+	}
 }

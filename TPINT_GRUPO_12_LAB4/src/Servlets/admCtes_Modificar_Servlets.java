@@ -1,6 +1,9 @@
 package Servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,8 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Entidad.Cliente;
 import Entidad.Localidad;
+import Negocio.ClienteNegocio;
 import Negocio.LocalidadNegocio;
+import NegocioImpl.ClienteNegocioImpl;
 import NegocioImpl.LocalidadNegocioImpl;
 
 /**
@@ -33,25 +39,54 @@ public class admCtes_Modificar_Servlets extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("Param1")!=null) {
-			ArrayList<Localidad> listaLocalidades = new ArrayList<Localidad>();
-			LocalidadNegocio pn = new LocalidadNegocioImpl();
-			listaLocalidades = pn.listar();
-			
-
-			request.setAttribute("listaLocalidades", listaLocalidades);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes_Modificar.jsp");
-			rd.forward(request, response);
-		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		if(request.getParameter("Param1")!=null) {
+			ArrayList<Localidad> listaLocalidades = new ArrayList<Localidad>();
+			LocalidadNegocio pn = new LocalidadNegocioImpl();
+			listaLocalidades = pn.listar();
+			
+			
+			request.setAttribute("listaLocalidades", listaLocalidades);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes_Modificar.jsp");
+			rd.forward(request, response);
+		}
+		if(request.getParameter("btnconfirmar")!=null) {
+			Cliente obj = new Cliente();
+			Localidad loc = new Localidad();
+			LocalidadNegocio lcn= new LocalidadNegocioImpl();
+			String estado = "A";
+			
+			obj.setApellido(request.getParameter("Apellido"));
+			obj.setCuil(request.getParameter("cuil"));
+			obj.setDireccion(request.getParameter("Direccion"));
+			obj.setDni(request.getParameter("DNI"));
+			obj.setEmail(request.getParameter("Email"));
+			obj.setEstado(estado);
+			obj.setNombre(request.getParameter("nombre"));
+			obj.setPass(request.getParameter("Contraseña"));
+			obj.setUsuario(request.getParameter("Usuario"));
+			
+			
 
+			obj.setFechaNac(Date.parse(request.getParameter("FechaNac"));
+			
+			obj.setSexo(request.getParameter("Sexo"));
+			int cod = Integer.parseInt(request.getParameter("localidad"));
+			loc = lcn.Seleccionado(cod);
+			
+			obj.setLocalidad(loc);
+			
+			ClienteNegocio cln = new ClienteNegocioImpl();
+			cln.modificar(obj);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("admClientes_Servlet?Param=1");
+			rd.forward(request, response);
+		}
+	}
 }

@@ -173,40 +173,12 @@ Usuario user=new Usuario();%>
 		</div>
 	</div>
 	
-	<div class="modal" id="modalConfirmacion">
-        <div class="modal-contenido">
-            <p>¿Estás seguro de realizar esta acción?</p>
-            <button onclick="confirmarAccion()">Sí</button>
-            <button onclick="cerrarModal()">No</button>
-        </div>
-    </div>
-    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="JS/script.js"></script>
-    
-<!-- <script>
-    $(document).ready(function () {
-        $("#btnEliminar").click(function () {
-            var confirmacion = confirm("¿Estás seguro de eliminar esta cuenta?");
-            if (confirmacion) {
-                $("#Servlets_AdministraCuentas").submit();
-            }
-        });
-    });
-</script> -->
-
-<!-- <script>
-    function confirmarEliminar(numeroCuenta) {
-        var confirmacion = confirm("¿Está seguro de que desea eliminar la cuenta con número " + numeroCuenta + "?");
-        if (confirmacion) {
-            document.getElementById('cuentasForm').submit();
-        } 
-    }
-</script> -->
 
 <script>
     function confirmacionEliminar() {
-        var respuesta = confirm("¿Estás seguro de dar de baja esta cuenta?");
+       	var respuesta = confirm("Estas seguro de dar de baja esta cuenta?");
         return respuesta; 
     }
 </script>	

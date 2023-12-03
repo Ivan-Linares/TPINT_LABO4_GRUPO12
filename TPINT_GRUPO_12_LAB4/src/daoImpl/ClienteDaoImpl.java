@@ -190,12 +190,16 @@ private Cliente setCliente(ResultSet rs){
 			cliente.setEmail(rs.getString("c.email"));
 			cliente.setPass(rs.getString("u.Password"));
 			
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+			/*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String fecha= rs.getString("c.FechaNac");
+			Date f = (Date) dateFormat.parse(fecha);*/
 			
-			Date f = (Date) dateFormat.parse(fecha);
 			//LocalDate f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
-			cliente.setFechaNac(f);
+			
+			String fechaStr = rs.getString("c.FechaNac");
+			java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+			
+			cliente.setFechaNac(fechaSQL);
 			cliente.setEstado(rs.getString("c.Estado"));
 			
 			

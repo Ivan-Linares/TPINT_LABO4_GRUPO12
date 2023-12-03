@@ -169,7 +169,7 @@ Usuario user=new Usuario();%>
 						<td><%=cliente.getApellido() %></td>
 						<td><%=cliente.getUsuario() %></td>
 						<td><input type="submit" value="Modificar" name="btnModificar" class="btn btn-info"></td>
-						<td><input id="btnEliminar" type="submit" value="Eliminar" name="btnEliminar" class="btn btn-primary"></td>
+						<td><input id="btnEliminar" type="submit" value="Eliminar" onclick="return confirmacionEliminar()" name="btnEliminar" class="btn btn-primary"></td>
 						<!-- <td><input id="btnEliminar" type="submit" value="Eliminar" name="btnEliminar" onclick="mostrarModal()" class="btn btn-primary"></td> -->
 						</form>
 					</tr>
@@ -190,7 +190,13 @@ Usuario user=new Usuario();%>
         </div>
     </div>
     
-	
+<script>
+    function confirmacionEliminar() {
+       	var respuesta = confirm("Estas seguro de dar de baja este cliente?");
+        return respuesta; 
+    }
+</script>	 
+ 
 <%
 	String msj = " ";
 	if(request.getAttribute("msj")!=null)

@@ -2,6 +2,8 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -84,8 +86,13 @@ public class ContactoClienteServlet extends HttpServlet {
 				//Hacer metodos 
 				cte.getLocalidad().setCodLocalidad(Integer.parseInt(request.getParameter("localidad")));
 				
-				cte.setDireccion(request.getParameter("txtDireccion"));			
-				cte.setFechaNac(LocalDate.parse(request.getParameter("dateFechaNacimiento"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				cte.setDireccion(request.getParameter("txtDireccion"));
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String fecha=request.getParameter("dateFechaNacimiento");
+				
+				
+				cte.setFechaNac((Date)dateFormat.parse(fecha));
 				cte.setTelefono(request.getParameter("txtTelefono"));
 				cte.setEmail(request.getParameter("txtEmail"));
 				cte.setUsuario(request.getParameter("txtUser"));
@@ -119,7 +126,7 @@ public class ContactoClienteServlet extends HttpServlet {
 				
 			} catch (Exception e) {
 				resp = "Ocurrio un error al crear el usuario";
-				throw e;
+				e.printStackTrace();
 			}
 			
 			request.setAttribute("usuarioCreado", resp);

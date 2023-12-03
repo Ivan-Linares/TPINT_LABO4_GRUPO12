@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -162,37 +164,47 @@ public class ClienteDaoImpl implements ClienteDao{
 	
 	
 
-private Cliente setCliente(ResultSet rs) throws SQLException {
-		
-		Cliente cliente = new Cliente();
-		Localidad l=new Localidad();
-		Provincia pro =new Provincia();
-		Pais pais=new Pais();
-		
-		cliente.setDni(rs.getString("c.DNI"));
-		cliente.setCuil(rs.getString("c.Cuil"));
-		cliente.setApellido(rs.getString("c.Apellido"));
-		cliente.setNombre(rs.getString("c.Nombre"));
-		cliente.setDireccion(rs.getString("c.Direccion"));
-		pais.setCode((rs.getInt("pa.codPais")));
-		pais.setName(rs.getString("pa.NombrePais"));
-		pro.setNombreProvincia(rs.getString("p.NombreProvincia"));
-		pro.setCodProvincia((rs.getInt("p.codProvincia")));
-		pro.setPais(pais);
-		l.setNombreLocalidad(rs.getString("l.NombreLocalidad"));
-		l.setCodLocalidad((rs.getInt("l.codLocalidad")));
-		l.setProvincia(pro);
-		cliente.setLocalidad(l);
-		cliente.setUsuario(rs.getString("c.Usuario"));
-		cliente.setSexo(rs.getString("c.Sexo"));
-		cliente.setEmail(rs.getString("c.email"));
-		cliente.setPass(rs.getString("u.Password"));
-		cliente.setEstado(rs.getString("c.Estado"));
-		String fe=rs.getString("c.FechaNac");
-		LocalDate ld = LocalDate.parse(fe);
-		//LocalDate f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
-		cliente.setFechaNac(ld);
-		return cliente;
+private Cliente setCliente(ResultSet rs){
+		try {
+			Cliente cliente = new Cliente();
+			Localidad l=new Localidad();
+			Provincia pro =new Provincia();
+			Pais pais=new Pais();
+			
+			cliente.setDni(rs.getString("c.DNI"));
+			cliente.setCuil(rs.getString("c.Cuil"));
+			cliente.setApellido(rs.getString("c.Apellido"));
+			cliente.setNombre(rs.getString("c.Nombre"));
+			cliente.setDireccion(rs.getString("c.Direccion"));
+			pais.setCode((rs.getInt("pa.codPais")));
+			pais.setName(rs.getString("pa.NombrePais"));
+			pro.setNombreProvincia(rs.getString("p.NombreProvincia"));
+			pro.setCodProvincia((rs.getInt("p.codProvincia")));
+			pro.setPais(pais);
+			l.setNombreLocalidad(rs.getString("l.NombreLocalidad"));
+			l.setCodLocalidad((rs.getInt("l.codLocalidad")));
+			l.setProvincia(pro);
+			cliente.setLocalidad(l);
+			cliente.setUsuario(rs.getString("c.Usuario"));
+			cliente.setSexo(rs.getString("c.Sexo"));
+			cliente.setEmail(rs.getString("c.email"));
+			cliente.setPass(rs.getString("u.Password"));
+			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+			String fecha= rs.getString("c.FechaNac");
+			
+			Date f = (Date) dateFormat.parse(fecha);
+			//LocalDate f = new Fecha(LocalDate.parse(fe,DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfMonth(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getMonthValue(),LocalDate.parse(fe, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getYear());
+			cliente.setFechaNac(f);
+			cliente.setEstado(rs.getString("c.Estado"));
+			
+			
+			return cliente;			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

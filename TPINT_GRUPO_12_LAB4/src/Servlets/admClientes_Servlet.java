@@ -33,6 +33,15 @@ public class admClientes_Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getParameter("Param")!=null) {
+			ClienteNegocio cNeg = new ClienteNegocioImpl();
+			ArrayList<Cliente> lista = cNeg.listarActivos();
+			
+			request.setAttribute("listaClientes", lista);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**

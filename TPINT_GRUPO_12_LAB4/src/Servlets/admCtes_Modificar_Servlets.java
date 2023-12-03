@@ -3,6 +3,7 @@ package Servlets;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -57,36 +58,43 @@ public class admCtes_Modificar_Servlets extends HttpServlet {
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnconfirmar")!=null) {
-			Cliente obj = new Cliente();
-			Localidad loc = new Localidad();
-			LocalidadNegocio lcn= new LocalidadNegocioImpl();
-			String estado = "A";
-			
-			obj.setApellido(request.getParameter("Apellido"));
-			obj.setCuil(request.getParameter("cuil"));
-			obj.setDireccion(request.getParameter("Direccion"));
-			obj.setDni(request.getParameter("DNI"));
-			obj.setEmail(request.getParameter("Email"));
-			obj.setEstado(estado);
-			obj.setNombre(request.getParameter("nombre"));
-			obj.setPass(request.getParameter("Contraseña"));
-			obj.setUsuario(request.getParameter("Usuario"));
-			
-			
-
-			obj.setFechaNac(Date.parse(request.getParameter("FechaNac"));
-			
-			obj.setSexo(request.getParameter("Sexo"));
-			int cod = Integer.parseInt(request.getParameter("localidad"));
-			loc = lcn.Seleccionado(cod);
-			
-			obj.setLocalidad(loc);
-			
-			ClienteNegocio cln = new ClienteNegocioImpl();
-			cln.modificar(obj);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("admClientes_Servlet?Param=1");
-			rd.forward(request, response);
+			try {
+				Cliente obj = new Cliente();
+				Localidad loc = new Localidad();
+				LocalidadNegocio lcn= new LocalidadNegocioImpl();
+				String estado = "A";
+				
+				obj.setApellido(request.getParameter("Apellido"));
+				obj.setCuil(request.getParameter("cuil"));
+				obj.setDireccion(request.getParameter("Direccion"));
+				obj.setDni(request.getParameter("DNI"));
+				obj.setEmail(request.getParameter("Email"));
+				obj.setEstado(estado);
+				obj.setNombre(request.getParameter("nombre"));
+				obj.setPass(request.getParameter("Contraseña"));
+				obj.setUsuario(request.getParameter("Usuario"));
+				
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String fecha= request.getParameter("FechaNac");
+				
+				obj.setFechaNac((Date)dateFormat.parse(fecha));
+				
+				obj.setSexo(request.getParameter("Sexo"));
+				int cod = Integer.parseInt(request.getParameter("localidad"));
+				loc = lcn.Seleccionado(cod);
+				
+				obj.setLocalidad(loc);
+				
+				ClienteNegocio cln = new ClienteNegocioImpl();
+				cln.modificar(obj);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("admClientes_Servlet?Param=1");
+				rd.forward(request, response);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

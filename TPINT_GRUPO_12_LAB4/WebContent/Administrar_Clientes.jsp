@@ -164,14 +164,13 @@ Usuario user=new Usuario();%>
 					%>
 					<tr>
 						<form action="admClientes_Servlet" method="post">
-						<td><%=cliente.getDni()%> <input type="hidden" name="dniCliente" value="<%=cliente.getDni()%>"> </td>
+						<td><%=cliente.getDni()%> <input type="hidden" name="dniCliente" value="<%= cliente.getDni() %>"></td>
 						<td><%=cliente.getNombre() %></td>
 						<td><%=cliente.getApellido() %></td>
 						<td><%=cliente.getUsuario() %></td>
 						<td><input type="submit" value="Modificar" name="btnModificar" class="btn btn-info"></td>
 						<td><input id="btnEliminar" type="submit" value="Eliminar" name="btnEliminar" class="btn btn-primary"></td>
 						<!-- <td><input id="btnEliminar" type="submit" value="Eliminar" name="btnEliminar" onclick="mostrarModal()" class="btn btn-primary"></td> -->
-						
 						</form>
 					</tr>
 						<%

@@ -52,7 +52,22 @@ public class ContactoClienteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String action = request.getParameter("action");
+	       
+    	if ("checkUser".equals(action)) {
+    		UsuarioNegocio u=new UsuarioNegocioImpl();
+    		if(u.verificarExistencia(request.getParameter("user"))) {
+    			response.getWriter().write("El usuario ya existe en la base de datos");
+    		}
+    	}
+    	
+    	if ("checkPass".equals(action)) {
+    		String pass=request.getParameter("pass");
+    		String pass2=request.getParameter("pass2");
+    		if(!pass.equals(pass2)) {
+    			response.getWriter().write("Las passwords no coinciden");
+    		}
+    	}
 	}
 
 	/**
@@ -72,11 +87,12 @@ public class ContactoClienteServlet extends HttpServlet {
 			
 			try {
 				
-				cte.setApellido(request.getParameter("txtApellido"));
-				cte.setNombre(request.getParameter("txtNombre"));
-				cte.setDni(request.getParameter("txtDNI"));
-				cte.setCuil(request.getParameter("txtCUIL"));
-				cte.setSexo(request.getParameter("selSexo"));
+				cte.setApellido(request.getParameter("apellido"));
+				String a=request.getParameter("apellido");
+				cte.setNombre(request.getParameter("nombre"));
+				cte.setDni(request.getParameter("dni"));
+				cte.setCuil(request.getParameter("cuil"));
+				cte.setSexo(request.getParameter("Sexo"));
 				cte.setLocalidad(new Localidad());
 				cte.getLocalidad().setProvincia(new Provincia());
 				cte.getLocalidad().getProvincia().setPais(new Pais());
@@ -86,25 +102,23 @@ public class ContactoClienteServlet extends HttpServlet {
 				//Hacer metodos 
 				cte.getLocalidad().setCodLocalidad(Integer.parseInt(request.getParameter("localidad")));
 				
-				cte.setDireccion(request.getParameter("txtDireccion"));
+				cte.setDireccion(request.getParameter("direccion"));
 				
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String fecha=request.getParameter("dateFechaNacimiento");
+				String fecha=request.getParameter("fechaNacimiento");
 				
+				java.sql.Date Fecha = java.sql.Date.valueOf(fecha);
 				
-				cte.setFechaNac((Date)dateFormat.parse(fecha));
-				cte.setTelefono(request.getParameter("txtTelefono"));
-				cte.setEmail(request.getParameter("txtEmail"));
-				cte.setUsuario(request.getParameter("txtUser"));
-				cte.setPass(request.getParameter("txtPass"));
+				cte.setFechaNac(Fecha);
+				cte.setTelefono(request.getParameter("telefono"));
+				cte.setEmail(request.getParameter("email"));
+				cte.setUsuario(request.getParameter("user"));
+				cte.setPass(request.getParameter("pass"));
 				cte.setEstado("P");
 				
 				user.setPersona(cte);	
 				user.setTipoUsuario(new TipoUsuario());
 				user.getTipoUsuario().setTipo(2);
-				//Leer desde DB?
-				user.getTipoUsuario().setDescripcion("Cliente");
-				//
 				user.setUser(cte.getUsuario());
 				user.setPass(cte.getPass());
 				user.setEstado(true);

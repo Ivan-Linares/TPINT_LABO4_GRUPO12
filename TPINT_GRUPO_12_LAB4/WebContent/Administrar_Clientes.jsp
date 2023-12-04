@@ -20,6 +20,11 @@
 	crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="JS/script.js"></script>
+    <script>
+    	function enviardatos(){
+    		document.forms["formulario"].submit();
+    	}
+    </script>
 </head>
 <body>
 
@@ -149,6 +154,18 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<h3>Clientes activos:</h3>
+				<form id="formulario" action="admClientes_Servlet" method="post">
+					<div>
+						Filtrar por:
+						<select name="filtro">
+							<option value="1"> DNI </option>
+							<option value="2"> Usuario </option>
+							<option value="3"> Apellido y nombre </option>
+						</select>
+						<input type="text" name="txtdatos" onchange="enviardatos" >
+						<input type="submit" name="Btnbuscar" value="Buscar">
+					</div>
+				</form>
 					<table class="table table-hover">
 						<thead>
 							<td>Cliente</td>

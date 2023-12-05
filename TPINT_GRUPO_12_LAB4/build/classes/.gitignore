@@ -1,4 +1,5 @@
-/Servlets/
-/NegocioImpl/
 /Negocio/
+/NegocioImpl/
+/dao/
 /daoImpl/
+/Servlets/

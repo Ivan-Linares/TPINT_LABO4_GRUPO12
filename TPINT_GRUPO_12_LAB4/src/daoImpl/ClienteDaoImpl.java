@@ -389,4 +389,25 @@ private Cliente setCliente(ResultSet rs){
 		}
 		return cliente;
 	}
+
+	@Override
+	public ArrayList<Cliente> listarFiltrada(String dato, String campo) {
+		Cliente obj = new Cliente();
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			Statement st = cn.createStatement();
+			String complemento = " and c." + campo + " like '" + dato + "%'";
+			String query = "select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'A'";
+			ResultSet rs = st.executeQuery(query+complemento);
+			while(rs.next()) {
+				obj = setCliente(rs);
+				lista.add(obj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
 }

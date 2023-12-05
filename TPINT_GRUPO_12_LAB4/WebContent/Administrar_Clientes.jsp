@@ -158,9 +158,9 @@ Usuario user=new Usuario();%>
 					<div>
 						Filtrar por:
 						<select name="filtro">
-							<option value="1"> DNI </option>
-							<option value="2"> Usuario </option>
-							<option value="3"> Apellido y nombre </option>
+							<option value="DNI"> DNI </option>
+							<option value="Usuario"> Usuario </option>
+							<option value="Apellido"> Apellido </option>
 						</select>
 						<input type="text" name="txtdatos" onchange="enviardatos" >
 						<input type="submit" name="Btnbuscar" value="Buscar">

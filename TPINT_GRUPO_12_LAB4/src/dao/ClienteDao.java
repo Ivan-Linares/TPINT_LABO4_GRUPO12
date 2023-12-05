@@ -20,4 +20,5 @@ public interface ClienteDao {
 	public boolean baja(String DNI);
 	public ArrayList<Cliente> listarActivos();
 
+	public ArrayList<Cliente> listarFiltrada(String dato, String campo);
 }

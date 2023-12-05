@@ -18,6 +18,8 @@ public interface ClienteNegocio {
 	public boolean aprobar(String DNI);
 	public boolean baja(String DNI);
 	public ArrayList<Cliente> listarActivos();
+	
+	public ArrayList<Cliente> listarFiltrada(String dato, String campo);
 }
 
 

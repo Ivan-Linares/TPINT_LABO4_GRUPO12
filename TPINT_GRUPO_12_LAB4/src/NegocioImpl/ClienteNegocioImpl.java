@@ -114,4 +114,10 @@ public class ClienteNegocioImpl implements ClienteNegocio{
 		return cDao.Cte_Seleccinado(DNI);
 	}
 
+	@Override
+	public ArrayList<Cliente> listarFiltrada(String dato, String campo) {
+		cDao = new ClienteDaoImpl(); 
+		return cDao.listarFiltrada(dato, campo);
+	}
+
 }

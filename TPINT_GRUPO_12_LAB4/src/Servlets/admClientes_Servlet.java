@@ -96,10 +96,17 @@ public class admClientes_Servlet extends HttpServlet {
 			
 		}
 		if(request.getParameter("Btnbuscar")!=null || request.getParameter("txtdatos")!=null) {
-			int campo = Integer.parseInt(request.getParameter("Btnbuscar"));
-			if (campo < 3) {
-				
-			}
+			
+			ArrayList<Cliente> lista= new ArrayList<Cliente>();
+			String dato = request.getParameter("txtdatos");
+			String campo = request.getParameter("filtro");
+			ClienteNegocio ctn = new ClienteNegocioImpl();	
+			lista = ctn.listarFiltrada(dato, campo);
+
+			request.setAttribute("listaClientes", lista);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
+			rd.forward(request, response);
 		}
 	}
 }

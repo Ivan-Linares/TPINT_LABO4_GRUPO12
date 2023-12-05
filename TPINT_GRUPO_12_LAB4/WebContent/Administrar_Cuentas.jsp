@@ -139,6 +139,18 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<h3>Cuentas Activas:</h3>
+				<form id="formulario" action="Servlets_AdministraCuentas" method="get">
+					<div>
+						Filtrar por:
+						<select name="filtro">
+							<option value="c.DNI"> Numero de cliente </option>
+							<option value="c.Cuenta"> Numero de cuenta </option>
+							<option value="tc.descripcion"> Tipo de cuenta </option>
+						</select>
+						<input type="text" name="txtdatos" onchange="enviardatos" >
+						<input type="submit" name="Btnbuscar" value="Buscar">
+					</div></br>
+				</form>
 					<table class="table table-hover">
 						<thead>
 							<td>Cliente Asignado</td>

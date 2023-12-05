@@ -17,5 +17,5 @@ public interface CuentaDao {
 	public ArrayList<Cuenta> listarPorCuenta(String numero);
 	public int total_cuentas(int dni);
 	public ArrayList<Cuenta> listar(String b, int busqueda);
-
+	public ArrayList<Cuenta> listaFiltrada(String dato, String campo);
 }

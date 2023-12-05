@@ -160,7 +160,7 @@ Usuario user=new Usuario();%>
 		        
 		        <label for="nombre">Tipo Cuenta:</label><br>
 					  	<Select Name="Tipo Cuenta" class="ratio w-25">
-					  		<option selected="true" disabled="disabled"><%= cuenta.getTipoCuenta().getName() %></option>
+					  		<option selected="true"><%= cuenta.getTipoCuenta().getName() %></option>
 		        <%
 		        ArrayList<TipoCuenta> tiposeleccionada = new ArrayList<TipoCuenta>();
 			        if(request.getAttribute("ListaDeCuentas")!=null){

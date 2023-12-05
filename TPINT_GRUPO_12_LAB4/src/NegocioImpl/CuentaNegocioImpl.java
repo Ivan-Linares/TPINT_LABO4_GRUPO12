@@ -65,6 +65,12 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		cDao = new CuentaDaoImpl();
 		return cDao.eliminar(cuenta);
 	}
+
+	@Override
+	public ArrayList<Cuenta> listaFiltrada(String dato, String campo) {
+		cDao = new CuentaDaoImpl();
+		return cDao.listaFiltrada(dato, campo);
+	}
 	
 	
 

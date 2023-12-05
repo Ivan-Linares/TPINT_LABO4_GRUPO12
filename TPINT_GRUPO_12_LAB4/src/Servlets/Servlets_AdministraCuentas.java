@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cuenta;
+import Negocio.CuentaNegocio;
 import NegocioImpl.CuentaNegocioImpl;
 
 /**
@@ -39,17 +40,6 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			listado=cni.listar();
 			
 			request.setAttribute("listadocompleto", listado);
-			
-			for(Cuenta cuenta : listado) {
-				System.out.println("Información de la cuenta:");
-		        System.out.println("DNI: " + cuenta.getDni());
-		        System.out.println("Número: " + cuenta.getNumero());
-		        System.out.println("Fecha de Creación: " + cuenta.getFechaCreacion());
-		        System.out.println("Tipo de Cuenta: " + cuenta.getTipoCuenta());
-		        System.out.println("CBU: " + cuenta.getCBU());
-		        System.out.println("Saldo: " + cuenta.getSaldo());
-		        System.out.println("Estado: " + cuenta.getEstado());
-			}
 			
 			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
 			rd.forward(request, response);
@@ -79,28 +69,6 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			rd.forward(request, response);
 		}
 		
-		if(request.getParameter("btnMostrarCuentas")!=null) {
-			ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
-			CuentaNegocioImpl cni= new CuentaNegocioImpl();
-			listado=cni.listar();
-			
-			request.setAttribute("listadocompleto", listado);
-			
-			for(Cuenta cuenta : listado) {
-				System.out.println("Información de la cuenta:");
-		        System.out.println("DNI: " + cuenta.getDni());
-		        System.out.println("Número: " + cuenta.getNumero());
-		        System.out.println("Fecha de Creación: " + cuenta.getFechaCreacion());
-		        System.out.println("Tipo de Cuenta: " + cuenta.getTipoCuenta());
-		        System.out.println("CBU: " + cuenta.getCBU());
-		        System.out.println("Saldo: " + cuenta.getSaldo());
-		        System.out.println("Estado: " + cuenta.getEstado());
-			}
-			
-			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
-			rd.forward(request, response);
-		}
-		
 		if(request.getParameter("btnDetalle")!=null) {
 			String seleccionada= request.getParameter("CuentaSeleccionada");
 			ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
@@ -110,6 +78,24 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			request.setAttribute("seleccionada", listado);
 			
 			RequestDispatcher rd= request.getRequestDispatcher("Servlet_Detalle_Cuenta");
+			rd.forward(request, response);
+		}
+		if(request.getParameter("Btnbuscar")!=null) {
+			
+			if(request.getParameter("txtdatos")==null) {
+				RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
+				rd.forward(request, response);
+			}
+			
+			String dato = request.getParameter("txtdatos");
+			String campo = request.getParameter("filtro");
+			ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
+			CuentaNegocio cni= new CuentaNegocioImpl();
+			listado=cni.listaFiltrada(dato, campo);
+			
+			
+			request.setAttribute("listadocompleto", listado);
+			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
 			rd.forward(request, response);
 		}
 	}

@@ -68,6 +68,13 @@ public class ContactoClienteServlet extends HttpServlet {
     			response.getWriter().write("Las passwords no coinciden");
     		}
     	}
+    	
+    	if ("checkDni".equals(action)) {
+    		ClienteNegocio c=new ClienteNegocioImpl();
+    		if(c.verificarExistencia(request.getParameter("dni"))) {
+    			response.getWriter().write("El DNI ya existe en la base de datos");
+    		}
+    	}
 	}
 
 	/**

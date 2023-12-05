@@ -59,8 +59,14 @@
                     $("#respPass").html(response);
                 });
             });
-            
-        });    
+            $("#dni").on('input',function () {
+                var dni = $(this).val();
+                $.get("ContactoClienteServlet", {action: "checkDni", dni: dni}, function (response) {
+                    $("#respDni").html(response);
+                });         
+        	});   
+        }); 
+        
     </script>
 </head>
 <body>
@@ -69,16 +75,17 @@
             <h2>Formulario de Registro</h2>
             
             <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" required>
+            <input type="text" id="apellido" name="apellido" maxlength = "50" required>
             
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <input type="text" id="nombre" name="nombre" maxlength = "50" required>
             
             <label for="dni">DNI:</label>
-            <input type="text" id="dni" name="dni" required>
+            <input type="number" id="dni" name="dni" max = "99999999" required>
+            <label for="respDni" id="respDni"></label>
             
             <label for="cuil">CUIL:</label>
-            <input type="text" id="cuil" name="cuil" required>
+            <input type="number" id="cuil" max = "9999999999999" name="cuil" required>
             
             <label for="Sexo">Sexo:</label>
             <select id="Sexo" name="Sexo" required>
@@ -102,49 +109,67 @@
             
             
             <label for="direccion">Dirección:</label>
-            <input type="text" id="direccion" name="direccion" required>
+            <input type="text" id="direccion" name="direccion" maxlength = "100" required>
             
             <label for="fechaNacimiento">Fecha de Nacimiento:</label>
             <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
             
             <label for="telefono">Teléfono:</label>
-            <input type="text" id="telefono" name="telefono" required>
+            <input type="text" id="telefono" max = "99999999999999999999" name="telefono" required>
             
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" maxlength = "100" required>
             
             <label for="user">Nombre de Usuario:</label>
-            <input type="text" id="user" name="user" required>
+            <input type="text" id="user" name="user" maxlength = "25" required>
             <label for="respUsuario" id="respUsuario"></label>
             
             <label for="pass">Contraseña:</label>
-            <input type="text" id="pass" name="pass" required>
+            <input type="password" id="pass" name="pass" maxlength = "25" required>
             
             <label for="pass2">Repetetir Contraseña:</label>
-            <input type="text" id="pass2" name="pass2" required>
+            <input type="password" id="pass2" name="pass2" maxlength = "25" required>
             <label for="respPass" id="respPass"></label>
             
             <%
 				String msj = " ";
 				if(request.getAttribute("usuarioCreado")!=null)
 					msj = request.getAttribute("usuarioCreado").toString();
+            	boolean check=true;
 			%>
             
-            <input type="submit" value="Registrar" name="btnRegistrar">
+            <input type="submit" value="Registrar" id="btnRegistrar" name="btnRegistrar" onclick="return checkBTN()">
         </form>
-    </div>
-    
-<%
-	msj = " ";
-	if(request.getAttribute("usuarioCreado")!=null)
-		msj = request.getAttribute("usuarioCreado").toString();
-%>
+        
+        <script>
 
-<% if(!msj.equals(" ")) { %>
-     <script>
-     	alert('<%=msj %>');
-     </script>
-<% } %>
+        function checkBTN() {
+          	var respPassValue = document.getElementById('respPass').innerText.trim();
+            var respUsuarioValue = document.getElementById('respUsuario').innerText.trim();
+            var respDniValue = document.getElementById('respDni').innerText.trim();
+
+            if (respPassValue === "" && respUsuarioValue === "" && respDniValue === "") {
+                return true;
+            } else {
+                alert("Por favor, verificar los mensajes de error para poder proceder.");
+                return false;
+        }
+            }
+    	</script>
+    </div>
+	    
+	<%
+		msj = " ";
+		if(request.getAttribute("usuarioCreado")!=null)
+			msj = request.getAttribute("usuarioCreado").toString();
+	%>
+
+	<% if(!msj.equals(" ")) { %>
+	     <script>
+	     	alert('<%=msj %>');
+	     </script>
+	<% } %>
+
 
 
 </body>

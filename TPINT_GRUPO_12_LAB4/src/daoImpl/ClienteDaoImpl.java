@@ -143,7 +143,9 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setString(1, DNI);
 			
 			ResultSet rs = statement.executeQuery();
-			cliente.setDni(rs.getString("c.DNI"));
+			while(rs.next()) {
+				cliente.setDni(rs.getString("c.DNI"));
+				}
 			
 			}
 			

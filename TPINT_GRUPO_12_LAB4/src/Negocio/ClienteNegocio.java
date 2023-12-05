@@ -9,6 +9,7 @@ public interface ClienteNegocio {
 	public boolean insertar (Cliente cliente);
 	public boolean modificar (Cliente cliente);
 	public boolean verificarExistencia(Cliente cliente);
+	public boolean verificarExistencia(String dni);
 	public ArrayList<Cliente> listar();
 	public ArrayList<Cliente> listarPendientes();
 	public Cliente clientePorUsuario(Usuario usuario);

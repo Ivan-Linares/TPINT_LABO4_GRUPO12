@@ -60,6 +60,20 @@ public class ClienteNegocioImpl implements ClienteNegocio{
 		
 		else return false;
 	}
+	
+	@Override
+	public boolean verificarExistencia(String dni) {
+		
+		cDao = new ClienteDaoImpl();
+		Cliente cTest= new Cliente();
+		cTest = cDao.existeDNI(dni);
+		
+		if(cTest.getDni()!=null) {
+			return true;
+		}
+		
+		else return false;
+	}
 
 	@Override
 	public ArrayList<Cliente> listarPendientes() {

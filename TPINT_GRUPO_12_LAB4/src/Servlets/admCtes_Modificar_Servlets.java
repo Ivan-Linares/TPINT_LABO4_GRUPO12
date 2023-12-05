@@ -2,9 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -74,11 +72,10 @@ public class admCtes_Modificar_Servlets extends HttpServlet {
 				obj.setPass(request.getParameter("Contraseña"));
 				obj.setUsuario(request.getParameter("Usuario"));
 				
+				String fechastr = request.getParameter("FechaNac");
+				java.sql.Date fechasql = java.sql.Date.valueOf(fechastr);
+				obj.setFechaNac(fechasql);
 				
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String fecha= request.getParameter("FechaNac");
-				
-				obj.setFechaNac((Date)dateFormat.parse(fecha));
 				
 				obj.setSexo(request.getParameter("Sexo"));
 				int cod = Integer.parseInt(request.getParameter("localidad"));

@@ -95,5 +95,11 @@ public class admClientes_Servlet extends HttpServlet {
 			rd.forward(request, response);
 			
 		}
+		if(request.getParameter("Btnbuscar")!=null || request.getParameter("txtdatos")!=null) {
+			int campo = Integer.parseInt(request.getParameter("Btnbuscar"));
+			if (campo < 3) {
+				
+			}
+		}
 	}
 }

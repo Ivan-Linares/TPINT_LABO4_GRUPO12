@@ -22,8 +22,8 @@ public class ClienteNegocioImpl implements ClienteNegocio{
 
 	@Override
 	public boolean modificar(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return false;
+		cDao = new ClienteDaoImpl();
+		return cDao.modificar(cliente);
 	}
 
 	@Override

@@ -100,6 +100,18 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnDetalle")!=null) {
+			String seleccionada= request.getParameter("CuentaSeleccionada");
+			ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
+			CuentaNegocioImpl cni= new CuentaNegocioImpl();
+			listado=cni.listarXcuenta(seleccionada);
+			
+			request.setAttribute("seleccionada", listado);
+			
+			RequestDispatcher rd= request.getRequestDispatcher("Servlet_Detalle_Cuenta");
+			rd.forward(request, response);
+		}
 	}
 
 	/**

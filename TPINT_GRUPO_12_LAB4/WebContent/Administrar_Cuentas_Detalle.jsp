@@ -1,20 +1,19 @@
+<%@page import="Entidad.TipoCuenta"%>
 <%@page import="Entidad.Cuenta"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Administrar Cuentas</title>
+<title>Modificar Cuentas</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
-	<link rel="stylesheet" href="Styles/Css.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -133,57 +132,50 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <br />
-	
-	<div class="container text-center">
-		<div class="row justify-content-md-center">
-			<div class="col col-lg-2"></div>
-			<div class="col-md-auto">
-				<h3>Cuentas Activas:</h3>
-					<table class="table table-hover">
-						<thead>
-							<td>Cliente Asignado</td>
-							<td>Numero Cuenta</td>
-							<td>Tipo Cuenta</td>
-							<td>CBU</td>
-							<td>Ver Detalle</td>
-							<td>Modificar</td>
-							<td>Eliminar</td>
-						</thead>
-						<%
-						ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
-						if(request.getAttribute("listadocompleto")!=null){
-							lista=(ArrayList<Cuenta>)request.getAttribute("listadocompleto");
-							
-							for(Cuenta cuenta: lista){%>
-							<tr>
-								<form method="get" action="Servlets_AdministraCuentas" id="cuentasForm">
-								<td><%= cuenta.getDni()%></td>
-								<td><%= cuenta.getNumero()%><input type="hidden" name="CuentaSeleccionada" value="<%= cuenta.getNumero()%>" ></td>
-								<td><%= cuenta.getTipoCuenta().getName()%></td>
-								<td><%= cuenta.getCBU()%></td>
-								<td><input type="submit" name="btnDetalle" value="Ver Detalle" class="btn btn-primary"></td>
-								<td><input type="submit" name="btnModificar" value="Modificar" class="btn btn-primary"></td>
-								<td><input type="submit" id="btnEliminar" onclick="return confirmacionEliminar()" name="btnEliminar" value="Eliminar" class="btn btn-primary" ></td>																
-								</form>
-							</tr>
-							<%}
-						}
-						%>
-					</table>
-				</div>
-			<div class="col col-lg-2"></div>
-		</div>
-	</div>
-	
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="JS/script.js"></script>
 
-<script>
-    function confirmacionEliminar() {
-       	var respuesta = confirm("Estas seguro de dar de baja esta cuenta?");
-        return respuesta; 
-    }
-</script>	
-	
+<form action="Servlet_Detalle_Cuenta" method="get">
+	<div class="row">
+	  <div class="col">
+	  <%ArrayList<Cuenta> seleccionada = new ArrayList<Cuenta>();
+	  	if(request.getAttribute("seleccionada")!=null){
+	  		seleccionada = (ArrayList<Cuenta>)request.getAttribute("seleccionada");
+	  		for(Cuenta cuenta : seleccionada){
+	  		%>
+	  		
+			    <label for="nombre">Numero Cuenta </label>
+		        <input type="text" name="Numero" value="<%=cuenta.getNumero()%>" class="form-control" disabled><br>
+		        
+		        <label for="saldo">Saldo </label>
+		        <input type="text"  name="Saldo" value="<%= cuenta.getSaldo()%>" class="form-control" disabled><br>
+		        
+			    <label for="dni">DNI </label>
+		        <input type="text" name="DNI" value="<%=cuenta.getDni() %>" class="form-control" disabled><br>               
+			  </div>
+			  <div class="col">			  				  
+		 		<label for="cbu">CBU </label>
+		        <input type="text"  name="CBU" value="<%=cuenta.getCBU() %>" class="form-control" disabled><br>
+		        
+		        <label for="estado">Estado </label>
+		        <input type="text"  name="Estado" value="<%=cuenta.getEstado() %>" class="form-control" disabled><br>
+		        
+		        <label for="tipoCuenta">Tipo Cuenta:</label><br>
+					  	<Select Name="Tipo Cuenta" class="ratio w-25">
+					  		<option selected="true" disabled="disabled"><%= cuenta.getTipoCuenta().getName() %></option>
+		        <%
+		        ArrayList<TipoCuenta> tiposeleccionada = new ArrayList<TipoCuenta>();
+			        if(request.getAttribute("ListaDeCuentas")!=null){
+			        tiposeleccionada=(ArrayList<TipoCuenta>)request.getAttribute("ListaDeCuentas");
+				        for(TipoCuenta tipocuenta : tiposeleccionada){%>
+					  		<option Value="<%= tipocuenta.getCode()%>"><%=tipocuenta.getName() %></option>
+			        <%}
+			     }%>		        
+					  	</Select><br>
+			  </div>
+			</div>
+	  		<%}
+	  	}
+	  %>
+	<input type="submit" name="btnRegresar" value="Regresar" class="btn btn-success">
+</form>
 </body>
 </html>

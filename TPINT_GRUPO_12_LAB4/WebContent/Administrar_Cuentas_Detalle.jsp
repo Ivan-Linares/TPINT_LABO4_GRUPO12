@@ -1,5 +1,6 @@
 <%@page import="Entidad.TipoCuenta"%>
 <%@page import="Entidad.Cuenta"%>
+<%@page import="Entidad.Fecha"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -140,10 +141,14 @@ Usuario user=new Usuario();%>
 	  	if(request.getAttribute("seleccionada")!=null){
 	  		seleccionada = (ArrayList<Cuenta>)request.getAttribute("seleccionada");
 	  		for(Cuenta cuenta : seleccionada){
+	  			Fecha f = cuenta.getFechaCreacion();
 	  		%>
 	  		
 			    <label for="nombre">Numero Cuenta </label>
 		        <input type="text" name="Numero" value="<%=cuenta.getNumero()%>" class="form-control" disabled><br>
+		        
+		        <label for="nombre">Fecha Creacion </label>
+		        <input type="text" name="fecha" value="<%=f.getDia()%>/<%=f.getMes()%>/<%=f.getYear()%>" class="form-control" disabled><br>
 		        
 		        <label for="saldo">Saldo </label>
 		        <input type="text"  name="Saldo" value="<%= cuenta.getSaldo()%>" class="form-control" disabled><br>

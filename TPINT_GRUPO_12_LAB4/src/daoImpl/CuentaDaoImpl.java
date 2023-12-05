@@ -240,6 +240,16 @@ public class CuentaDaoImpl implements CuentaDao {
 				cuenta.setNumero(rs.getString("Cuenta"));
 				cuenta.setSaldo(rs.getFloat("saldo"));
 				
+				String fechaStr = rs.getString("Fecha_creacion");
+				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+				LocalDate localDate = fechaSQL.toLocalDate();
+				
+				Fecha f = new Fecha();
+				f.setDia(localDate.getDayOfMonth());
+				f.setMes(localDate.getMonthValue());
+				f.setYear(localDate.getYear());
+				cuenta.setFechaCreacion(f);
+				
 				TipoCuenta obj= new TipoCuenta();
 				obj.setCode(rs.getInt("tdc"));
 				obj.setName(rs.getString("descripcion"));

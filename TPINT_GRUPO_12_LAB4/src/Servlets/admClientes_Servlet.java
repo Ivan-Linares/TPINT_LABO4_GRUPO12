@@ -96,7 +96,10 @@ public class admClientes_Servlet extends HttpServlet {
 			
 		}
 		if(request.getParameter("Btnbuscar")!=null || request.getParameter("txtdatos")!=null) {
-			
+			if(request.getParameter("txtdatos")==null) {
+				RequestDispatcher rd = request.getRequestDispatcher("admClientes_Servlet?Param=1");
+				rd.forward(request, response);
+			}
 			ArrayList<Cliente> lista= new ArrayList<Cliente>();
 			String dato = request.getParameter("txtdatos");
 			String campo = request.getParameter("filtro");

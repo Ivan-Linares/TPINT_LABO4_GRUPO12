@@ -79,7 +79,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update clientes SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Localidad=? ,Direccion=?, Email=?, Usuario=?, Estado='A' Where DNI=?");
+			statement = con.prepareStatement("Update clientes SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Localidad=? ,Direccion=?, Email=?, Usuario=?, Telefono=?, TelefonoSecundario=?, Estado='A' Where DNI=?");
 			statement.setString(1, cliente.getCuil());
 			statement.setString(2, cliente.getApellido());
 			statement.setString(3, cliente.getNombre());
@@ -88,9 +88,10 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setInt(6, cliente.getLocalidad().getCodLocalidad());
 			statement.setString(7, cliente.getDireccion());
 			statement.setString(8, cliente.getEmail());
-			//statement.setString(9, cliente.getEstado());
 			statement.setString(9, cliente.getUsuario());
-			statement.setString(10, cliente.getDni());
+			statement.setString(10, cliente.getTelefono());
+			statement.setString(11, cliente.getTelefonoSecundario());
+			statement.setString(12, cliente.getDni());
 						
 			if(statement.executeUpdate() > 0) {
 				con.commit();
@@ -187,6 +188,8 @@ private Cliente setCliente(ResultSet rs){
 			l.setCodLocalidad((rs.getInt("l.codLocalidad")));
 			l.setProvincia(pro);
 			cliente.setLocalidad(l);
+			cliente.setTelefono(rs.getString("c.Telefono"));
+			cliente.setTelefonoSecundario(rs.getNString("c.TelefonoSecundario"));
 			cliente.setUsuario(rs.getString("c.Usuario"));
 			cliente.setSexo(rs.getString("c.Sexo"));
 			cliente.setEmail(rs.getString("c.email"));

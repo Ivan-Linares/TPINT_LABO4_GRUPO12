@@ -68,6 +68,8 @@ public class admCtes_Modificar_Servlets extends HttpServlet {
 				obj.setDni(request.getParameter("DNI"));
 				obj.setEmail(request.getParameter("Email"));
 				obj.setEstado(estado);
+				obj.setTelefono(request.getParameter("Tel"));
+				obj.setTelefonoSecundario(request.getParameter("TelSec"));
 				obj.setNombre(request.getParameter("nombre"));
 				obj.setPass(request.getParameter("Contraseña"));
 				obj.setUsuario(request.getParameter("Usuario"));

@@ -161,6 +161,9 @@ Usuario user=new Usuario();%>
         <label for="nombre">Usuario:</label>
         <input type="text" id="nombre" name="Usuario" value="<%= obj.getUsuario() %>" class="form-control"><br>
         
+        <label for="nombre">Contraseña:</label>
+        <input type="password" id="nombre" name="Contraseña" value="<%= obj.getPass() %>" class="form-control"><br>
+        
 	  </div>
 	  <div class="col">
 	  	<label for="nombre">Sexo:</label><br>
@@ -176,6 +179,9 @@ Usuario user=new Usuario();%>
         
         <label for="nombre">Telefono:</label>
         <input type="text" id="nombre" name="Tel" value="<%= obj.getTelefono() %>" class="form-control"><br>
+        
+        <label for="nombre">Telefono secundario:</label>
+        <input type="text" id="nombre" name="TelSec" value="<%= obj.getTelefonoSecundario() %>" class="form-control"><br>
         
         <label for="nombre">Direccion:</label>
         <input type="text" id="nombre" name="Direccion" value="<%= obj.getDireccion() %>" class="form-control"><br>
@@ -197,8 +203,6 @@ Usuario user=new Usuario();%>
  			<option></option>
  		</select><br><br>
  		        
-        <label for="nombre">Contraseña:</label>
-        <input type="password" id="nombre" name="Contraseña" value="<%= obj.getPass() %>" class="form-control"><br>
         <%
         }
        %>

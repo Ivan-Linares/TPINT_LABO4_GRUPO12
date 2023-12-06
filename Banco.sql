@@ -60,19 +60,14 @@ FechaNac date NOT NULL,
 Localidad int NOT NULL,
 Direccion VARCHAR(100) NOT NULL,
 Email VARCHAR(100) NOT NULL,
+Telefono VARCHAR(20) NOT NULL,
+TelefonoSecundario VARCHAR(20) NULL,
 Usuario VARCHAR(25) not null unique,
 Estado CHAR(1) NOT NULL default 'P' check(Estado='P' or Estado='A' or Estado='I'),
 foreign key (Usuario) references Usuarios(Usuario),
 foreign key (Localidad) references Localidades(codLocalidad)
 );
 
-create table Telefonos
-(
-	DNI VARCHAR(8) UNIQUE,
-    Telefono VARCHAR(20) NOT NULL,
-    PRIMARY KEY (DNI, Telefono),
-    foreign key (DNI) references clientes(DNI)
-);
 
 create table Tipos_Cuentas
 (
@@ -134,4 +129,3 @@ create table Movimientos
     foreign key (Cuenta) references cuentas(cuenta),
     foreign key (Tipo_movimiento) references Tipos_Movimientos(Tipo_movimiento)
 );
-

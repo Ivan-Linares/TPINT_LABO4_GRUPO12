@@ -1,7 +1,7 @@
 package Entidad;
 
 import java.sql.Date;
-import java.time.LocalDate;
+
 
 public class Cliente {
 	
@@ -13,6 +13,7 @@ public class Cliente {
 	private String direccion;
 	private Date fechaNac;
 	private String telefono;
+	private String telefonoSecundario;
 	private Localidad localidad;
 	private String email;
 	private String usuario;
@@ -23,7 +24,7 @@ public class Cliente {
 		
 	}
 	
-	public Cliente(String d, String c, String a, String n, String s, Date fechanac, String di, Localidad l, String mail, String u, String e, String ps, String tel) {
+	public Cliente(String d, String c, String a, String n, String s, Date fechanac, String di, Localidad l, String mail, String u, String e, String ps, String tel, String telSecun) {
 		
 		this.dni=d;
 		this.cuil=c;
@@ -32,6 +33,7 @@ public class Cliente {
 		this.sexo=s;
 		this.fechaNac=fechanac;
 		this.telefono=tel;
+		this.telefonoSecundario=telSecun;
 		this.localidad=l;
 		this.email=mail;
 		this.usuario=u;
@@ -114,6 +116,14 @@ public class Cliente {
 		this.telefono = telefono;
 	}
 
+
+	public String getTelefonoSecundario() {
+		return telefonoSecundario;
+	}
+
+	public void setTelefonoSecundario(String telefonoSecundario) {
+		this.telefonoSecundario = telefonoSecundario;
+	}
 
 	public Localidad getLocalidad() {
 		return localidad;

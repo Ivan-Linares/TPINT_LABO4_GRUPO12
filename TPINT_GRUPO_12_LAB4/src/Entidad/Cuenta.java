@@ -1,24 +1,31 @@
 package Entidad;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Cuenta {
 	
 	private String dni;
 	private String numero;
-	private Fecha fechaCreacion;
+	//private Fecha fechaCreacion;
+	private Date Fecha;
 	private TipoCuenta tipoCuenta;
 	private String CBU;
 	private float saldo;
 	private String estado;
 	
-	public Cuenta() {
-		
+	//private static int ContCBU = 0;
+	
+	public Cuenta() 
+	{
+		//this.setCBU(ContCBU++);
 	}
 	
-	public Cuenta(String d, String n, Fecha fechaC, TipoCuenta t, String c, float s, String e) {
+	public Cuenta(String d, String n, Date fechaC, TipoCuenta t, String c, float s, String e) {
 		
 		this.dni=d;
 		this.numero=n;
-		this.fechaCreacion=fechaC;
+		this.Fecha=fechaC;
 		this.tipoCuenta=t;
 		this.CBU=c;
 		this.saldo=s;
@@ -42,12 +49,13 @@ public class Cuenta {
 		this.numero = numero;
 	}
 
-	public Fecha getFechaCreacion() {
-		return fechaCreacion;
+	public Date getFechaCreacion() {
+		return Fecha;
 	}
 
-	public void setFechaCreacion(Fecha fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.Fecha = fechaCreacion;
 	}
 	
 	public String getCBU() {
@@ -56,6 +64,10 @@ public class Cuenta {
 
 	public void setCBU(String cbu) {
 		this.CBU = cbu;
+	}
+	
+	public void setCBU(int cbu) {
+		 this.CBU = "1" + String.format("%023d", cbu); //mas info en https://www.javatpoint.com/java-string-format
 	}
 
 
@@ -82,9 +94,6 @@ public class Cuenta {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
-	
 	
 
 }

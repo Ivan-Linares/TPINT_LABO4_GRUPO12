@@ -139,10 +139,17 @@ Usuario user=new Usuario();%>
 <%} %>
 <br />
 
-	<div class="container text-center">
+		<div class="container text-center">
 		<div class="row justify-content-md-center">
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
+				<%
+					String msj = " ";
+					if(request.getAttribute("msj")!=null){
+					msj = request.getAttribute("msj").toString();
+				%>
+				<h3><%= msj %></h3> <br>
+				<%} %>
 				<%
 				ArrayList<Cliente> listaJSP = new ArrayList<>();
 				if(request.getAttribute("listaPendientes") != null)
@@ -201,18 +208,6 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 		</div>
 	</div>
-	
-<%
-	String msj = " ";
-	if(request.getAttribute("msj")!=null)
-		msj = request.getAttribute("msj").toString();
-%>
-
-<% if(!msj.equals(" ")) { %>
-     <script>
-     	alert('<%=msj %>');
-     </script>
-<% } %>
 
 	
 </body>

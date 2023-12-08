@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,23 +21,22 @@ public class CuentaDaoImpl implements CuentaDao {
 	@Override
 	public boolean insertar(Cuenta cuenta) {
 		
-		PreparedStatement statement;
-		Connection con = Conexion.getConexion().getSQLConexion();
-		LocalDate localDate = LocalDate.now();
-        java.sql.Date fecha = java.sql.Date.valueOf(localDate);
-        fecha.setDate(cuenta.getFechaCreacion().getDia());
-        fecha.setMonth(cuenta.getFechaCreacion().getMes());
-        fecha.setYear(cuenta.getFechaCreacion().getYear());
-        
+		String cbu = this.ultimoCBU();
+		
+		Connection con = null;
+		
 		try {
-			statement = con.prepareStatement("INSERT into cuentas values(?,?,?,?,?,?,?)");
-			statement.setString(1, cuenta.getNumero());
-			statement.setString(2, cuenta.getDni());
-			statement.setDate(3, fecha);
-			statement.setInt(4, cuenta.getTipoCuenta().getCode());
-			statement.setString(5, cuenta.getCBU());
-			statement.setDouble(6, 10000.00);
-			statement.setString(7, cuenta.getEstado());
+			PreparedStatement statement;
+			con = Conexion.getConexion().getSQLConexion();
+			
+			statement = con.prepareStatement("INSERT INTO Cuentas (DNI, Fecha_creacion, Tipo_De_Cuenta, CBU, Saldo, Estado) VALUES(?,?,?,?,?,?)");
+			
+			statement.setString(1, cuenta.getDni());
+			statement.setString(2, cuenta.getFechaCreacion().toString());
+			statement.setInt(3, cuenta.getTipoCuenta().getCode());
+			statement.setString(4, cbu);
+			statement.setDouble(5, 10000.00);
+			statement.setString(6, cuenta.getEstado());
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();
@@ -154,11 +154,11 @@ public class CuentaDaoImpl implements CuentaDao {
 	
 	private Cuenta setCuenta(ResultSet rs, Cuenta cuenta) throws SQLException {
 		cuenta = new Cuenta();
-		cuenta.setCBU(rs.getString("CBU"));
 		cuenta.setTipoCuenta(new TipoCuentaDaoImpl().getPorID(rs.getInt("Tipo_De_Cuenta")));
 		cuenta.setEstado(rs.getString("Estado"));
-		Fecha f = new Fecha(LocalDateTime.parse(rs.getString("Fecha_creacion"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-		cuenta.setFechaCreacion(f);
+		//Fecha f = new Fecha(LocalDateTime.parse(rs.getString("Fecha_creacion"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		//cuenta.setFechaCreacion(f);
+		cuenta.setFechaCreacion(rs.getDate("FechaNac"));
 		cuenta.setNumero(rs.getString("Cuenta"));
 		cuenta.setSaldo(rs.getFloat("Saldo"));
 		//En caso de que creamos necesario agregar DNI a la tabla cuentas:
@@ -240,16 +240,6 @@ public class CuentaDaoImpl implements CuentaDao {
 				cuenta.setNumero(rs.getString("Cuenta"));
 				cuenta.setSaldo(rs.getFloat("saldo"));
 				
-				String fechaStr = rs.getString("Fecha_creacion");
-				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
-				LocalDate localDate = fechaSQL.toLocalDate();
-				
-				Fecha f = new Fecha();
-				f.setDia(localDate.getDayOfMonth());
-				f.setMes(localDate.getMonthValue());
-				f.setYear(localDate.getYear());
-				cuenta.setFechaCreacion(f);
-				
 				TipoCuenta obj= new TipoCuenta();
 				obj.setCode(rs.getInt("tdc"));
 				obj.setName(rs.getString("descripcion"));
@@ -265,31 +255,34 @@ public class CuentaDaoImpl implements CuentaDao {
 	}
 
 	@Override
-	public ArrayList<Cuenta> listaFiltrada(String dato, String campo) {
-		Connection cn = Conexion.getConexion().getSQLConexion();
-		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
-		try {
-			Statement st = cn.createStatement();
-			String complemento=" and "+ campo +" like '"+ dato +"%'";
-			String query="SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='a'";
-			ResultSet rs = st.executeQuery(query+complemento);
-			while(rs.next()) {
-				Cuenta cuenta = new Cuenta();
-				cuenta.setCBU(rs.getString("CBU"));
-				cuenta.setDni(rs.getString("DNI"));
-				cuenta.setNumero(rs.getString("Cuenta"));
-				cuenta.setSaldo(rs.getFloat("saldo"));
-				
-				TipoCuenta obj= new TipoCuenta();
-				obj.setCode(rs.getInt("tdc"));
-				obj.setName(rs.getString("descripcion"));
-				cuenta.setTipoCuenta(obj);
-				
-				lista.add(cuenta);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return lista;
+	public String ultimoCBU() {
+
+		 String cbu = "0";
+		    
+		    try (Connection cn = Conexion.getConexion().getSQLConexion();
+		         Statement st = cn.createStatement();
+		         ResultSet rs = st.executeQuery("SELECT CBU FROM CUENTAS ORDER BY 1 DESC LIMIT 1")) {
+
+		        if (rs.next()) {
+		            cbu = rs.getString("CBU");
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    finally {
+		    	 try {
+		             Conexion.instancia.cerrarConexion(); 
+		         } catch (Exception e) {
+		             e.printStackTrace();
+		         }
+		    }
+		    
+			cbu.replaceAll("^0+", "");
+			int numero = Integer.parseInt(cbu);
+		    numero++;
+		    cbu = String.format("%024d", numero);
+
+		    return cbu;
 	}
 }

@@ -13,6 +13,5 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> listarXcuenta(String numerocuenta);
 	public ArrayList<Cuenta> listar(String buscar, int compare);
 	public ArrayList<Cuenta> listar(float Importe, int compare);
-	
-	public ArrayList<Cuenta> listaFiltrada(String dato, String campo);
+	public String ultimoCBU();
 }

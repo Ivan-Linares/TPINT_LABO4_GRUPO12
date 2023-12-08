@@ -2,6 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -69,7 +70,7 @@ public class cuentasAsignarServlet extends HttpServlet {
 			
 		}
 		
-		if(request.getParameter("btnEnviar") != null) {
+if(request.getParameter("btnEnviar") != null) {
 			
 			ClienteNegocio cNeg = new ClienteNegocioImpl();
 			CuentaNegocio ctaNeg = new CuentaNegocioImpl();
@@ -83,24 +84,26 @@ public class cuentasAsignarServlet extends HttpServlet {
 				
 				if(estado == 2) {
 					if(cNeg.rechazar(DNI)) {
-						msj = "Cliente rechazado con exito!";
+						msj = "Cliente rechazado!";
 					}
 				}
 				
 				if(estado == 1) {
 					if(cNeg.aprobar(DNI)) {
 						
-						cta.setNumero("1");
 						cta.setDni(DNI);
-						LocalDate hoy = LocalDate.now();
-						cta.setFechaCreacion(new Fecha());
-						cta.getFechaCreacion().setDia(hoy.getDayOfMonth());
-						cta.getFechaCreacion().setMes(hoy.getMonthValue());
-						cta.getFechaCreacion().setYear(hoy.getYear());
+						
+						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  						
+						LocalDate FechaCreacion = LocalDate.now();
+						dtf.format(FechaCreacion);
+						String fechaString = FechaCreacion.toString();	
+						java.sql.Date Fecha = java.sql.Date.valueOf(fechaString);
+						cta.setFechaCreacion(Fecha); 
+						
 						cta.setTipoCuenta(new TipoCuenta());
 						cta.getTipoCuenta().setCode(1);
+						
 						cta.getTipoCuenta().setName("Caja de ahorro");
-						cta.setCBU("12345...");
 						cta.setSaldo(10000);
 						cta.setEstado("A");
 						
@@ -114,15 +117,19 @@ public class cuentasAsignarServlet extends HttpServlet {
 					else {
 						msj = "Ocurrio un error al aprobar el cliente";
 					}
-				}
-				
-				
-			} catch (Exception e) {
+				}	
+			} 
+			catch (Exception e) {
 				msj = "Ocurrio un error";
 				throw e;
+				
 			}
 			
+			ArrayList<Cliente> lista = cNeg.listarPendientes();
+			
+			request.setAttribute("listaPendientes", lista);
 			request.setAttribute("msj", msj);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/Cuentas_Asignar.jsp");
 			rd.forward(request, response);	
 			

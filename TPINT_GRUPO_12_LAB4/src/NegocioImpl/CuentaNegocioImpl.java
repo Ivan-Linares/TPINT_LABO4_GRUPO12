@@ -16,8 +16,8 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		
 			cDao = new CuentaDaoImpl();
 			
-			if(cuenta.getDni().trim().length()>0 && cuenta.getFechaCreacion() != null && cuenta.getNumero().trim().length()>0 &&
-					cuenta.getTipoCuenta()!=null && cuenta.getCBU().trim().length()>0 && cuenta.getEstado().trim().length()>0)
+			if(cuenta.getDni().trim().length()>0 && cuenta.getFechaCreacion() != null &&
+			   cuenta.getTipoCuenta()!=null && cuenta.getEstado().trim().length()>0)
 			{
 				return cDao.insertar(cuenta);
 			}
@@ -67,11 +67,9 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	}
 
 	@Override
-	public ArrayList<Cuenta> listaFiltrada(String dato, String campo) {
+	public String ultimoCBU() {
 		cDao = new CuentaDaoImpl();
-		return cDao.listaFiltrada(dato, campo);
+		return cDao.ultimoCBU();
 	}
 	
-	
-
 }

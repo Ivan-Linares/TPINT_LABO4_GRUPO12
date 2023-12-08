@@ -160,15 +160,15 @@ Usuario user=new Usuario();%>
 		        
 		        <label for="nombre">Tipo Cuenta:</label><br>
 					  	<Select Name="Tipo Cuenta" class="ratio w-25">
-					  		<option selected="true"><%= cuenta.getTipoCuenta().getName() %></option>
-		        <%
-		        ArrayList<TipoCuenta> tiposeleccionada = new ArrayList<TipoCuenta>();
-			        if(request.getAttribute("ListaDeCuentas")!=null){
-			        tiposeleccionada=(ArrayList<TipoCuenta>)request.getAttribute("ListaDeCuentas");
-				        for(TipoCuenta tipocuenta : tiposeleccionada){%>
-					  		<option Value="<%= tipocuenta.getCode()%>"><%=tipocuenta.getName() %></option>
-			        <%}
-			     }%>		        
+					  		<option value="<%= cuenta.getTipoCuenta().getCode() %>" selected><%= cuenta.getTipoCuenta().getName() %></option>
+					        <%
+					        ArrayList<TipoCuenta> tiposeleccionada = new ArrayList<TipoCuenta>();
+						        if(request.getAttribute("ListaDeCuentas")!=null){
+						        tiposeleccionada=(ArrayList<TipoCuenta>)request.getAttribute("ListaDeCuentas");
+							        for(TipoCuenta tipocuenta : tiposeleccionada){%>
+								  		<option Value="<%= tipocuenta.getCode()%>"><%=tipocuenta.getName() %></option>
+						        <%}
+						     }%>		        
 					  	</Select><br>
 			  </div>
 			</div>

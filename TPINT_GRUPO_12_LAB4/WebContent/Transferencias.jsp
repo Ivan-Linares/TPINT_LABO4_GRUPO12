@@ -73,7 +73,8 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <!-- Navbar Cliente -->
-<%if (!admin){ 
+<%String nusuario =user.getUser();
+if (!admin){ 
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -102,8 +103,7 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_del_Cliente.jsp" >Ver Cuentas</a></li>
-            <li><a class="dropdown-item" href="#">Administrar</a></li>
+            <li><a class="dropdown-item" href="Servlets_Cuentas_del_Cte?Param=<%= nusuario %>" >Ver Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">

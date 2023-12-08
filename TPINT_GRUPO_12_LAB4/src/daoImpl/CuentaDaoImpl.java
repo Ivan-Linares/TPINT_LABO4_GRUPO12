@@ -291,7 +291,7 @@ public class CuentaDaoImpl implements CuentaDao {
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		try {
 			Statement st = cn.createStatement();
-			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI inner join usuarios u on cl.Usuario= u.Usuario where u.Usuario like '" + nc + "'";
+			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI inner join usuarios u on cl.Usuario= u.Usuario where c.Estado='A' AND u.Usuario like '" + nc + "' ORDER BY c.Cuenta asc";
 			PreparedStatement pst= cn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
@@ -353,7 +353,7 @@ public class CuentaDaoImpl implements CuentaDao {
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		try {
 			Statement st = cn.createStatement();
-			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI where c.DNI='"+ dni +"';";
+			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI where c.Estado='A' AND c.DNI='"+ dni +"' ORDER BY c.Cuenta asc;";
 			PreparedStatement pst= cn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 

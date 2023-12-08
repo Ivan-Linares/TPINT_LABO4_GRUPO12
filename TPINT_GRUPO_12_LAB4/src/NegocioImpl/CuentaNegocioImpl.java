@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import Entidad.Cuenta;
 import Negocio.CuentaNegocio;
 import dao.CuentaDao;
-import daoImpl.ClienteDaoImpl;
 import daoImpl.CuentaDaoImpl;
 
 public class CuentaNegocioImpl implements CuentaNegocio{
@@ -88,6 +87,12 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public ArrayList<Cuenta> CuentasxDNI(String dni) {
 		cDao = new CuentaDaoImpl();
 		return cDao.CuentasxDNI(dni);
+	}
+
+	@Override
+	public ArrayList<Cuenta> listaFiltrada(String dato, String campo) {
+		cDao = new CuentaDaoImpl();
+		return cDao.listaFiltrada(dato, campo);
 	}
 	
 }

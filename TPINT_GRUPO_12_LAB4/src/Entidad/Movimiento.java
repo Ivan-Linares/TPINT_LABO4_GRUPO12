@@ -1,9 +1,11 @@
 package Entidad;
 
+import java.sql.Date;
+
 public class Movimiento {
 	
 	private String cuenta;
-	private Fecha fechaTef;
+	private Date fechaTef;
 	private float importe;
 	private TipoMovimiento tipoMovimiento;
 	
@@ -11,7 +13,7 @@ public class Movimiento {
 		
 	}
 	
-	public Movimiento(String c, Fecha f, float i, TipoMovimiento t) {
+	public Movimiento(String c, Date f, float i, TipoMovimiento t) {
 		
 		this.cuenta=c;
 		this.fechaTef=f;
@@ -27,11 +29,11 @@ public class Movimiento {
 		this.cuenta = cuenta;
 	}
 
-	public Fecha getFechaTef() {
+	public Date getFechaTef() {
 		return fechaTef;
 	}
 
-	public void setFechaTef(Fecha fechaTef) {
+	public void setFechaTef(Date fechaTef) {
 		this.fechaTef = fechaTef;
 	}
 

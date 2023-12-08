@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Entidad.Cuenta;
-import Entidad.Fecha;
 import Entidad.TipoCuenta;
 import dao.CuentaDao;
 
@@ -306,12 +305,8 @@ public class CuentaDaoImpl implements CuentaDao {
 				String fechaStr = rs.getString("Fecha_creacion");
 				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
 				LocalDate localDate = fechaSQL.toLocalDate();
-				
-				Fecha f = new Fecha();
-				f.setDia(localDate.getDayOfMonth());
-				f.setMes(localDate.getMonthValue());
-				f.setYear(localDate.getYear());
-				cuenta.setFechaCreacion(f);
+					
+				cuenta.setFechaCreacion(fechaSQL);
 				
 				TipoCuenta obj= new TipoCuenta();
 				obj.setCode(rs.getInt("tdc"));
@@ -372,12 +367,8 @@ public class CuentaDaoImpl implements CuentaDao {
 				String fechaStr = rs.getString("Fecha_creacion");
 				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
 				LocalDate localDate = fechaSQL.toLocalDate();
-				
-				Fecha f = new Fecha();
-				f.setDia(localDate.getDayOfMonth());
-				f.setMes(localDate.getMonthValue());
-				f.setYear(localDate.getYear());
-				cuenta.setFechaCreacion(f);
+					
+				cuenta.setFechaCreacion(fechaSQL);
 				
 				TipoCuenta obj= new TipoCuenta();
 				obj.setCode(rs.getInt("tdc"));
@@ -392,6 +383,35 @@ public class CuentaDaoImpl implements CuentaDao {
 		}
 		finally {
 			Conexion.instancia.cerrarConexion();
+		}
+		return lista;
+	}
+
+	@Override
+	public ArrayList<Cuenta> listaFiltrada(String dato, String campo) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		try {
+			Statement st = cn.createStatement();
+			String complemento=" and "+ campo +" like '"+ dato +"%'";
+			String query="SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='a'";
+			ResultSet rs = st.executeQuery(query+complemento);
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setTipoCuenta(obj);
+
+				lista.add(cuenta);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return lista;
 	}

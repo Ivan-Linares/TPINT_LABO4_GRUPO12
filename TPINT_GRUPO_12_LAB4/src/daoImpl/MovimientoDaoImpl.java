@@ -1,8 +1,9 @@
 package daoImpl;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-
-import com.sun.corba.se.pept.transport.Connection;
 
 import Entidad.Movimiento;
 import Entidad.TipoMovimiento;
@@ -58,11 +59,10 @@ public class MovimientoDaoImpl implements movimientoDao{
 		Movimiento obj= new Movimiento();
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
-			
 			Statement st = cn.createStatement();
 			ResultSet rs = st.executeQuery("select * FROM movimientos m inner join tipos_movimientos tm on m.Tipo_movimiento=tm.Tipo_movimiento where m.Cuenta='" + cuenta + "'");
 			while(rs.next()) {
-				obj = setmovimientos(rs);
+				obj = setMovimientos(rs);
 				movimientos.add(obj);
 			}
 		} catch (Exception e) {
@@ -73,7 +73,8 @@ public class MovimientoDaoImpl implements movimientoDao{
 		}
 		return movimientos;
 	}
-	private Movimiento setmovimientos(ResultSet rs) {
+	
+	private Movimiento setMovimientos(ResultSet rs) {
 		try {
 			Movimiento obj = new Movimiento();
 			TipoMovimiento tm = new TipoMovimiento();
@@ -86,13 +87,7 @@ public class MovimientoDaoImpl implements movimientoDao{
 			
 			String fechaStr = rs.getString("Fecha");
 			java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
-			LocalDate localDate = fechaSQL.toLocalDate();
-			
-			Fecha f = new Fecha();
-			f.setDia(localDate.getDayOfMonth());
-			f.setMes(localDate.getMonthValue());
-			f.setYear(localDate.getYear());	
-			obj.setFechaTef(f);
+			obj.setFechaTef(fechaSQL);
 			
 			return obj;
 		}
@@ -100,7 +95,6 @@ public class MovimientoDaoImpl implements movimientoDao{
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 
 }

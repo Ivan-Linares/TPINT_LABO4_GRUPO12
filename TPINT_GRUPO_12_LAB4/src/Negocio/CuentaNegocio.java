@@ -18,4 +18,5 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> CuentasAsociadas(String nc);
 	public String BuscarCteporCuenta(String numerocuenta);
 	public ArrayList<Cuenta> CuentasxDNI(String dni);
+	public ArrayList<Cuenta> listaFiltrada(String dato, String campo);
 }

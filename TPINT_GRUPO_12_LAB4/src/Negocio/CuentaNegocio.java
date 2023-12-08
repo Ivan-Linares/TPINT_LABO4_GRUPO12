@@ -14,4 +14,8 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> listar(String buscar, int compare);
 	public ArrayList<Cuenta> listar(float Importe, int compare);
 	public String ultimoCBU();
+	
+	public ArrayList<Cuenta> CuentasAsociadas(String nc);
+	public String BuscarCteporCuenta(String numerocuenta);
+	public ArrayList<Cuenta> CuentasxDNI(String dni);
 }

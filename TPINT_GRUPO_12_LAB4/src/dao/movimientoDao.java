@@ -14,4 +14,5 @@ public interface movimientoDao {
 	public ArrayList<Movimiento> listar();
 	public int cantMovimientos();
 
+	public ArrayList<Movimiento> listarXcuenta(String cuenta);
 }

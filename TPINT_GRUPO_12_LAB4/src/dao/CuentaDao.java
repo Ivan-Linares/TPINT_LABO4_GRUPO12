@@ -19,4 +19,7 @@ public interface CuentaDao {
 	public ArrayList<Cuenta> listar(String b, int busqueda);
 	public String ultimoCBU();
 
+	public ArrayList<Cuenta> CuentasAsociadas(String nc);
+	public String BuscarCteporCuenta(String numerocuenta);
+	public ArrayList<Cuenta> CuentasxDNI(String dni);
 }

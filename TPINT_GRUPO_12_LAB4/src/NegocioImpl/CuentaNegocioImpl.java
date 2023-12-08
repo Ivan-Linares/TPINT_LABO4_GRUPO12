@@ -71,5 +71,23 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		cDao = new CuentaDaoImpl();
 		return cDao.ultimoCBU();
 	}
+
+	@Override
+	public ArrayList<Cuenta> CuentasAsociadas(String nc) {
+		cDao = new CuentaDaoImpl();
+		return cDao.CuentasAsociadas(nc);
+	}
+
+	@Override
+	public String BuscarCteporCuenta(String numerocuenta) {
+		cDao = new CuentaDaoImpl();
+		return cDao.BuscarCteporCuenta(numerocuenta);
+	}
+
+	@Override
+	public ArrayList<Cuenta> CuentasxDNI(String dni) {
+		cDao = new CuentaDaoImpl();
+		return cDao.CuentasxDNI(dni);
+	}
 	
 }

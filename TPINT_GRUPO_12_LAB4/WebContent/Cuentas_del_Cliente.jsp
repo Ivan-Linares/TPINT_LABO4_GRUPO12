@@ -1,3 +1,6 @@
+<%@page import="Entidad.Movimiento"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Entidad.Cuenta"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -9,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
+
 <%!
 boolean admin=true;
 Usuario user=new Usuario();%>
@@ -116,56 +120,73 @@ Usuario user=new Usuario();%>
     </div>
   </div>
 </nav>
-<%} %>
 </br>
 
-<h2>Bienvenido, Juan Pérez</h2> 
+<h2>Bienvenido, <%= nombre %></h2> 
+<%} %>
 <h3>Tus cuentas:</h3></br>
-<div>
-	<select name="Cuenta" Class="alert-dismissible text-uppercase">
-		<option>Cuenta 1</option>
-		<option>Cuenta 2</option>
-	</select>
-</div></br>
+
+<div class="container text-center">
+  <div class="row align-items-center">
+	<%
+	Cuenta obj = new Cuenta();
+	ArrayList<Cuenta> listacuentas=new ArrayList<Cuenta>();
+	if(request.getAttribute("listaCuentas")!=null){
+		listacuentas = (ArrayList<Cuenta>)request.getAttribute("listaCuentas");
+		int c=0;
+		for(Cuenta cuenta : listacuentas){
+			c++;
+		%>
+    <div class="col">
+		<div class="card" style="width: 18rem;">
+		  <div class="card-body">
+			    <h5 class="card-title">Cuenta N°<%= c %></h5>
+			    <h6 class="card-subtitle mb-2 text-body-secondary"><%= cuenta.getNumero() %></h6>
+			    <p class="card-text">CBU: <%= cuenta.getCBU() %></p>
+			    <p class="card-text">Saldo: $<%= cuenta.getSaldo() %></p>
+			    <p class="card-text"><%= cuenta.getTipoCuenta().getName() %></p>
+			    <a href="Servlet_Movimientos_X_Cte?cuenta=<%= cuenta.getNumero() %>" class="card-link">Ver movimientos</a>
+			  </div>
+		</div>      
+    </div>
+  		<%}
+		int max=3;
+			if(c<3){%>
+		    <div>
+		    	<input type="submit" value="Solicitar nueva cuenta">
+		    </div>
+			<%}
+		}
+		%>
+  </div>
+</div></br></br>
 <div Class="border border-black">
-	<h2>Informacion de la cuenta</h2>
-	Cliente: Pepilñp</br>
-	Fecha de creacion:</br>
-	Numero de cuenta: </br>
-	CBU: 0151500505115150888</br>
-</div>
+</div> 
 </br>
 <div>
+	<%
+	ArrayList<Movimiento> listadomov = new ArrayList<Movimiento>();
+	if(request.getAttribute("listaMovimientos")!=null){
+		listadomov = (ArrayList<Movimiento>)request.getAttribute("listaMovimientos");%>
 	<h2>Historial de movimientos</h2></br>
-	<h4><input type="text" value="Saldo actual:  $18999" disabled></h4>
+	<h4><input type="text" value="Cuenta seleccionada" disabled></h4>
 	<table class="table accordion-button">
 		<tr>
 			<th>Fecha</th>
 			<th>Movimiento</th>
 			<th>Importe</th>		
 		</tr>
-		<tr>
-			<td>17/07/2011</td>
-			<td>Extraccion</td>
-			<td> $18000 </td>		
-		</tr>
-		<tr>
-			<td>19/06/2011</td>
-			<td>Transferencia</td>
-			<td> $25000 </td>		
-		</tr>
-		<tr>
-			<td>12/06/2011</td>
-			<td> Compra Coto </td>
-			<td> $15000 </td>		
-		</tr>
-		
-		<tr>
-			<td>3/06/2011</td>
-			<td>Extraccion</td>
-			<td> $15000 </td>		
-		</tr>
+		<%for(Movimiento mv : listadomov){%>
+			<tr>
+				<td><%= mv.getFechaTef().toString() %></td>
+				<td><%= mv.getTipoMovimiento().getName() %></td>
+				<td>$<%= mv.getImporte() %></td>		
+			</tr>
+		<%}
+	}
+	%>
 	</table>
 </div>
+
 </body>
 </html>

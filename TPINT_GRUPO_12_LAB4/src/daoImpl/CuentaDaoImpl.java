@@ -285,4 +285,114 @@ public class CuentaDaoImpl implements CuentaDao {
 
 		    return cbu;
 	}
+
+	@Override
+	public ArrayList<Cuenta> CuentasAsociadas(String nc) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		try {
+			Statement st = cn.createStatement();
+			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI inner join usuarios u on cl.Usuario= u.Usuario where u.Usuario like '" + nc + "'";
+			PreparedStatement pst= cn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+				
+				String fechaStr = rs.getString("Fecha_creacion");
+				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+				LocalDate localDate = fechaSQL.toLocalDate();
+				
+				Fecha f = new Fecha();
+				f.setDia(localDate.getDayOfMonth());
+				f.setMes(localDate.getMonthValue());
+				f.setYear(localDate.getYear());
+				cuenta.setFechaCreacion(f);
+				
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setEstado(rs.getString("estado"));
+				cuenta.setTipoCuenta(obj);
+				
+				lista.add(cuenta);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return lista;
+	}
+
+	@Override
+	public String BuscarCteporCuenta(String numerocuenta) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		String dni;
+		try {
+			Statement st = cn.createStatement();
+			String query="Select DNI from cuentas where Cuenta='" + numerocuenta + "'";
+			PreparedStatement pst= cn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				dni = rs.getString("DNI");
+				return dni;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return null;
+	}
+
+	@Override
+	public ArrayList<Cuenta> CuentasxDNI(String dni) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		try {
+			Statement st = cn.createStatement();
+			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI where c.DNI='"+ dni +"';";
+			PreparedStatement pst= cn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+				
+				String fechaStr = rs.getString("Fecha_creacion");
+				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+				LocalDate localDate = fechaSQL.toLocalDate();
+				
+				Fecha f = new Fecha();
+				f.setDia(localDate.getDayOfMonth());
+				f.setMes(localDate.getMonthValue());
+				f.setYear(localDate.getYear());
+				cuenta.setFechaCreacion(f);
+				
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setEstado(rs.getString("estado"));
+				cuenta.setTipoCuenta(obj);
+				
+				lista.add(cuenta);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return lista;
+	}
 }

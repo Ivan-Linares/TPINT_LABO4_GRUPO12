@@ -304,7 +304,7 @@ public class CuentaDaoImpl implements CuentaDao {
 				
 				String fechaStr = rs.getString("Fecha_creacion");
 				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
-				LocalDate localDate = fechaSQL.toLocalDate();
+			//	LocalDate localDate = fechaSQL.toLocalDate();
 					
 				cuenta.setFechaCreacion(fechaSQL);
 				
@@ -353,7 +353,7 @@ public class CuentaDaoImpl implements CuentaDao {
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		try {
 			Statement st = cn.createStatement();
-			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI where c.Estado='A' AND c.DNI='"+ dni +"' ORDER BY c.Cuenta asc;";
+			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='A' AND c.DNI='"+ dni +"' ORDER BY c.Cuenta asc;";
 			PreparedStatement pst= cn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 

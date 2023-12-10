@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
+
+import Entidad.Cliente;
+import Entidad.Cuenta;
+import Negocio.ClienteNegocio;
+import Negocio.CuentaNegocio;
+import NegocioImpl.ClienteNegocioImpl;
+import NegocioImpl.CuentaNegocioImpl;
 
 
 /**
@@ -29,22 +38,21 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnsolicitarprestamo")!=null) {
-			int p=1;
-			request.setAttribute("nuevasolicitud", p);
+		
+		if(request.getParameter("Param")!=null) {
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/Solicitud_Prestamo_Cte.jsp");
-			rd.forward(request, response);	
-			doGet(request, response);
-		}
-		if(request.getParameter("btnSimular")!=null) {
-			int p=1;
-			request.setAttribute("Prestamo", p);
+			String DNI = request.getParameter("Param").toString();
+			ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
+			CuentaNegocio cn = new CuentaNegocioImpl();
+			listaCuentas = cn.CuentasxDNI(request.getParameter("Param"));
+					
+			request.setAttribute("DNI", DNI);
+			request.setAttribute("listaCuentas", listaCuentas);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/Solicitud_Prestamo_Cte.jsp");
-			rd.forward(request, response);	
-			doGet(request, response);			
+			RequestDispatcher rd = request.getRequestDispatcher("Solicitud_Prestamo_Cte.jsp");
+			rd.forward(request, response);
 		}
+		
 	}
 
 	/**
@@ -52,25 +60,38 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
-		if(request.getParameter("btnConfirmar")!=null) {
+		if(request.getParameter("btnSimular") != null) {
 			
-			String msj="Prestamo solicitado con éxito";
+			if(request.getParameter("InputMontoPrueba") != null) {	
+				
+				int montoInicial = Integer.parseInt(request.getParameter("InputMontoPrueba")); 
+				int cuotas = Integer.parseInt(request.getParameter("Cuotas"));
+				double montoFinal = 0;
+				
+				if(cuotas == 6) {
+					montoFinal = montoInicial * 1.15;
+				}
+				else if(cuotas == 12) {
+					montoFinal = montoInicial * 1.35;
+				}
+				else if(cuotas == 24) {
+					montoFinal = montoInicial * 1.65;
+				}
+				
+				request.setAttribute("MontoSimulacion", montoFinal);
+			}
 			
-			request.setAttribute("mensaje", msj);
+			String DNI = request.getParameter("dniCliente").toString();
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/Home.jsp");
-			rd.forward(request, response);			
-		}
-		
-		if(request.getParameter("btnCancelar")!=null) {
+			ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
+			CuentaNegocio cn = new CuentaNegocioImpl();
+			listaCuentas = cn.CuentasxDNI(DNI);
+					
+
+			request.setAttribute("listaCuentas", listaCuentas);
 			
-			String msj="Se canceló la solicitud";
-			
-			request.setAttribute("mensaje", msj);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/Home.jsp");
-			rd.forward(request, response);			
+			RequestDispatcher rd = request.getRequestDispatcher("/Solicitud_Prestamo_Cte.jsp");
+			rd.forward(request, response);
 		}
 	}
 

@@ -73,7 +73,9 @@ Usuario user=new Usuario();%>
           <a class="nav-link" href="Informes.jsp">Informes</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>
@@ -123,7 +125,9 @@ Usuario user=new Usuario();%>
           <a class="nav-link" href="#">Datos Personales</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>

@@ -100,6 +100,15 @@ public class ContactoClienteServlet extends HttpServlet {
 				cte.setDni(request.getParameter("dni"));
 				cte.setCuil(request.getParameter("cuil"));
 				cte.setSexo(request.getParameter("Sexo"));
+				cte.setTelefono(request.getParameter("telefono"));
+				String tel2=request.getParameter("telefonoSec");
+				
+				if (tel2.trim().length()>0) {
+					cte.setTelefonoSecundario(tel2);
+				}
+				else {
+					cte.setTelefonoSecundario("sin dato");
+				}
 				cte.setLocalidad(new Localidad());
 				cte.getLocalidad().setProvincia(new Provincia());
 				cte.getLocalidad().getProvincia().setPais(new Pais());

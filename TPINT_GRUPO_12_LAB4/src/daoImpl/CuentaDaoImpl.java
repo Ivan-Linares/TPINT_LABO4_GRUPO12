@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
+import Entidad.Cliente;
 import Entidad.Cuenta;
 import Entidad.TipoCuenta;
 import dao.CuentaDao;
@@ -18,6 +21,36 @@ import dao.CuentaDao;
 public class CuentaDaoImpl implements CuentaDao {
 
 	@Override
+public boolean insert(String DNI, int tc) {
+		Connection con = null;
+		try {
+			PreparedStatement statement;
+			con = Conexion.getConexion().getSQLConexion();
+			statement = con.prepareStatement("INSERT INTO Cuentas (DNI, Tipo_De_Cuenta) VALUES(?,?)");
+			statement.setString(1, DNI);
+			statement.setInt(2, tc);
+			
+			if(statement.executeUpdate()>0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return false;
+		
+	}
+	
 	public boolean insertar(Cuenta cuenta) {
 		
 		String cbu = this.ultimoCBU();
@@ -414,5 +447,33 @@ public class CuentaDaoImpl implements CuentaDao {
 			e.printStackTrace();
 		}
 		return lista;
+	}
+
+	@Override
+	public boolean CuentasPendientes(String DNI) {	
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("SELECT c.DNI FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='P' AND c.DNI='"+ DNI +"';");
+			
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				return true;
+				}
+			}
+			catch (Exception e) {
+			e.printStackTrace();
+				try {
+					con.rollback();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return false;
 	}
 }

@@ -17,16 +17,17 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("INSERT into prestamos values(?,?,?,?,?,?)");
-			statement.setInt(1, prestamo.getIDPrestamo());
-			statement.setString(2, prestamo.getCuenta().getNumero());
-			//Quizas es mejor trabajar las fechas como string en la DB
+			statement = con.prepareStatement("INSERT INTO Prestamos (Cuenta, dni, Fecha, Importe_solicitado, Importe_total, "
+					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado) VALUES (?,?,?,?,?,?,?,?)");
+			
+			statement.setInt(1, prestamo.getNroCuenta());
+			statement.setString(2, prestamo.getDNI());
 			statement.setString(3, prestamo.getFecha().toString());
-			//En caso de que las trabajemos como Date:
-			//statement.setDate(3, Date.valueOf(prestamo.getFecha()));
 			statement.setDouble(4, prestamo.getImporteSolicitado());
-			statement.setInt(5, prestamo.getPlazoPagoMeses());
-			statement.setString(6, prestamo.getEstado());
+			statement.setDouble(5, prestamo.getImporteTotal());
+			statement.setDouble(6, prestamo.getImporteMensual());
+			statement.setInt(7, prestamo.getCuotasRestantes());
+			statement.setString(8, prestamo.getEstado());
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();

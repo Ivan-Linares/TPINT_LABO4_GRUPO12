@@ -77,11 +77,10 @@ Usuario user=new Usuario();%>
 
 <%
 String nusuario = user.getUser();
-String UsuarioDni = user.getPersona().getDni();
 
 if (!admin){ 
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
-	
+	String UsuarioDni = user.getPersona().getDni();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">

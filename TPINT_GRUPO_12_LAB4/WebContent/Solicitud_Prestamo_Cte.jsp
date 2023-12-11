@@ -124,7 +124,7 @@
                         <table>
                             <tr>
                                 <th>Monto Solicitado:</th>
-                                <th><input type="number" name="InputMontoPrueba" value="500000" min="500000" step="10000"></th>
+                                <th><input type="number" name="InputMontoPrueba" value="500000" min="500000" max="1000000" step="10000"></th>
                             </tr>
                             <tr>
                                 <th>Cantidad de cuotas:</th>
@@ -145,11 +145,19 @@
                             if (request.getAttribute("MontoSimulacion") != null) {
                                 montoPrueba = (double) request.getAttribute("MontoSimulacion");
                             }
+                            double montoCuotaPrueba = 0;
+                            if (request.getAttribute("CuotaSimulacion") != null) {
+                            	montoCuotaPrueba = (double) request.getAttribute("CuotaSimulacion");
+                            }
                         %>
                         <table>
                             <tr>
                                 <th>Monto a Pagar:</th>
                                 <th><input type="number" name="MontoPrueba" value="<%=montoPrueba%>" disabled></th>
+                            </tr>
+                             <tr>
+                                <th>Monto por Cuota:</th>
+                                <th><input type="number" name="MontoPrueba" value="<%=montoCuotaPrueba%>" disabled></th>
                             </tr>
                         </table>
                     </div>
@@ -188,13 +196,13 @@
                             </tr>
                             <tr>
                                 <th>Monto a Solicitar: </th>
-                                <th><input type="number" name="MontoFinal" min="500000" step="10000"></th>
+                                <th><input type="number" name="MontoFinal" value="500000" min="500000" max="1000000" step="10000"></th>
                             </tr>
                             <tr>
                                 <th>Cantidad de cuotas: </th>
                                 <th class="row-cols-xxl-1">
-                                    <select name="Cuota" id="Cuota">
-                                        <option value="6">6</option>
+                                    <select name="CuotasFinal" id="Cuota">
+                                        <option value="6" selected>6</option>
                                         <option value="12">12</option>
                                         <option value="24">24</option>
                                     </select>

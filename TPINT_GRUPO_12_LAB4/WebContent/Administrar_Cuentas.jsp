@@ -19,6 +19,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 </head>
 <body>
 <%!
@@ -156,7 +160,7 @@ Usuario user=new Usuario();%>
 						<input type="submit" name="btnPendientes" value="Cuentas Pendientes de aprobacion">
 					</div></br>
 				</form>
-					<table class="table table-hover">
+					<table class="table table-hover" id="tablaCuentas">
 						<thead>
 							<td>Cliente Asignado</td>
 							<td>Numero Cuenta</td>
@@ -192,7 +196,6 @@ Usuario user=new Usuario();%>
 		</div>
 	</div>
 	
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="JS/script.js"></script>
 
 <script>
@@ -200,6 +203,10 @@ Usuario user=new Usuario();%>
        	var respuesta = confirm("Estas seguro de dar de baja esta cuenta?");
         return respuesta; 
     }
+    
+    $(document).ready(function() {
+        $('#tablaCuentas').DataTable();
+    });
 </script>	
 	
 </body>

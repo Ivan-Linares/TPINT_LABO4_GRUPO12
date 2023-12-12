@@ -15,5 +15,6 @@ public interface MovimientoNegocio {
 	public ArrayList<Movimiento> listar(float Importe, int compare);
 	
 	public ArrayList<Movimiento> listarXcuenta(String cuenta);
+	public Double totalTipoMov(String fechaInicio, String fechaFin, int tipoMovimiento);
 
 }

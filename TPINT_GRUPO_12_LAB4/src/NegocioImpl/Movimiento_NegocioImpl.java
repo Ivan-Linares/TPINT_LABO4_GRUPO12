@@ -54,4 +54,10 @@ public class Movimiento_NegocioImpl implements MovimientoNegocio{
 		return Cdao.listarXcuenta(cuenta);
 	}
 
+	@Override
+	public Double totalTipoMov(String fechaInicio, String fechaFin, int tipoMovimiento) {
+		Cdao = new MovimientoDaoImpl();
+		return Cdao.totalTipoMov(fechaInicio, fechaFin, tipoMovimiento);
+	}
+
 }

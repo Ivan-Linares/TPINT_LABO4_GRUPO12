@@ -97,4 +97,21 @@ public class MovimientoDaoImpl implements movimientoDao{
 		return null;
 	}
 
+	@Override
+	public Double totalTipoMov(String fechaInicio, String fechaFin, int tipoMovimiento) {
+		
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		Double total = (double) 2;
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT SUM(Importe) AS Total FROM Movimientos WHERE Fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' AND Tipo_Movimiento = '"+tipoMovimiento+"'");
+			while(rs.next()) {
+				total = rs.getDouble("Total");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return total;
+	}
+
 }

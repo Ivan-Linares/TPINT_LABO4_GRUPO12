@@ -15,4 +15,5 @@ public interface movimientoDao {
 	public int cantMovimientos();
 
 	public ArrayList<Movimiento> listarXcuenta(String cuenta);
+	public Double totalTipoMov(String fechaInicio, String fechaFin, int tipoMovimiento);
 }

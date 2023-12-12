@@ -9,6 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Negocio.MovimientoNegocio;
+import Negocio.TipoMovimientoNegocio;
+import NegocioImpl.Movimiento_NegocioImpl;
+import NegocioImpl.TipoMovimientoNegocioImpl;
+
+
 /**
  * Servlet implementation class informes_Servlet
  */
@@ -46,12 +52,24 @@ public class informes_Servlet extends HttpServlet {
 		}
 		
 		if(request.getParameter("btnGenerarReporte") != null) {
-			String tipoInforme = "acumuladoTipoMov";
 			
+			if(request.getParameter("fechaInicio") != null && request.getParameter("fechaFin") != null) {
+				
+				String fechaInicio = request.getParameter("fechaInicio");
+				String fechaFin = request.getParameter("fechaFin");
+				int tipoMovimiento = Integer.parseInt(request.getParameter("SeltipoMov"));
+				
+				MovimientoNegocio movNeg = new Movimiento_NegocioImpl();
+				
+				try {
+					Double total = movNeg.totalTipoMov(fechaInicio, fechaFin, tipoMovimiento);
+					System.out.println(total);
+					request.setAttribute("total", total);
+				} catch (Exception e) {
+					throw e;
+				}				
+			}
 			
-			
-			
-			request.setAttribute("tipoInforme", tipoInforme);
 			RequestDispatcher rd = request.getRequestDispatcher("Informes.jsp");
 			rd.forward(request, response);
 		}

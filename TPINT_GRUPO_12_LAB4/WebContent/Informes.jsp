@@ -1,3 +1,6 @@
+<%@page import="Entidad.TipoMovimiento"%>
+<%@page import="NegocioImpl.TipoMovimientoNegocioImpl"%>
+<%@page import="Negocio.TipoMovimientoNegocio"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -150,12 +153,12 @@ Usuario user=new Usuario();%>
 		
 		<label for="tipoMov">Tipo de movimiento:</label>
         <select name="SeltipoMov">
-		<%TipoSeguroNegocio tsNegocio = new TipoSeguroNegocioImpl();
-		for (TipoSeguro tipo : tsNegocio.readAll()) {
-		%>
-		<option><%=tipo.getDescripcion() %></option>			
-		<% } %>
-	</select>
+			<%TipoMovimientoNegocio tmNegocio = new TipoMovimientoNegocioImpl();
+			for (TipoMovimiento tm : tmNegocio.listar()) {
+			%>
+			<option value="<%=tm.getCode()%>" ><%=tm.getName()%></option>			
+			<% } %>
+		</select>
 	
 		<label for="fechaInicio">Fecha de inicio:</label>
     	<input type="date" id="fechaInicio" name="fechaInicio" required>
@@ -165,6 +168,19 @@ Usuario user=new Usuario();%>
     	
     	<button type="submit" name="btnGenerarReporte">Generar reporte</button>
     </form>
+    
+<%} %>
+
+<% 	String total = "";
+	if(request.getAttribute("total") != null){
+		total = request.getAttribute("total").toString();
+	}	
+%>
+
+<%if (total != "") { %>   
+	<br><br>
+	<label for="TotalMov">El total de movimientos relacionados a fechas y tipo seleccionados es:</label>
+    <input type="text" name="TotalMov" value="<%= total%>" class="form-control" disabled><br>
     
 <%} %>
     

@@ -29,6 +29,11 @@
 		<h3><%= resp %></h3>
 <%}%>
 
+<%if(request.getAttribute("Logout")!=null){
+		String resp=(String)request.getAttribute("Logout");%>
+		<h3><%= resp %></h3>
+<%}%>
+
 <%if(request.getAttribute("Client")!=null){
 		Usuario resp=(Usuario)request.getAttribute("Client");%>
 		<h3><%=resp.getPersona().getNombre()%></h3>

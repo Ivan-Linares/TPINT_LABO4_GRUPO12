@@ -123,45 +123,48 @@ if (!admin){
   </div>
 </nav>
 <%} %>
-<form action="" method="post" style=margin-top:15px;margin-left:10px;>
+<form action="Index.jsp" style=margin-top:15px;margin-left:10px;>
 	<div class="row">
 	  <div class="col">
-	    <label for="nombre">DNI:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+	    <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" value="<%=user.getPersona().getDni()%>" class="form-control" disabled><br>
         
-        <label for="nombre">CUIL:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <label for="cuil">CUIL:</label>
+        <input type="text" id="cuil" name="cuil" value="<%=user.getPersona().getCuil()%>"  class="form-control" disabled><br>
         
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="<%=user.getPersona().getNombre()%>"  class="form-control" disabled><br>
         
-        <label for="nombre">Apellido:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" value="<%=user.getPersona().getApellido()%>"  class="form-control" disabled><br>
         
-        <label for="nombre">Sexo:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <label for="sexo">Sexo:</label>
+        <input type="text" id="sexo" name="sexo" value="<%=user.getPersona().getSexo()%>"  class="form-control" disabled><br>
         
-        <label for="nombre">Email:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="<%=user.getPersona().getEmail()%>" class="form-control" disabled><br>
 	  </div>
 	  <div class="col">
- 		<label for="nombre">Pais:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+ 		<label for="pais">Pais:</label>
+        <input type="text" id="pais" name="pais" value="<%=user.getPersona().getLocalidad().getProvincia().getPais().getName()%>"  class="form-control" disabled><br>
         
-        <label for="nombre">Provincia:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <label for="provincia">Provincia:</label>
+        <input type="text" id="provincia" name="provincia" value="<%=user.getPersona().getLocalidad().getProvincia().getNombreProvincia()%>"  class="form-control" disabled><br>
         
-        <label for="nombre">Localidad:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <label for="localidad">Localidad:</label>
+        <input type="text" id="localidad" name="localidad" value="<%=user.getPersona().getLocalidad().getNombreLocalidad()%>" class="form-control" disabled><br>
         
-        <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <label for="direccion">Direccion:</label>
+        <input type="text" id="direccion" name="direccion" value="<%=user.getPersona().getDireccion()%>"  class="form-control" disabled><br>
        
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="<%=user.getPersona().getDni()%>"  class="form-control" disabled><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="nombre" value="lalala" class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="<%=user.getPersona().getTelefono()%>" class="form-control" disabled><br>
+        
+        <label for="telefonoSec">Telefono secundario:</label>
+        <input type="text" id="telefonoSec" name="telefonoSec" value="<%=user.getPersona().getTelefonoSecundario()%>" class="form-control" disabled><br>
 	  </div>
 	</div>
 	<input type="submit" value="volver">

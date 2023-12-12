@@ -37,12 +37,16 @@ public class validarLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
+		
+		String resp= "Ocurrió un error";
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
+            resp="La sesión se cerró correctamente";
         }
-        response.sendRedirect("Login.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
+		request.setAttribute("Logout", resp);
+		rd.forward(request, response);
 		
 	}
 

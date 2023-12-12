@@ -43,8 +43,23 @@ public class MovimientoDaoImpl implements movimientoDao{
 
 	@Override
 	public ArrayList<Movimiento> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Movimiento> movimientos = new ArrayList<Movimiento>();
+		Movimiento obj= new Movimiento();
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("select * FROM movimientos m inner join tipos_movimientos tm on m.Tipo_movimiento=tm.Tipo_movimiento");
+			while(rs.next()) {
+				obj = setMovimientos(rs);
+				movimientos.add(obj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return movimientos;
 	}
 
 	@Override

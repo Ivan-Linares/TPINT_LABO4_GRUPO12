@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="Entidad.Movimiento"%>
 <%@page import="Entidad.TipoMovimiento"%>
 <%@page import="NegocioImpl.TipoMovimientoNegocioImpl"%>
 <%@page import="Negocio.TipoMovimientoNegocio"%>
@@ -11,6 +13,10 @@
 <title>Informes</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
 </head>
 <body>
@@ -151,6 +157,8 @@ Usuario user=new Usuario();%>
 	
 	<form action="informes_Servlet" method="post">
 		
+		<br><br>
+		
 		<label for="tipoMov">Tipo de movimiento:</label>
         <select name="SeltipoMov">
 			<%TipoMovimientoNegocio tmNegocio = new TipoMovimientoNegocioImpl();
@@ -167,22 +175,86 @@ Usuario user=new Usuario();%>
     	<input type="date" id="fechaFin" name="fechaFin" required>
     	
     	<button type="submit" name="btnGenerarReporte">Generar reporte</button>
+    	
+    	<br><br>
+    	
     </form>
     
-<%} %>
-
-<% 	String total = "";
-	if(request.getAttribute("total") != null){
+    <%
+	String total = "";
+	if (request.getAttribute("total") != null) {
 		total = request.getAttribute("total").toString();
-	}	
+	}
 %>
 
 <%if (total != "") { %>   
 	<br><br>
 	<label for="TotalMov">El total de movimientos relacionados a fechas y tipo seleccionados es:</label>
-    <input type="text" name="TotalMov" value="<%= total%>" class="form-control" disabled><br>
-    
+    <input type="text" name="TotalMov" value="<%= total%>" class="form-control d-inline w-auto" disabled><br>
 <%} %>
+    
+    <%
+				ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+				if(request.getAttribute("listaMovimientos") != null)
+					listaMovimientos = (ArrayList<Movimiento>)request.getAttribute("listaMovimientos");
+				
+				if (listaMovimientos.isEmpty()) {
+				%>
+				<h3>No hay movimientos para mostrar!</h3>
+				<%
+					} 
+				else {
+				%>
+				
+	<h3>Historial completo de movimientos</h3>
+	
+	<div class="container text-center">
+		<div class="row justify-content-md-center">
+			<div class="col col-lg-2"></div>
+			<div class="col-md-auto">
+				<table class="table table-hover" id="tablaMovimientos">
+					<thead>
+						<tr>
+							<th>Cuenta</th>
+							<th>Fecha</th>
+							<th>Concepto</th>
+							<th>Importe</th>
+						</tr>
+					</thead>
+					<tbody>
+					<%  if (listaMovimientos != null) 
+						for(Movimiento mov : listaMovimientos){
+					%>
+						<tr>
+							<td><%= mov.getCuenta() %></td>
+							<td><%= mov.getFechaTef() %></td>
+							<td><%= mov.getTipoMovimiento() %></td>
+							<td><%= mov.getImporte() %></td>
+						</tr>
+					<%
+						}
+					%>	
+					</tbody>
+				</table>		
+			</div>
+			<div class="col col-lg-2"></div>
+		</div>
+	</div>	
+	<% 
+		}
+	%>
+	
+<% 
+	}
+%>
+
+
+<script>
+    $(document).ready(function() {
+        $('#tablaMovimientos').DataTable();
+    });
+</script>
+
     
 </body>
 </html>

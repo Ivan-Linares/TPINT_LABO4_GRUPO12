@@ -20,8 +20,8 @@ public class Movimiento_NegocioImpl implements MovimientoNegocio{
 
 	@Override
 	public ArrayList<Movimiento> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		Cdao = new MovimientoDaoImpl();
+		return Cdao.listar();
 	}
 
 	@Override

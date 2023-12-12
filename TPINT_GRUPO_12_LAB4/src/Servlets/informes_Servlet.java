@@ -1,6 +1,7 @@
 package Servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Entidad.Cliente;
+import Entidad.Movimiento;
+import Negocio.ClienteNegocio;
 import Negocio.MovimientoNegocio;
 import Negocio.TipoMovimientoNegocio;
+import NegocioImpl.ClienteNegocioImpl;
 import NegocioImpl.Movimiento_NegocioImpl;
 import NegocioImpl.TipoMovimientoNegocioImpl;
 
@@ -47,19 +52,31 @@ public class informes_Servlet extends HttpServlet {
 			
 			String tipoInforme = "acumuladoTipoMov";
 			request.setAttribute("tipoInforme", tipoInforme);
+			
+			MovimientoNegocio movNeg = new Movimiento_NegocioImpl();
+			ArrayList<Movimiento> listaMovimientos = movNeg.listar();
+			
+			request.setAttribute("listaMovimientos", listaMovimientos);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("Informes.jsp");
 			rd.forward(request, response);
 		}
 		
 		if(request.getParameter("btnGenerarReporte") != null) {
 			
+			String tipoInforme = "acumuladoTipoMov";
+			request.setAttribute("tipoInforme", tipoInforme);
+			
+			MovimientoNegocio movNeg = new Movimiento_NegocioImpl();
+			ArrayList<Movimiento> listaMovimientos = movNeg.listar();
+			
+			request.setAttribute("listaMovimientos", listaMovimientos);
+			
 			if(request.getParameter("fechaInicio") != null && request.getParameter("fechaFin") != null) {
 				
 				String fechaInicio = request.getParameter("fechaInicio");
 				String fechaFin = request.getParameter("fechaFin");
 				int tipoMovimiento = Integer.parseInt(request.getParameter("SeltipoMov"));
-				
-				MovimientoNegocio movNeg = new Movimiento_NegocioImpl();
 				
 				try {
 					Double total = movNeg.totalTipoMov(fechaInicio, fechaFin, tipoMovimiento);

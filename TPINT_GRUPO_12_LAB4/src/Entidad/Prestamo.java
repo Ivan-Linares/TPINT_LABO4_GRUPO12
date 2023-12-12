@@ -1,97 +1,79 @@
 package Entidad;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Prestamo {
 	
-	private Integer IDPrestamo; 
-	private Cuenta Cuenta; 
-	private LocalDate Fecha; 
+	private int IDPrestamo;
+	private String DNI;
+	private int NroCuenta;
+	private Date Fecha; 
 	private double ImporteSolicitado; 
-	private int PlazoPagoMeses; 
+	private double ImporteTotal;
+	private double ImporteMensual; 
 	private int CuotasRestantes; 
 	private String Estado;
-	//Tasa nominal anual
-	private double TNA;
-
+	
+	
 	public Prestamo() {
 
 	}
-
-	public Prestamo(Integer iDPrestamo, Cuenta cuenta, LocalDate fecha,
-			double importeSolicitado, int plazoPagoMeses, double tna, int cuotasRestantes, String estado) {
-		this.IDPrestamo = iDPrestamo;
-		this.Cuenta = cuenta;
-		this.Fecha = fecha;
-		this.ImporteSolicitado = importeSolicitado;
-		this.PlazoPagoMeses = plazoPagoMeses;
-		this.TNA = tna;
-		this.CuotasRestantes = cuotasRestantes;
-		this.Estado = estado;
-	}
-
-	public Integer getIDPrestamo() {
+	
+	public int getIDPrestamo() {
 		return IDPrestamo;
 	}
-
-	public void setIDPrestamo(Integer iDPrestamo) {
+	public void setIDPrestamo(int iDPrestamo) {
 		IDPrestamo = iDPrestamo;
 	}
-
-	public Cuenta getCuenta() {
-		return Cuenta;
+	public String getDNI() {
+		return DNI;
 	}
-
-	public void setCuenta(Cuenta cuenta) {
-		Cuenta = cuenta;
+	public void setDNI(String dNI) {
+		DNI = dNI;
 	}
-
-	public LocalDate getFecha() {
+	public int getNroCuenta() {
+		return NroCuenta;
+	}
+	public void setNroCuenta(int nroCuenta) {
+		NroCuenta = nroCuenta;
+	}
+	public Date getFecha() {
 		return Fecha;
 	}
-
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(Date fecha) {
 		Fecha = fecha;
 	}
-
 	public double getImporteSolicitado() {
 		return ImporteSolicitado;
 	}
-
 	public void setImporteSolicitado(double importeSolicitado) {
 		ImporteSolicitado = importeSolicitado;
 	}
-
-	public int getPlazoPagoMeses() {
-		return PlazoPagoMeses;
+	public double getImporteTotal() {
+		return ImporteTotal;
 	}
-
-	public void setPlazoPagoMeses(int plazoPagoMeses) {
-		PlazoPagoMeses = plazoPagoMeses;
+	public void setImporteTotal(double importeTotal) {
+		ImporteTotal = importeTotal;
 	}
-
-	public double getTna() {
-		return TNA;
+	public double getImporteMensual() {
+		return ImporteMensual;
 	}
-
-	public void setTna(double tna) {
-		this.TNA = tna;
+	public void setImporteMensual(double montoCuota) {
+		ImporteMensual = montoCuota;
 	}
-
 	public int getCuotasRestantes() {
 		return CuotasRestantes;
 	}
-
 	public void setCuotasRestantes(int cuotasRestantes) {
 		CuotasRestantes = cuotasRestantes;
 	}
-
 	public String getEstado() {
 		return Estado;
 	}
-
 	public void setEstado(String estado) {
-		this.Estado = estado;
+		Estado = estado;
 	}
+
+	
 
 }

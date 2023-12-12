@@ -91,22 +91,23 @@ create table Prestamos
 (
     ID_Prestamo int not NULL PRIMARY KEY auto_increment,
     DNI VARCHAR(8),
-	Cuenta int NOT NULL,
+    Cuenta int NOT NULL,
     Fecha date not null,
-    Importe_total DECIMAL(7,2) NOT NULL,
-    Importe_mensual_a_pagar DECIMAL(6,2) NOT NULL,
-    Estado CHAR(1) NOT NULL default 'P' check(Estado='P' or Estado='A' or Estado='I'),
-    cuotas_pendientes char(3) not null,
+    Importe_solicitado DECIMAL(10,2) NOT NULL,
+    Importe_total DECIMAL(10,2) NOT NULL,
+    Importe_mensual_a_pagar DECIMAL(10,2) NOT NULL,
+    cuotas_pendientes INT not null,
+    Estado CHAR(1) NOT NULL default 'P' check(Estado='P' or Estado='A' or Estado='E' or Estado='R'),
     foreign key (Cuenta) references Cuentas(cuenta),
     foreign key (DNI) references Clientes(DNI)
-);
+) AUTO_INCREMENT = 100000;
 
 CREATE table PagoPrestamos(
     ID_Pago int not NULL primary key auto_increment,
     ID_Prestamo int not NULL,
     Cuenta int,
-    NumeroCuota SMALLINT not NULL,
-    Importe_cuota DECIMAL(7,2) NOT NULL,
+    NumeroCuota INT not NULL,
+    Importe_cuota DECIMAL(6,2) NOT NULL,
     Fecha date not null,
     foreign key (Cuenta) references Cuentas(Cuenta),
     foreign key (ID_Prestamo) references Prestamos(ID_Prestamo)
@@ -124,7 +125,7 @@ create table Movimientos
 	Cuenta int NOT NULL,
     Fecha date not null,
     Concepto VARCHAR(100) NOT NULL,
-    IMPORTE DECIMAL(7,2) NOT NULL,
+    IMPORTE DECIMAL(10,2) NOT NULL,
     Tipo_movimiento int not null,
     foreign key (Cuenta) references cuentas(cuenta),
     foreign key (Tipo_movimiento) references Tipos_Movimientos(Tipo_movimiento)

@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
+import Entidad.Cliente;
 import Entidad.Cuenta;
 import Entidad.TipoCuenta;
 import dao.CuentaDao;
@@ -18,6 +21,36 @@ import dao.CuentaDao;
 public class CuentaDaoImpl implements CuentaDao {
 
 	@Override
+public boolean insert(String DNI, int tc) {
+		Connection con = null;
+		try {
+			PreparedStatement statement;
+			con = Conexion.getConexion().getSQLConexion();
+			statement = con.prepareStatement("INSERT INTO Cuentas (DNI, Tipo_De_Cuenta) VALUES(?,?)");
+			statement.setString(1, DNI);
+			statement.setInt(2, tc);
+			
+			if(statement.executeUpdate()>0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return false;
+		
+	}
+	
 	public boolean insertar(Cuenta cuenta) {
 		
 		String cbu = this.ultimoCBU();
@@ -304,7 +337,7 @@ public class CuentaDaoImpl implements CuentaDao {
 				
 				String fechaStr = rs.getString("Fecha_creacion");
 				java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
-				LocalDate localDate = fechaSQL.toLocalDate();
+			//	LocalDate localDate = fechaSQL.toLocalDate();
 					
 				cuenta.setFechaCreacion(fechaSQL);
 				
@@ -353,7 +386,7 @@ public class CuentaDaoImpl implements CuentaDao {
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		try {
 			Statement st = cn.createStatement();
-			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta inner join clientes cl on c.DNI=cl.DNI where c.Estado='A' AND c.DNI='"+ dni +"' ORDER BY c.Cuenta asc;";
+			String query="SELECT c.DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='A' AND c.DNI='"+ dni +"' ORDER BY c.Cuenta asc;";
 			PreparedStatement pst= cn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 
@@ -396,6 +429,62 @@ public class CuentaDaoImpl implements CuentaDao {
 			String complemento=" and "+ campo +" like '"+ dato +"%'";
 			String query="SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='a'";
 			ResultSet rs = st.executeQuery(query+complemento);
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setTipoCuenta(obj);
+
+				lista.add(cuenta);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
+
+	@Override
+	public boolean CuentasPendientes(String DNI) {	
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("SELECT c.DNI FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='P' AND c.DNI='"+ DNI +"';");
+			
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				return true;
+				}
+			}
+			catch (Exception e) {
+			e.printStackTrace();
+				try {
+					con.rollback();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public ArrayList<Cuenta> ListarCuentasPendientes() {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		try {
+			Statement st = cn.createStatement();
+			String query="SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='P'";
+			ResultSet rs = st.executeQuery(query);
 			while(rs.next()) {
 				Cuenta cuenta = new Cuenta();
 				cuenta.setCBU(rs.getString("CBU"));

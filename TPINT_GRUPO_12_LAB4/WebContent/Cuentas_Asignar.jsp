@@ -2,7 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="Entidad.Usuario"%>
+<%@page import="Entidad.Usuario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,11 +29,11 @@ Usuario user=new Usuario();%>
 		}
 }%>
 
-<%
+<%/*
 	ArrayList<Cliente> listaPendientes = null;
 	if(request.getAttribute("listaPendientes") != null){
 		listaPendientes = (ArrayList<Cliente>)request.getAttribute("listaPendientes");
-	}
+	}*/
 %>
 
 <!-- Navbar Admin -->
@@ -80,7 +80,9 @@ Usuario user=new Usuario();%>
           <a class="nav-link" href="Informes.jsp">Informes</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>
@@ -130,7 +132,9 @@ Usuario user=new Usuario();%>
           <a class="nav-link" href="#">Datos Personales</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>

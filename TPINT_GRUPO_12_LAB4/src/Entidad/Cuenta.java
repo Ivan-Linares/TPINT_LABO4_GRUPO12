@@ -7,7 +7,6 @@ public class Cuenta {
 	
 	private String dni;
 	private String numero;
-	//private Fecha fechaCreacion;
 	private Date Fecha;
 	private TipoCuenta tipoCuenta;
 	private String CBU;

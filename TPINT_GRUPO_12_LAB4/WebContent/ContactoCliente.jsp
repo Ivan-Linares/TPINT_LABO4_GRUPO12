@@ -117,6 +117,10 @@
             <label for="telefono">Teléfono:</label>
             <input type="text" id="telefono" max = "99999999999999999999" name="telefono" required>
             
+            <label for="telefono">Teléfono secundario:</label>
+            <input type="text" id="telefonoSec" max = "99999999999999999999" name="telefonoSec">
+            
+            
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" maxlength = "100" required>
             

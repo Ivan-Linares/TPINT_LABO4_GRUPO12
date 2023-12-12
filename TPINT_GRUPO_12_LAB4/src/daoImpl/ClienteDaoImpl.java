@@ -44,8 +44,10 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setInt(7, cliente.getLocalidad().getCodLocalidad());
 			statement.setString(8, cliente.getDireccion());
 			statement.setString(9, cliente.getEmail());
-			statement.setString(10, cliente.getUsuario());
-			statement.setString(11, cliente.getEstado());			
+			statement.setString(10, cliente.getTelefono());
+			statement.setString(11, cliente.getTelefonoSecundario());
+			statement.setString(12, cliente.getUsuario());
+			statement.setString(13, cliente.getEstado());			
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();

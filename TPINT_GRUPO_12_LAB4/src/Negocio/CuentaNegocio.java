@@ -7,6 +7,7 @@ import Entidad.Cuenta;
 
 public interface CuentaNegocio {
 	public boolean insertar (Cuenta cuenta);
+	public boolean insert(String DNI, int tc);
 	public boolean modificar (Cuenta cuenta);
 	public boolean Eliminar (Cuenta cuenta);
 	public ArrayList<Cuenta> listar();
@@ -19,4 +20,6 @@ public interface CuentaNegocio {
 	public String BuscarCteporCuenta(String numerocuenta);
 	public ArrayList<Cuenta> CuentasxDNI(String dni);
 	public ArrayList<Cuenta> listaFiltrada(String dato, String campo);
+	public boolean CuentasPendientes (String DNI);
+	public ArrayList<Cuenta> ListarCuentasPendientes();
 }

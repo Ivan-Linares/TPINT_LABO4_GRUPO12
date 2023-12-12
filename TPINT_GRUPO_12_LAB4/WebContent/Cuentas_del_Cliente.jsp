@@ -66,7 +66,9 @@ Usuario user=new Usuario();%>
           <a class="nav-link" href="Informes.jsp">Informes</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>
@@ -114,7 +116,9 @@ if (!admin){
           <a class="nav-link" href="Datos_Personales_cte.jsp">Datos Personales</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>
@@ -134,8 +138,10 @@ if (!admin){
 	if(request.getAttribute("listaCuentas")!=null){
 		listacuentas = (ArrayList<Cuenta>)request.getAttribute("listaCuentas");
 		int c=0;
+		String nc="";
 		for(Cuenta cuenta : listacuentas){
 			c++;
+			nc=cuenta.getDni();
 		%>
     <div class="col" style="margin-left:8%">
 		<div class="card" style="width: 18rem; margin-bottom:15px">
@@ -152,9 +158,12 @@ if (!admin){
   		<%}
 		int max=3;
 			if(c<3){%>
-		    <div>
-		    	<input type="submit" value="Solicitar nueva cuenta">
-		    </div>
+			<form method="post" action="Serv_Solicitar_CuentaNueva?Param=<%=nc%>">
+			    <div>
+			    	<input type="submit" value="Solicitar nueva caja de ahorro" name="BtnCA">
+			    	<input type="submit" value="Solicitar nueva cuenta corriente" name="BtnCC">
+			    </div>			
+			</form>
 			<%}
 		}
 		%>

@@ -66,7 +66,9 @@ Usuario user=new Usuario();%>
           <a class="nav-link" href="Informes.jsp">Informes</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>
@@ -75,10 +77,12 @@ Usuario user=new Usuario();%>
 <%} %>
 <!-- Navbar Cliente -->
 
-<%String nusuario =user.getUser();
+<%
+String nusuario = user.getUser();
+
 if (!admin){ 
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
-	
+	String UsuarioDni = user.getPersona().getDni();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -96,8 +100,8 @@ if (!admin){
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-          	<li><a class="dropdown-item" href="Solicitud_Prestamo_Cte.jsp" >Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
+          	<li><a class="dropdown-item" href="SolicitarPrestamoClienteServlet?Param=<%= UsuarioDni%>" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Ver_Pretamos_Cte?Param=<%= UsuarioDni%>">Ver Prestamos</a></li>
             <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
         </li>
@@ -116,7 +120,9 @@ if (!admin){
           <a class="nav-link" href="Datos_Personales_cte.jsp">Datos Personales</a>
         </li>
         <li class="nav-item">
-         <button class="btn btn-outline-danger" type="submit">Log Out</button>
+		    <form action="validarLoginServlet" method="get">
+		        <input type="submit" value="Cerrar Sesión">
+		    </form>
         </li>
       </ul>
     </div>

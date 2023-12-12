@@ -94,5 +94,23 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		cDao = new CuentaDaoImpl();
 		return cDao.listaFiltrada(dato, campo);
 	}
+
+	@Override
+	public boolean insert(String DNI, int tc) {
+		cDao = new CuentaDaoImpl();
+		return cDao.insert(DNI, tc);
+	}
+
+	@Override
+	public boolean CuentasPendientes(String DNI) {
+		cDao = new CuentaDaoImpl();
+		return cDao.CuentasPendientes(DNI);
+	}
+
+	@Override
+	public ArrayList<Cuenta> ListarCuentasPendientes() {
+		cDao = new CuentaDaoImpl();
+		return cDao.ListarCuentasPendientes();
+	}
 	
 }

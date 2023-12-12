@@ -3,8 +3,13 @@ package daoImpl;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.mysql.cj.protocol.Resultset;
+
+import Entidad.Cliente;
 import Entidad.Prestamo;
 import dao.PrestamoDao;
 
@@ -74,9 +79,31 @@ public class PrestamoDaoImpl implements PrestamoDao {
 	}
 
 	@Override
-	public ArrayList<Prestamo> getPrestamosPorDNI(int dni) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Prestamo> getPrestamoDNICliente(String dni) {
+		
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		Prestamo prestamo = new Prestamo();
+		ArrayList<Prestamo> listPrestamo = new ArrayList<Prestamo>();
+		
+		try {
+			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
+					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where DNI = ?; ");
+			statement.setString(1, dni);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				prestamo = setPrestamo(rs);
+				listPrestamo.add(prestamo);
+			}
+			 rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listPrestamo;
 	}
 
 	@Override
@@ -107,6 +134,50 @@ public class PrestamoDaoImpl implements PrestamoDao {
 	public Double promedio_prestamos(String desde, String hasta) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean Aprobar(int ID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean Rechazar(int ID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public ArrayList<Prestamo> listarPendientes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Prestamo setPrestamo(ResultSet rs) {
+		
+		Prestamo prestamo = new Prestamo();
+		//ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, Importe_mensual_a_pagar, cuotas_pendientes, Estado
+		try {
+			prestamo.setIDPrestamo(rs.getInt("ID_Prestamo"));
+			prestamo.setDNI(rs.getString("DNI"));
+			prestamo.setNroCuenta(rs.getInt("Cuenta"));
+			String fechaStr = rs.getString("Fecha");
+			java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+			prestamo.setFecha(fechaSQL);
+			prestamo.setImporteSolicitado(rs.getDouble("Importe_solicitado"));
+			prestamo.setImporteTotal(rs.getDouble("Importe_total"));
+			prestamo.setImporteMensual(rs.getDouble("Importe_mensual_a_pagar"));
+			prestamo.setCuotasRestantes(rs.getInt("cuotas_pendientes"));
+			prestamo.setEstado(rs.getString("Estado"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return prestamo;
 	}
 	
 	

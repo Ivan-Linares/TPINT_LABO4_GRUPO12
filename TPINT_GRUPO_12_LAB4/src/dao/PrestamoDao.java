@@ -1,17 +1,24 @@
 package dao;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
+
 
 import Entidad.Prestamo;
 
 public interface PrestamoDao {
 	
+	public Prestamo setPrestamo(ResultSet rs);
 	public boolean insertar(Prestamo prestamo);
 	public boolean eliminar(Prestamo prestamo);
 	public boolean modificar(Prestamo prestamo);
+	public boolean Aprobar(int ID);
+	public boolean Rechazar(int ID);
 	public Prestamo getPrestamoPorID(int idPrestamo);
+	public ArrayList<Prestamo> getPrestamoDNICliente(String DNI);
 	public ArrayList<Prestamo> listar();
-	public ArrayList<Prestamo> getPrestamosPorDNI(int dni);
+	public ArrayList<Prestamo> listarPendientes();
+	
 	
 	//Para reportes
 	public int cantidad_totalPrestamos(String desde, String hasta);

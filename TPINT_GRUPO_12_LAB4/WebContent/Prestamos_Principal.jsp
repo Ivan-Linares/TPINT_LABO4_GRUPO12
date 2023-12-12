@@ -125,58 +125,66 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <br />
-	<div><h3>Prestamos</h3></div></br>
+	<div>
+		<h3>Prestamos</h3>
+	</div>
 	<div>
 		Buscar prestamos por estado:
 		<div class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-		  <label class="form-check-label" for="inlineRadio1"> Proceso </label>
+			<input class="form-check-input" type="radio"
+				name="inlineRadioOptions" id="inlineRadio1" value="option1">
+			<label class="form-check-label" for="inlineRadio1"> Proceso </label>
 		</div>
 		<div class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-		  <label class="form-check-label" for="inlineRadio2"> Cancelado </label>
+			<input class="form-check-input" type="radio"
+				name="inlineRadioOptions" id="inlineRadio2" value="option2">
+			<label class="form-check-label" for="inlineRadio2"> Cancelado
+			</label>
 		</div>
 		<div class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-		  <label class="form-check-label" for="inlineRadio3"> Aceptado </label>
-		</div> 
-	</div></br>
-	<table class="table accordion-collapse">
-		<form>
+			<input class="form-check-input" type="radio"
+				name="inlineRadioOptions" id="inlineRadio3" value="option3">
+			<label class="form-check-label" for="inlineRadio3"> Aceptado
+			</label>
+		</div>
+	</div>
+	<form action="Ver_Pretamos_Cte">
+		<table class="table accordion-collapse">
 			<tr>
-				<th> N° cuenta </th>
-				<th> Fecha solicitud </th>
-				<th> Importe </th>
-				<th> Cuotas pendientes </th>
-				<th> Estado </th>
-				<th> Accion </th>
+				<th>N° cuenta</th>
+				<th>Fecha solicitud</th>
+				<th>Importe</th>
+				<th>Cuotas pendientes</th>
+				<th>Estado</th>
+				<th>Accion</th>
 			</tr>
 			<tr>
-				<td> 123456 </td>
-				<td> 24/04/2021 </td>
-				<td> $33000 </td>
-				<td> 6 </td>
-				<td> Proceso </td>
-				<td> <input type="submit" value="Ampliar" name="txtaccion"> </td>
+				<td>123456</td>
+				<td>24/04/2021</td>
+				<td>$33000</td>
+				<td>6</td>
+				<td>Proceso</td>
+				<td><input type="submit" value="Ampliar" name="txtaccion">
+				</td>
 			</tr>
 			<tr>
-				<td> 123456 </td>
-				<td> 02/04/2021 </td>
-				<td> $800000</td>
-				<td> x </td>
-				<td> Cancelado  </td>
-				<td>  <input type="submit" value="Ampliar" name="txtaccion">  </td>
+				<td>123456</td>
+				<td>02/04/2021</td>
+				<td>$800000</td>
+				<td>x</td>
+				<td>Cancelado</td>
+				<td><input type="submit" value="Ampliar" name="txtaccion">
+				</td>
 			</tr>
-		</form>
-	</table>
-</div></br>
-<div class="btn-group" role="group" aria-label="Basic example">
-  <input type="submit" class="btn btn-success" Value="Volver">
-</div>
-<div class="btn-group" role="group" aria-label="Basic example">
-	<form method="get" action="SolicitarPrestamoClienteServlet">
-	  <input type="submit" class="btn btn-primary" Value="Solicitar nuevo prestamo" name="btnsolicitarprestamo">	
+		</table>
 	</form>
-</div>
+	<div class="btn-group" role="group" aria-label="Basic example">
+		<input type="submit" class="btn btn-success" Value="Volver">
+	</div>
+	<div class="btn-group" role="group" aria-label="Basic example">
+		<form method="get" action="SolicitarPrestamoClienteServlet">
+			<input type="submit" class="btn btn-primary" Value="Solicitar nuevo prestamo" name="btnsolicitarprestamo">
+		</form>
+	</div>
 </body>
 </html>

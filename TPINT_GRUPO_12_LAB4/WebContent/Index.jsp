@@ -101,7 +101,7 @@ if (!admin){
           </a>
           <ul class="dropdown-menu">
           	<li><a class="dropdown-item" href="SolicitarPrestamoClienteServlet?Param=<%= UsuarioDni%>" >Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Ver_Pretamos_Cte?Param=<%= UsuarioDni%>">Ver Prestamos</a></li>
             <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
         </li>

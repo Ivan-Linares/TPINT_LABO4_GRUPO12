@@ -151,15 +151,23 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 					if(newPDAO.insertar(newPrestamo)) {
 						
 						String msj = "Prestamo solicitado con exito! Debe ser aprobado antes de depositarse en tu cuenta";
+						
 						request.setAttribute("msj", msj);
+						request.setAttribute("PrestamoSolicitado", true);
 					}
 				}
 				
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/Solicitud_Prestamo_Cte.jsp");
-				rd.forward(request, response);
 			}
 			
+			
+			if(request.getParameter("btnNuevoPrest") != null) {
+				request.setAttribute("PrestamoSolicitado", false);
+			}
+			
+
+			RequestDispatcher rd = request.getRequestDispatcher("/Solicitud_Prestamo_Cte.jsp");
+			rd.forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

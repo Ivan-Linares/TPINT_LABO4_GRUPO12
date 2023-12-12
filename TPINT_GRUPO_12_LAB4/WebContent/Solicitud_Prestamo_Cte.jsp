@@ -168,6 +168,16 @@
                 </div>
             </div>
         </div>
+        
+        <%
+        boolean PrestamoSolicitado = false; 
+        if (request.getAttribute("PrestamoSolicitado") != null) {
+        	PrestamoSolicitado = (boolean) request.getAttribute("PrestamoSolicitado");
+        }
+        
+        if(!PrestamoSolicitado){
+        %>
+        
         <div class="alert border-dark">
             <div class="container">
                 <div class="row">
@@ -217,7 +227,17 @@
                         <input type="submit" class="btn btn-success" name="btnConfirmar" value="Confirmar préstamo">
                         <br />
                     </div>
-                    <div class="col"></div>
+                    <%} else{
+			        String msj = "";
+			        if (request.getAttribute("msj") != null) {
+			        	msj = (String) request.getAttribute("msj");
+			        }
+                    %>
+                    <div class="col">
+                    <h3> <%= msj %> </h3>
+                    <input type="submit" class="btn btn-success" name="btnNuevoPrest" value="Pedir préstamo"> 
+                    </div>
+                    <%} %>
                 </div>
             </div>
         </div>

@@ -126,11 +126,43 @@ Usuario user=new Usuario();%>
 
 
 <h1>Seleccione un Informe</h1>
-    <div action="servlet" method="post">
+    <form action="informes_Servlet" method="post">
         <button type="submit">Resumen de Cuentas</button>
         <button type="submit">Historial de Movimientos</button>
         <button type="submit">Registros de actividad</button>
-    </div>
+        <button type="submit" name="btnAcumuladoTipoMov">Acumulado por Tipo de movimiento</button>
+    </form>
+    
+<% 	String tipoInforme = "";
+	if(request.getAttribute("tipoInforme") != null){
+		tipoInforme = request.getAttribute("tipoInforme").toString();
+	}	
+%>
+
+<%if ("acumuladoTipoMov".equals(tipoInforme)) { %>   
+	
+	
+	<form action="informes_Servlet" method="post">
+		
+		<label for="tipoMov">Tipo de movimiento:</label>
+        <select name="SeltipoMov">
+		<%TipoSeguroNegocio tsNegocio = new TipoSeguroNegocioImpl();
+		for (TipoSeguro tipo : tsNegocio.readAll()) {
+		%>
+		<option><%=tipo.getDescripcion() %></option>			
+		<% } %>
+	</select>
+	
+		<label for="fechaInicio">Fecha de inicio:</label>
+    	<input type="date" id="fechaInicio" name="fechaInicio" required>
+        
+        <label for="fechaFin">Fecha de fin:</label>
+    	<input type="date" id="fechaFin" name="fechaFin" required>
+    	
+    	<button type="submit" name="btnGenerarReporte">Generar reporte</button>
+    </form>
+    
+<%} %>
     
 </body>
 </html>

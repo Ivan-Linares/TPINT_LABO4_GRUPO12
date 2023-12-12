@@ -106,5 +106,11 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		cDao = new CuentaDaoImpl();
 		return cDao.CuentasPendientes(DNI);
 	}
+
+	@Override
+	public ArrayList<Cuenta> ListarCuentasPendientes() {
+		cDao = new CuentaDaoImpl();
+		return cDao.ListarCuentasPendientes();
+	}
 	
 }

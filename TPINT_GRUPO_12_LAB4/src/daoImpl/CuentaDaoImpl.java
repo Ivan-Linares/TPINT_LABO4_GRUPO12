@@ -476,4 +476,32 @@ public boolean insert(String DNI, int tc) {
 		
 		return false;
 	}
+
+	@Override
+	public ArrayList<Cuenta> ListarCuentasPendientes() {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		try {
+			Statement st = cn.createStatement();
+			String query="SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta where c.Estado='P'";
+			ResultSet rs = st.executeQuery(query);
+			while(rs.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setTipoCuenta(obj);
+
+				lista.add(cuenta);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
 }

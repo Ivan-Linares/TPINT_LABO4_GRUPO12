@@ -21,4 +21,5 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> CuentasxDNI(String dni);
 	public ArrayList<Cuenta> listaFiltrada(String dato, String campo);
 	public boolean CuentasPendientes (String DNI);
+	public ArrayList<Cuenta> ListarCuentasPendientes();
 }

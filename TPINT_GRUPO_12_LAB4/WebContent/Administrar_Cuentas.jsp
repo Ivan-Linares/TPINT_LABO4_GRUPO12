@@ -153,6 +153,7 @@ Usuario user=new Usuario();%>
 						</select>
 						<input type="text" name="txtdatos" onchange="enviardatos" >
 						<input type="submit" name="Btnbuscar" value="Buscar">
+						<input type="submit" name="btnPendientes" value="Cuentas Pendientes de aprobacion">
 					</div></br>
 				</form>
 					<table class="table table-hover">

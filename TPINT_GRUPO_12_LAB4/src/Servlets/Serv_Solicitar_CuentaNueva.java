@@ -45,19 +45,19 @@ public class Serv_Solicitar_CuentaNueva extends HttpServlet {
 			int Tipocuenta;
 			String dni = request.getParameter("Param").toString();
 			CuentaNegocio cn = new CuentaNegocioImpl();
-			if(cn.CuentasPendientes(dni)) {
-				RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
-				rd.forward(request, response);
+			if(!cn.CuentasPendientes(dni)){
+				if(request.getParameter("BtnCA")!=null) {
+					Tipocuenta=1;
+				}else {
+					Tipocuenta=2;
+				}
+				if (cn.insert(dni, Tipocuenta)) {
+					RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
+					rd.forward(request, response);
+				}
 			}
-			if(request.getParameter("BtnCA")!=null) {
-				Tipocuenta=1;
-			}else {
-				Tipocuenta=2;
-			}
-			if (cn.insert(dni, Tipocuenta)) {
-				RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
-				rd.forward(request, response);
-			}
+			RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
+			rd.forward(request, response);
 		}
 	}
 

@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
+    <%@page import="java.util.ArrayList"%>
+    <%@page import="Entidad.Prestamo"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -125,66 +126,109 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <br />
-	<div>
-		<h3>Prestamos</h3>
-	</div>
-	<div>
-		Buscar prestamos por estado:
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio"
-				name="inlineRadioOptions" id="inlineRadio1" value="option1">
-			<label class="form-check-label" for="inlineRadio1"> Proceso </label>
+
+<form action="Ver_Pretamos_Cte" method="post">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="container text-center">
+					<h4>Buscar prestamos por estado:</h4>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio"
+							name="inlineRadioOptions" id="inlineRadio1" value="option1"
+							checked> <label class="form-check-label"
+							for="inlineRadio1">Todos </label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio"
+							name="inlineRadioOptions" id="inlineRadio2" value="option2">
+						<label class="form-check-label" for="inlineRadio2">Aceptados
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio"
+							name="inlineRadioOptions" id="inlineRadio3" value="option3">
+						<label class="form-check-label" for="inlineRadio3">En
+							Proceso</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio"
+							name="inlineRadioOptions" id="inlineRadio4" value="option4">
+						<label class="form-check-label" for="inlineRadio3">Rechazados</label>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div>
+					<h4>Buscar prestamos por monto:</h4>
+					<div class="form-check form-check-inline">
+						<input type="number" name="txtFiltroMonto" value="500000"
+							min="500000" max="1000000" step="10000">
+					</div>
+					<input type="submit" class="btn btn-success" name="btnFiltrar"
+						Value="Filtrar">
+				</div>
+			</div>
 		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio"
-				name="inlineRadioOptions" id="inlineRadio2" value="option2">
-			<label class="form-check-label" for="inlineRadio2"> Cancelado
-			</label>
+	</div>
+</form>
+<br>
+<br>
+
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2"></div>
+		<div class="col-md-auto">
+			<form action="Ver_Pretamos_Cte" method="post">
+				<%
+					ArrayList<Prestamo> listaJSP = new ArrayList<>();
+					if (request.getAttribute("listaPrestamos") != null)
+						listaJSP = (ArrayList<Prestamo>) request.getAttribute("listaPrestamos");
+
+					if (listaJSP.isEmpty()) {
+				%>
+				<h3>No tienes registrado ningun prestamo!</h3>
+				<%
+					} else {
+				%>
+				<table class="table accordion-collapse">
+					<thead>
+						<th>Codigo Prestamo</th>
+						<th>Cuenta Destino</th>
+						<th>Fecha Solicitud</th>
+						<th>Monto Solicitado</th>
+						<th>Monto a Pagar</th>
+						<th>Cuotas Restantes</th>
+						<th>Estado</th>
+						<th>Cancelar</th>
+					</thead>
+					<%
+						if (listaJSP != null)
+								for (Prestamo prestamo : listaJSP) {
+					%>
+					<tr>
+						<th><%=prestamo.getIDPrestamo()%></th>
+						<th><%=prestamo.getNroCuenta()%></th>
+						<th><%=prestamo.getFecha()%></th>
+						<th>$<%=prestamo.getImporteSolicitado()%></th>
+						<th>$<%=prestamo.getImporteTotal()%></th>
+						<th><%=prestamo.getCuotasRestantes()%></th>
+						<th><%=prestamo.getEstado()%></th>
+						<th><input type="submit" class="btn btn-danger"
+							name="btnCancelar" Value="Cancelar"></th>
+					</tr>
+					<%
+						}
+					%>
+				</table>
+				<%
+		}
+	%>
+			</form>
 		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio"
-				name="inlineRadioOptions" id="inlineRadio3" value="option3">
-			<label class="form-check-label" for="inlineRadio3"> Aceptado
-			</label>
-		</div>
+		<div class="col"></div>
 	</div>
-	<form action="Ver_Pretamos_Cte">
-		<table class="table accordion-collapse">
-			<tr>
-				<th>N° cuenta</th>
-				<th>Fecha solicitud</th>
-				<th>Importe</th>
-				<th>Cuotas pendientes</th>
-				<th>Estado</th>
-				<th>Accion</th>
-			</tr>
-			<tr>
-				<td>123456</td>
-				<td>24/04/2021</td>
-				<td>$33000</td>
-				<td>6</td>
-				<td>Proceso</td>
-				<td><input type="submit" value="Ampliar" name="txtaccion">
-				</td>
-			</tr>
-			<tr>
-				<td>123456</td>
-				<td>02/04/2021</td>
-				<td>$800000</td>
-				<td>x</td>
-				<td>Cancelado</td>
-				<td><input type="submit" value="Ampliar" name="txtaccion">
-				</td>
-			</tr>
-		</table>
-	</form>
-	<div class="btn-group" role="group" aria-label="Basic example">
-		<input type="submit" class="btn btn-success" Value="Volver">
-	</div>
-	<div class="btn-group" role="group" aria-label="Basic example">
-		<form method="get" action="SolicitarPrestamoClienteServlet">
-			<input type="submit" class="btn btn-primary" Value="Solicitar nuevo prestamo" name="btnsolicitarprestamo">
-		</form>
-	</div>
+</div>
+
 </body>
 </html>

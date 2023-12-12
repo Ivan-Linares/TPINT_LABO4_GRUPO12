@@ -41,15 +41,14 @@ public class Ver_Pretamos_Cte extends HttpServlet {
 		if(request.getParameter("Param")!=null) {
 			
 			String DNI = request.getParameter("Param").toString();
+			valorDesdeGet = DNI;
+			
 			ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 			PrestamoDaoImpl pn = new PrestamoDaoImpl();
 			
 			listaPrestamos = pn.getPrestamoDNICliente(DNI);
 			
-			valorDesdeGet = DNI;
-			
-			request.setAttribute("DNI", DNI);
-			request.setAttribute("listaCuentas", listaPrestamos);
+			request.setAttribute("listaPrestamos", listaPrestamos);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Prestamos_Principal.jsp");
 			rd.forward(request, response);

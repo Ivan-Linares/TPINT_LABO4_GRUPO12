@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
     
 <%@page import="Entidad.Usuario"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Entidad.Prestamo"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -126,22 +128,106 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 
-<h2>Prestamo seleccionado</h2><br>
-<table class="table-sm table-group-divider w-50">
-	<tr><th> N° cuenta </th><th> Fecha de solicitud </th></tr>
-	<tr><th> <input readonly="true" value="8"> </th><th> <input readonly="true" value="8"> </th></tr>
-	<tr><th> Importe solicitado  </th><th> valor por cuota </th></tr>
-	<tr><th> <input readonly="true" value="8"> </th><th> <input readonly="true" value="8"> </th></tr>
-	<tr><th> Cantidad de cuotas  </th><th> N° de cuotas pagadas </th></tr>
-	<tr><th> <input readonly="true" value="8"> </th><th> <input readonly="true" value="8"> </th></tr>
-</table><br>
-<div>
-	Proxima cuota a pagar  <input type="number" readonly="true" value="8"> <br>
-	
-</div><br><br>
-<div>
-	<input type="submit" class="btn btn-primary btn-sm" value="Volver">
-	<input type="submit" class="btn btn-secondary btn-sm" value="Pagar cuota">
+<br><br>
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col">
+				<%
+					ArrayList<Prestamo> listaJSP = new ArrayList<>();
+					if (request.getAttribute("listaPrestamos") != null)
+						listaJSP = (ArrayList<Prestamo>) request.getAttribute("listaPrestamos");
+
+					if (listaJSP.isEmpty()) {
+				%>
+				<h3>No tienes registrado ningun prestamo!</h3>
+				<%
+					} else {
+				%>
+				<table class="table accordion-collapse" id="tablaPrestamos">
+					<thead>
+						<th>Codigo Prestamo</th>
+						<th>Cuenta Destino</th>
+						<th>Fecha Solicitud</th>
+						<th>Monto Solicitado</th>
+						<th>Cuotas Restantes</th>
+						<th>Seleccionar</th>
+					</thead>
+					<%
+						if (listaJSP != null)
+								for (Prestamo prestamo : listaJSP) {
+					%>
+					<tr>
+						<form action="Pagar_Prestamo_Servlet" method="post">
+							<td><%=prestamo.getIDPrestamo()%> <input type="hidden" name="IDPrestamo" value="<%=prestamo.getIDPrestamo()%>"> </td>
+							<td><%=prestamo.getNroCuenta()%></td>
+							<td><%=prestamo.getFecha()%></td>
+							<td>$<%=prestamo.getImporteSolicitado()%></td>
+							<td><%=prestamo.getCuotasRestantes()%></td>
+							<td><input type="submit" class="btn btn-primary" name="btnSeleccionar" Value="Seleccionar"></td>
+						</form>
+					</tr>
+					<%
+						}
+					%>
+				</table>
+				<%
+					}
+				%>
+		</div>
+		
+		<div class="col">
+		<%
+		Prestamo prestamo = new Prestamo();
+		if (request.getAttribute("Prestamo") != null)
+			prestamo = (Prestamo) request.getAttribute("Prestamo");
+		
+		int PrestamoSelec = 0;
+		if (request.getAttribute("PrestamoSelec") != null)
+			PrestamoSelec = (int) request.getAttribute("PrestamoSelec");
+		
+		if (PrestamoSelec == 1) {%>
+			<form action="Pagar_Prestamo_Servlet" method="post">
+				<h2>Prestamo seleccionado</h2>
+				<br>
+				<table class="table-sm table-group-divider w-50">
+					<tr>
+						<th>N° Prestamo</th>
+						<th>N° Cuenta</th>
+					</tr>
+					<tr>
+						<th><input readonly="true" name="IDPrestamoPagar" value="<%= prestamo.getIDPrestamo() %>"></th>
+						<th><input readonly="true" value="<%= prestamo.getNroCuenta() %>"></th>
+					</tr>
+					<tr>
+						<th>Fecha de solicitud</th>
+						<th>Importe solicitado</th>
+					</tr>
+					<tr>
+						<th><input readonly="true" value="<%= prestamo.getFecha().toString() %>"></th>
+						<th><input readonly="true" value="$<%= prestamo.getImporteSolicitado() %>"></th>
+					</tr>
+					<tr>
+						<th>Cuotas Restantes</th>
+						<th>valor por cuota</th>
+					</tr>
+					<tr>
+						<th><input readonly="true" value="<%= prestamo.getCuotasRestantes() %>"></th>
+						<th><input readonly="true" value="$<%= prestamo.getImporteMensual() %>"></th>
+					</tr>
+				</table>
+				<br><br>
+				<div>
+					<input type="submit" name="btnPagar" class="btn btn-success" value="Pagar cuota">
+				</div>
+			</form>
+			<%} 
+			if (PrestamoSelec == 2){
+			%>
+			<h3>Cuota Pagada con exito!</h3>
+			<%} %>
+		</div>
+	</div>
 </div>
+
 </body>
 </html>

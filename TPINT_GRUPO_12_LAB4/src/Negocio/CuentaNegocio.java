@@ -25,4 +25,5 @@ public interface CuentaNegocio {
 	
 	public boolean Transferencia(int origen, int destino, float monto);
 	public int Cuenta_x_CBU(int cbu);
+	public int Cuenta_x_DNI(String DNI);
 }

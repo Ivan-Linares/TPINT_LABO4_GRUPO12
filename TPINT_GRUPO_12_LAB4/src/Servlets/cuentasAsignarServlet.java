@@ -18,8 +18,10 @@ import Entidad.Fecha;
 import Entidad.TipoCuenta;
 import Negocio.ClienteNegocio;
 import Negocio.CuentaNegocio;
+import Negocio.MovimientoNegocio;
 import NegocioImpl.ClienteNegocioImpl;
 import NegocioImpl.CuentaNegocioImpl;
+import NegocioImpl.Movimiento_NegocioImpl;
 
 /**
  * Servlet implementation class cuentasAsignarServlet
@@ -27,6 +29,9 @@ import NegocioImpl.CuentaNegocioImpl;
 @WebServlet("/cuentasAsignarServlet")
 public class cuentasAsignarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final float ImporteInicial=10000;
+	private final int TipoMovimiento=1;
+	private final int TipoCuenta=1;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -70,11 +75,11 @@ public class cuentasAsignarServlet extends HttpServlet {
 			
 		}
 		
-if(request.getParameter("btnEnviar") != null) {
+		if(request.getParameter("btnEnviar") != null) {
 			
 			ClienteNegocio cNeg = new ClienteNegocioImpl();
 			CuentaNegocio ctaNeg = new CuentaNegocioImpl();
-			Cuenta cta = new Cuenta();
+			MovimientoNegocio mvn = new Movimiento_NegocioImpl();
 			String msj = "";
 			
 			try {
@@ -91,23 +96,8 @@ if(request.getParameter("btnEnviar") != null) {
 				if(estado == 1) {
 					if(cNeg.aprobar(DNI)) {
 						
-						cta.setDni(DNI);
-						
-						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  						
-						LocalDate FechaCreacion = LocalDate.now();
-						dtf.format(FechaCreacion);
-						String fechaString = FechaCreacion.toString();	
-						java.sql.Date Fecha = java.sql.Date.valueOf(fechaString);
-						cta.setFechaCreacion(Fecha); 
-						
-						cta.setTipoCuenta(new TipoCuenta());
-						cta.getTipoCuenta().setCode(1);
-						
-						cta.getTipoCuenta().setName("Caja de ahorro");
-						cta.setSaldo(10000);
-						cta.setEstado("A");
-						
-						if(ctaNeg.insertar(cta)) {
+						if(ctaNeg.insert(DNI, TipoCuenta)) {
+							mvn.insertar(ctaNeg.Cuenta_x_DNI(DNI), ImporteInicial, TipoMovimiento);
 							msj = "Cliente aprobado con exito!";
 						}
 						else {

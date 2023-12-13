@@ -21,6 +21,8 @@ import NegocioImpl.Movimiento_NegocioImpl;
 import dao.CuentaDao;
 
 public class CuentaDaoImpl implements CuentaDao {
+	private final int tipoMovimientoExtraccion=4;
+	private final int tipoMovimientoDeposito=5;
 
 	@Override
 public boolean insert(String DNI, int tc) {
@@ -509,16 +511,13 @@ public boolean insert(String DNI, int tc) {
 
 	@Override
 	public boolean Transferencia(int origen, int destino, float monto) {
-		int tipoMovimiento=4;
 		MovimientoNegocio mn = new Movimiento_NegocioImpl();
 		if (origen==destino) {
 			return false;
 		}
-		if (debito(origen, monto) && mn.insertar(origen,monto, tipoMovimiento)) {
+		if (debito(origen, monto) && mn.insertar(origen,monto, tipoMovimientoExtraccion)) {
 			
-			tipoMovimiento=5;
-			
-			if (credito(destino, monto) && mn.insertar(destino, monto, tipoMovimiento)) {
+			if (credito(destino, monto) && mn.insertar(destino, monto, tipoMovimientoDeposito)) {
 					return true;
 			}
 		}			
@@ -586,6 +585,27 @@ public boolean insert(String DNI, int tc) {
 		try {
 			Statement st = cn.createStatement();
 			String query="SELECT c.cuenta FROM cuentas c where c.Estado='A' AND c.CBU="+ cbu +";";
+			PreparedStatement pst= cn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while(rs.next()) {
+				cuenta = rs.getInt("cuenta");
+				return cuenta;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return cuenta;
+	}
+	public int Cuenta_x_DNI(String DNI) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		int cuenta=0;
+		try {
+			Statement st = cn.createStatement();
+			String query="SELECT c.cuenta FROM cuentas c where c.Estado='P' AND c.DNI="+ DNI +" order by c.Fecha_creacion desc LIMIT 1;";
 			PreparedStatement pst= cn.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
 

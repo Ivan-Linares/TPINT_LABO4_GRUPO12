@@ -100,7 +100,7 @@ public class MovimientoDaoImpl implements movimientoDao{
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select * FROM movimientos m inner join tipos_movimientos tm on m.Tipo_movimiento=tm.Tipo_movimiento where m.Cuenta='" + cuenta + "'");
+			ResultSet rs = st.executeQuery("select * FROM movimientos m inner join tipos_movimientos tm on m.Tipo_movimiento=tm.Tipo_movimiento where m.Cuenta='" + cuenta + "' order by m.fecha desc;");
 			while(rs.next()) {
 				obj = setMovimientos(rs);
 				movimientos.add(obj);

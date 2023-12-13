@@ -124,5 +124,11 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		cDao = new CuentaDaoImpl();
 		return cDao.Cuenta_x_CBU(cbu);
 	}
+
+	@Override
+	public int Cuenta_x_DNI(String DNI) {
+		cDao = new CuentaDaoImpl();
+		return cDao.Cuenta_x_DNI(DNI);
+	}
 	
 }

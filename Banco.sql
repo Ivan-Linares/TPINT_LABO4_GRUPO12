@@ -75,6 +75,7 @@ create table Tipos_Cuentas
     Descripcion VARCHAR(30) NOT NULL unique
 );
 
+
 CREATE TABLE Cuentas (
     Cuenta INT AUTO_INCREMENT PRIMARY KEY,
     DNI VARCHAR(8) NOT NULL,
@@ -124,9 +125,41 @@ create table Movimientos
     ID int not null PRIMARY KEY auto_increment,
 	Cuenta int NOT NULL,
     Fecha date not null,
-    Concepto VARCHAR(100) NOT NULL,
     IMPORTE DECIMAL(10,2) NOT NULL,
     Tipo_movimiento int not null,
     foreign key (Cuenta) references cuentas(cuenta),
     foreign key (Tipo_movimiento) references Tipos_Movimientos(Tipo_movimiento)
 );
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `cuentas_BEFORE_INSERT` BEFORE INSERT ON `cuentas` FOR EACH ROW BEGIN
+	DECLARE nFecha DATE;
+    DECLARE nCBU VARCHAR(24);
+    DECLARE nSaldo DECIMAL(10, 2);
+    DECLARE nestado CHAR(1);
+    DECLARE ncuenta INT;
+    Set ncuenta = (select Cuenta from cuentas order by Cuenta desc LIMIT 1)+1;
+
+    SET nFecha = CURDATE();
+
+    SET nCBU = CONCAT(NEW.DNI, ncuenta);
+
+    SET nSaldo = 10000;
+    
+    SET nestado="P";
+
+    SET NEW.Fecha_creacion = nFecha;
+    SET NEW.CBU = nCBU;
+    SET NEW.Saldo = nSaldo;
+    SET NEW.Estado = nestado;
+END
+
+trigger movimientos
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `movimientos_BEFORE_INSERT` BEFORE INSERT ON `movimientos` FOR EACH ROW BEGIN
+	DECLARE nfecha date;
+    
+    Set nfecha = CURDATE();
+    
+    SET NEW.Fecha = nfecha;
+END
+

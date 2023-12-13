@@ -68,8 +68,29 @@ public class PrestamoDaoImpl implements PrestamoDao {
 
 	@Override
 	public Prestamo getPrestamoPorID(int idPrestamo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		Prestamo prestamo = new Prestamo();
+		String ID = String.valueOf(idPrestamo);
+		
+		try {
+			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
+					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where ID_Prestamo = ?; ");
+			statement.setString(1, ID);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				prestamo = setPrestamo(rs);
+			}
+			 rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return prestamo;
 	}
 
 	@Override
@@ -90,6 +111,33 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		try {
 			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
 					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where DNI = ?; ");
+			statement.setString(1, dni);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				prestamo = setPrestamo(rs);
+				listPrestamo.add(prestamo);
+			}
+			 rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listPrestamo;
+	}
+	
+	public ArrayList<Prestamo> getPrestamoActivosDNICliente(String dni) {
+		
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		Prestamo prestamo = new Prestamo();
+		ArrayList<Prestamo> listPrestamo = new ArrayList<Prestamo>();
+		
+		try {
+			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
+					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where Estado = 'A' AND DNI = ?; ");
 			statement.setString(1, dni);
 			
 			ResultSet rs = statement.executeQuery();

@@ -68,6 +68,16 @@ public class Prestamo {
 		CuotasRestantes = cuotasRestantes;
 	}
 	public String getEstado() {
+		
+		if(Estado.equals("A"))
+			return "Activo";
+		if(Estado.equals("E"))
+			return "Pago";
+		if(Estado.equals("P"))
+			return "Pendiente";
+		if(Estado.equals("R"))
+			return "Rechazado";
+		
 		return Estado;
 	}
 	public void setEstado(String estado) {

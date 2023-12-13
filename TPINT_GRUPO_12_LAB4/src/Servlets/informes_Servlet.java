@@ -11,12 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cliente;
+import Entidad.Informe;
 import Entidad.Movimiento;
 import Negocio.ClienteNegocio;
+import Negocio.InformeNegocio;
 import Negocio.MovimientoNegocio;
+import Negocio.PaisNegocio;
 import Negocio.TipoMovimientoNegocio;
 import NegocioImpl.ClienteNegocioImpl;
+import NegocioImpl.InformeNegocioImpl;
 import NegocioImpl.Movimiento_NegocioImpl;
+import NegocioImpl.PaisNegocioImpl;
 import NegocioImpl.TipoMovimientoNegocioImpl;
 
 
@@ -47,6 +52,53 @@ public class informes_Servlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		if(request.getParameter("btnPorRegion") != null) {
+			
+			String tipoInforme = "resumenRegion";
+			request.setAttribute("tipoInforme", tipoInforme);
+			
+			
+			InformeNegocio INeg = new InformeNegocioImpl();
+			ArrayList<Informe> listadoInformeRegion = INeg.consultar();
+			
+			request.setAttribute("InformeRegion", listadoInformeRegion);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Informes.jsp");
+			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnPorRegionFilter") != null) {
+			
+			String tipoInforme = "resumenRegion";
+			request.setAttribute("tipoInforme", tipoInforme);
+			
+			
+			InformeNegocio INeg = new InformeNegocioImpl();
+			ArrayList<Informe> listadoInformeRegion=new ArrayList<Informe>();
+			
+			if(request.getParameter("pais")!=null & request.getParameter("provincia")!=null) {
+				int p=Integer.parseInt(request.getParameter("pais"));
+				int pr=Integer.parseInt(request.getParameter("provincia"));
+				listadoInformeRegion = INeg.consultar(p,pr);
+				
+			}
+			else if(request.getParameter("pais")!=null & request.getParameter("provincia")==null) {
+				int p=Integer.parseInt(request.getParameter("pais"));
+				listadoInformeRegion = INeg.consultar(p);
+			}
+			
+			else {
+				listadoInformeRegion = INeg.consultar();
+			}
+
+			
+			request.setAttribute("InformeRegion", listadoInformeRegion);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Informes.jsp");
+			rd.forward(request, response);
+		}
 		
 		if(request.getParameter("btnAcumuladoTipoMov") != null) {
 			

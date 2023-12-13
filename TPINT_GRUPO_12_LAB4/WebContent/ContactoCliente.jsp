@@ -39,13 +39,6 @@
                 });
             });
             
-            $("#provincia").change(function () {
-                var provinciaId = $(this).val();
-                $.post("CargarPaisesServlet", {action: "getLocalidades", provinciaId: provinciaId}, function (data) {
-                    $("#localidad").html(data);
-                });
-            });
-            
             $("#user").on('input',function () {
                 var user = $(this).val();
                 $.get("ContactoClienteServlet", {action: "checkUser", user: user}, function (response) {

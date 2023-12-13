@@ -57,7 +57,7 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="cuentasAsignarServlet?Param=1">Asignar Cuentas</a></li>
             <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>
@@ -66,8 +66,8 @@ Usuario user=new Usuario();%>
             Administrar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
-            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
+            <li><a class="dropdown-item" href="admClientes_Servlet?Param=1"> Admin Clientes </a></li>
+            <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1"> Admin Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">

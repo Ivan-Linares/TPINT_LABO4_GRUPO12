@@ -55,6 +55,10 @@ public class admCtes_Modificar_Servlets extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes_Modificar.jsp");
 			rd.forward(request, response);
 		}
+		if(request.getParameter("btncancelar")!=null) {
+			RequestDispatcher rd = request.getRequestDispatcher("admClientes_Servlet?Param=1");
+			rd.forward(request, response);
+		}
 		if(request.getParameter("btnconfirmar")!=null) {
 			try {
 				Cliente obj = new Cliente();

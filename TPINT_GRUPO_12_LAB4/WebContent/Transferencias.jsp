@@ -77,9 +77,12 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <!-- Navbar Cliente -->
-<%String nusuario =user.getUser();
+<%
+String nusuario = user.getUser();
+
 if (!admin){ 
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
+	String UsuarioDni = user.getPersona().getDni();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -97,8 +100,8 @@ if (!admin){
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-          	<li><a class="dropdown-item" href="Solicitud_Prestamo_Cte.jsp">Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
+          	<li><a class="dropdown-item" href="SolicitarPrestamoClienteServlet?Param=<%= UsuarioDni%>" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Ver_Pretamos_Cte?Param=<%= UsuarioDni%>">Ver Prestamos</a></li>
             <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
         </li>
@@ -125,7 +128,6 @@ if (!admin){
     </div>
   </div>
 </nav>
-
 <br />
 <h2>Nueva trasferencia</h2><br>
 <form method="post" action="Transferencias?Param=<%= nusuario %>" class="alert">

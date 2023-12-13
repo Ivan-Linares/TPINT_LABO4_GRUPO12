@@ -44,6 +44,10 @@ public class Servlet_Modificar_Cuenta extends HttpServlet {
 			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas_Modificar.jsp");
 			rd.forward(request, response);
 			}
+		if(request.getParameter("btnCancelar")!=null) {
+			RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
+			rd.forward(request, response);
+		}
 		if(request.getParameter("btnConfirmar")!=null) {
 			Cuenta obj = new Cuenta();
 			TipoCuenta au = new TipoCuenta();

@@ -1,6 +1,6 @@
 use Banco;
 
-select *  from Usuarios
+select *  from Usuarios;
 INSERT INTO Tipos_Usuarios  VALUES ("1","Administrador");
 insert into Tipos_Usuarios  values("2","Cliente");
 
@@ -84,11 +84,11 @@ INSERT INTO Cuentas (DNI, Fecha_creacion, Tipo_De_Cuenta, CBU, Saldo, Estado) VA
 ('34567890', '2023-11-18', 1, '999999999', "2500.00", 'A'),
 ('12345678', '2023-11-18', 1, '111111111', "1500.00", 'A');
 
-INSERT INTO Prestamos (Cuenta, dni, Fecha, Importe_mensual_a_pagar, Importe_total, Estado, cuotas_pendientes) VALUES
-(100000, '12345678', '2023-11-18', 200.00, 1200.00, 'P', '12'),
-(100001, '23456789', '2023-11-18', 150.00, 900.00, 'P', '6'),
-(100002, '34567890', '2023-11-18', 300.00, 1800.00, 'P', '12'),
-(100003, '45678901', '2023-11-18', 500.00, 2500.00, 'P', '5');
+INSERT INTO Prestamos (Cuenta, dni, Fecha, Importe_solicitado, Importe_mensual_a_pagar, Importe_total, Estado, cuotas_pendientes) VALUES
+(100000, '12345678', '2023-11-18', 1000.00, 200.00, 1200.00, 'P', '12'),
+(100001, '23456789', '2023-11-18', 750.00, 150.00, 900.00, 'P', '6'),
+(100002, '34567890', '2023-11-18', 1500.00, 300.00, 1800.00, 'P', '12'),
+(100003, '45678901', '2023-11-18', 2000.00, 500.00, 2500.00, 'P', '5');
 
 INSERT INTO Tipos_Movimientos (Descripcion) VALUES
 ('Alta de cuenta'),
@@ -97,7 +97,8 @@ INSERT INTO Tipos_Movimientos (Descripcion) VALUES
 ('TransferenciaExtraccion'),
 ('TransferenciaDeposito');
 
-select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais
+
+select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais;
 
 
 INSERT INTO Movimientos (Cuenta, Fecha, Concepto, IMPORTE, Tipo_movimiento) VALUES
@@ -106,7 +107,7 @@ INSERT INTO Movimientos (Cuenta, Fecha, Concepto, IMPORTE, Tipo_movimiento) VALU
 (100002, '2023-11-18', 'Alta de cuenta', 3000.00, '1'),
 (100003, '2023-11-18', 'Alta de cuenta', 5000.00, '1'),
 (100000, '2023-11-18', 'Alta de prestamo', 200.00, '2'),
-(100001, '2023-11-18', 'Alta de prestamo', 150.00, '2');
+(100001, '2023-11-18', 'Alta de prestamo', 150.00, '2'),
 
 (100002, '2023-11-18', 'Alta de prestamo', 300.00, '2'),
 (100003, '2023-11-18', 'Alta de prestamo', 500.00, '2'),

@@ -190,7 +190,8 @@ Usuario user=new Usuario();%>
 <%if (total != "") { %>   
 	<br><br>
 	<label for="TotalMov">El total de movimientos relacionados a fechas y tipo seleccionados es:</label>
-    <input type="text" name="TotalMov" value="<%= total%>" class="form-control d-inline w-auto" disabled><br>
+    <input type="text" name="TotalMov" value="<%= total%>" class="form-control d-inline w-auto" disabled>
+    <br><br><br>
 <%} %>
     
     <%
@@ -205,11 +206,11 @@ Usuario user=new Usuario();%>
 					} 
 				else {
 				%>
-				
-	<h3>Historial completo de movimientos</h3>
 	
 	<div class="container text-center">
 		<div class="row justify-content-md-center">
+		<h4>Historial completo de movimientos</h4>
+		<br><br>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<table class="table table-hover" id="tablaMovimientos">

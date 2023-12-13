@@ -22,4 +22,7 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> listaFiltrada(String dato, String campo);
 	public boolean CuentasPendientes (String DNI);
 	public ArrayList<Cuenta> ListarCuentasPendientes();
+	
+	public boolean Transferencia(int origen, int destino, float monto);
+	public int Cuenta_x_CBU(int cbu);
 }

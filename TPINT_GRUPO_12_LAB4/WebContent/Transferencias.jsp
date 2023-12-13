@@ -1,3 +1,5 @@
+<%@page import="Entidad.Cuenta"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
@@ -123,51 +125,60 @@ if (!admin){
     </div>
   </div>
 </nav>
-<%} %>
+
 <br />
 <h2>Nueva trasferencia</h2><br>
-<form method="get" action="Transferencias" class="alert">
+<form method="post" action="Transferencias?Param=<%= nusuario %>" class="alert">
+<%} %>
 <div>
 		<input type="submit" name="btntranferencia1mismo" value="Transferir a una cuenta propia">
 		<input type="submit" name="btntranferencia3ro" value=" Transferir a un tercero ">	
 </div><br>
-<%if(request.getAttribute("miscuentas")!=null){%>
+<%ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+	if(request.getAttribute("miscuentas")!=null){%>
 	<div>
-		<label>Seleccionar cuenta desde la cual realizara la trasnferencia </label><br>
-		<b>cuentas</b>
-		<select name="cuentas">
-			<option>cuenta 1</option>
-			<option>cuenta 2</option>
-			<option>cuenta 3</option>
+		<label>Seleccionar cuenta desde la cual realizara la transferencia </label><br>
+		<b>Cuentas</b>
+		<select name="cuentasorigen">		
+		<%lista = (ArrayList<Cuenta>)request.getAttribute("miscuentas");
+		for(Cuenta ct : lista){%>
+			<option value="<%= ct.getNumero() %>">N° <%= ct.getNumero() %>- Saldo $<%= ct.getSaldo() %></option>			
+		<%}
+			%>
 		</select>
 	</div><br>
 	<div>
 		<label>Seleccionar cuenta destino </label><br>
-		<b>cuentas</b>
-		<select name="cuentas">
-			<option>cuenta 1</option>
-			<option>cuenta 2</option>
-			<option>cuenta 3</option>
+		<b>Cuentas</b>
+		<select name="cuentasdestino">
+		<%
+		for(Cuenta ct : lista){%>
+		<option value="<%= ct.getNumero() %>">N° <%= ct.getNumero() %>- Saldo $<%= ct.getSaldo() %></option>			
+		<%}
+			%>
+
 		</select>
 	</div></br></br><%	
 }%>
+
 <%if(request.getAttribute("3ros")!=null){%>
 	<div>
-		<label>Selecionar medio </label>
-		<div class="form-check form-check-inline">
-	  		<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="CBU">
-	  		<label class="form-check-label" for="inlineRadio1"> CBU</label>
-		</div>
-		<div class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Alias">
-		  <label class="form-check-label" for="inlineRadio2"> Alias</label>
-		</div><br><br>
-		<input type="text" value="" placeholder=""></br></br>	
+		</div><br>
+			<div>
+				<label>Seleccionar cuenta desde la cual realizara la transferencia </label><br>
+				<b>Cuentas</b>
+				<select name="cuentasorigen">		
+					<%lista = (ArrayList<Cuenta>)request.getAttribute("3ros");
+					for(Cuenta ct : lista){%>
+						<option value="<%= ct.getNumero() %>">N° <%= ct.getNumero() %>- Saldo $<%= ct.getSaldo() %></option>			
+					<%}%>
+		</select>
+	</div><br>
+		<input type="text" name="CBU" placeholder="Ingresar CBU"></br></br>	
 <%}%>
 <%if(request.getAttribute("3ros")!=null || request.getAttribute("miscuentas")!=null) {%>
-	<input type="text" value="" placeholder="Ingresar monto"></br></br>
+	<input type="text" name="Monto" placeholder="Ingresar monto"></br></br>
 <%}%>
-	
 	<input   class="btn btn-success"  type="submit"    name="btnvolver" value="Volver">
 <%if(request.getAttribute("3ros")!=null || request.getAttribute("miscuentas")!=null) {%>
 	<input   class="btn btn-info"  type="submit" name="btntransferir" value="Transferir">	

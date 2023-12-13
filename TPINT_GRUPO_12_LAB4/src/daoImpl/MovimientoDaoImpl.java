@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -12,8 +13,32 @@ import dao.movimientoDao;
 public class MovimientoDaoImpl implements movimientoDao{
 
 	@Override
-	public boolean insertar(Movimiento mov) {
-		// TODO Auto-generated method stub
+	public boolean insertar(int cuenta, float importe, int tipoMovimiento) {
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("INSERT INTO Movimientos (Cuenta, IMPORTE, Tipo_movimiento) VALUES (?, ?, ?)");
+			statement.setInt(1, cuenta);
+			statement.setFloat(2, importe);
+			statement.setInt(3, tipoMovimiento);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
 		return false;
 	}
 

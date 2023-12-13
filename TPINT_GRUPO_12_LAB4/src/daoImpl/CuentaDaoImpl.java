@@ -16,6 +16,8 @@ import com.sun.org.apache.bcel.internal.generic.RETURN;
 import Entidad.Cliente;
 import Entidad.Cuenta;
 import Entidad.TipoCuenta;
+import Negocio.MovimientoNegocio;
+import NegocioImpl.Movimiento_NegocioImpl;
 import dao.CuentaDao;
 
 public class CuentaDaoImpl implements CuentaDao {
@@ -503,5 +505,100 @@ public boolean insert(String DNI, int tc) {
 			e.printStackTrace();
 		}
 		return lista;
+	}
+
+	@Override
+	public boolean Transferencia(int origen, int destino, float monto) {
+		int tipoMovimiento=4;
+		MovimientoNegocio mn = new Movimiento_NegocioImpl();
+		if (origen==destino) {
+			return false;
+		}
+		if (debito(origen, monto) && mn.insertar(origen,monto, tipoMovimiento)) {
+			
+			tipoMovimiento=5;
+			
+			if (credito(destino, monto) && mn.insertar(destino, monto, tipoMovimiento)) {
+					return true;
+			}
+		}			
+		return false;
+	}
+	private boolean debito(int origen, float monto) {
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("UPDATE cuentas set Saldo=(Saldo)-? where Cuenta=?;");
+			statement.setFloat(1, monto);
+			statement.setInt(2, origen);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return false;
+	}
+	private boolean credito(int destino, float monto) {
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		try {
+			statement = con.prepareStatement("UPDATE cuentas set Saldo=(Saldo)+? where Cuenta=?;");
+			statement.setFloat(1, monto);
+			statement.setInt(2, destino);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return false;
+	}
+
+	@Override
+	public int Cuenta_x_CBU(int cbu) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		int cuenta=0;
+		try {
+			Statement st = cn.createStatement();
+			String query="SELECT c.cuenta FROM cuentas c where c.Estado='A' AND c.CBU="+ cbu +";";
+			PreparedStatement pst= cn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while(rs.next()) {
+				cuenta = rs.getInt("cuenta");
+				return cuenta;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		return cuenta;
 	}
 }

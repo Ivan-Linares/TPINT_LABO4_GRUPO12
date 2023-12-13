@@ -112,5 +112,17 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		cDao = new CuentaDaoImpl();
 		return cDao.ListarCuentasPendientes();
 	}
+
+	@Override
+	public boolean Transferencia(int origen, int destino, float monto) {
+		cDao = new CuentaDaoImpl();
+		return cDao.Transferencia(origen, destino, monto);
+	}
+
+	@Override
+	public int Cuenta_x_CBU(int cbu) {
+		cDao = new CuentaDaoImpl();
+		return cDao.Cuenta_x_CBU(cbu);
+	}
 	
 }

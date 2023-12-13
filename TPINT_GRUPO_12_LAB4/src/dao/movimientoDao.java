@@ -6,7 +6,7 @@ import Entidad.Movimiento;
 
 public interface movimientoDao {
 	
-	public boolean insertar(Movimiento mov);
+	public boolean insertar(int cuenta, float importe, int tipoMovimiento);
 	public boolean eliminar(Movimiento mov);
 	public boolean modificar(Movimiento mov);
 	public Movimiento getMovimientoPorID(int id);

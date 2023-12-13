@@ -13,9 +13,9 @@ public class Movimiento_NegocioImpl implements MovimientoNegocio{
 	movimientoDao Cdao;
 
 	@Override
-	public boolean insertar(Movimiento movimiento) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertar(int cuenta, float importe, int tipoMovimiento) {
+		Cdao = new MovimientoDaoImpl();
+		return Cdao.insertar(cuenta, importe, tipoMovimiento);
 	}
 
 	@Override

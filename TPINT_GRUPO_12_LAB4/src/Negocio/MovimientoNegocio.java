@@ -7,7 +7,7 @@ import Entidad.Fecha;
 import Entidad.TipoMovimiento;
 
 public interface MovimientoNegocio {
-	public boolean insertar(Movimiento movimiento);
+	public boolean insertar(int cuenta, float importe, int tipoMovimiento);
 	public ArrayList<Movimiento> listar();
 	public ArrayList<Movimiento> listar(Fecha fecha);
 	public ArrayList<Movimiento> listar(TipoMovimiento tipoMovimiento);

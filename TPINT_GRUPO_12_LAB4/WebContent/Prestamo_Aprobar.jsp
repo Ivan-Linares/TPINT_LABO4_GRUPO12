@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@page import="Entidad.Usuario"%>
+<%@page import="Entidad.Usuario"%>
+<%@page import="Entidad.Prestamo"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -132,61 +134,69 @@
 </nav>
 <%} %>
 <br />
-
-	<%!boolean SolicitudPrestamo = true;%>
-<form action="Prestamo_Aprobar_Sevlet" method="post">
-	<div class="container text-center">
-		<div class="row justify-content-md-center">
-			<div class="col col-lg-2"></div>
-			<div class="col-md-auto">
+<div class="container text-center">
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2"></div>
+		<div class="col-md-auto">
+			<%
+				String msj = " ";
+				if(request.getAttribute("msj")!=null){
+				msj = request.getAttribute("msj").toString();
+			%>
+			<h3><%= msj %></h3> <br>
+			<%} %>
+			<%
+			ArrayList<Prestamo> listaJSP = new ArrayList<Prestamo>();
+			if(request.getAttribute("listaPrestamos") != null)
+				listaJSP = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");
+			
+			if (listaJSP.isEmpty()) {
+			%>
+			<h3>No hay solicitudes pendientes de aprobacion!</h3>
+			<%
+				} 
+			else {
+			%>
+			<h3>Tienes solicitudes de los siguientes clientes:</h3>
+			<table class="table table-hover">
+				<thead>
+					<td>DNI Cliente</td>
+					<td>Nro Cuenta</td>
+					<td>Importe Solicitado</td>
+					<td>Cantidad Cuotas</td>
+					<td>Fecha Solicitud</td>
+					<td>Acción</td>
+					<td>Enviar</td>
+				</thead>
 				<%
-					if (!SolicitudPrestamo) {
+					if (listaJSP != null) 
+						for(Prestamo pr : listaJSP){
 				%>
-				<h3>No hay solicitudes pendientes de aprobacion!</h3>
-				<%
-					} else {
-				%>
-				<h3>Tienes solicitudes de los siguientes clientes:</h3>
-				<table class="table table-hover">
-					<thead>
-						<td>DNI</td>
-						<td>Nombre</td>
-						<td>Apellido</td>
-						<td>Monto del Préstamo</td>
-						<td>Fecha Solicitud</td>
-						<td>Acción</td>
-						<td>Enviar</td>
-					</thead>
-					<%
-						int i = 0;
-							while (i < 3) {
-					%>
-					<tr>
-						<td>42899522</td>
-						<td>Ivan</td>
-						<td>Linares</td>
-						<td>1.000.000</td>
-						<td>2/11/2023</td>
-						<td><select class="form-select"
-							aria-label="Default select example">
-								<option selected>Aprobar</option>
-								<option value="1">Rechazar</option>
+				<tr>
+					<form action="Prestamo_Aprobar_Servlet" method="post">
+						<td><%=pr.getDNI()%> 
+						<td><%=pr.getNroCuenta() %></td> <input type="hidden" name="IDPrestamo" value="<%=pr.getIDPrestamo()%>"> </td>
+						<td>$<%=pr.getImporteSolicitado() %></td>
+						<td><%=pr.getCuotasRestantes() %></td>
+						<td><%=pr.getFecha().toString() %></td>
+						<td><select class="form-select" aria-label="Default select example" name="selectAction">
+							<option selected value="1">Aprobar</option>
+							<option value="2">Rechazar</option>
 						</select></td>
-						<td><input type="submit" value="Enviar"
+						<td><input type="submit" name="btnEnviar" value="Enviar"
 							class="btn btn-primary"></td>
-					</tr>
-					<%
-						i++;
-							}
-					%>
-				</table>
+					</form>
+				</tr>
 				<%
 					}
 				%>
-			</div>
-			<div class="col col-lg-2"></div>
+			</table>
+			<%
+				}
+			%>
 		</div>
+		<div class="col col-lg-2"></div>
 	</div>
-</form>
+</div>
 </body>
 </html>

@@ -591,7 +591,7 @@ public boolean insert(String DNI, int tc) {
 	}
 	
 	
-	private boolean credito(int destino, float monto) {
+	public boolean credito(int destino, float monto) {
 		PreparedStatement statement;
 		Connection con = Conexion.getConexion().getSQLConexion();
 		

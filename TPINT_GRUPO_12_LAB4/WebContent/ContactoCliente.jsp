@@ -22,20 +22,20 @@
         $(document).ready(function () {
         	
             $.post("CargarPaisesServlet", {action: "getPaises"}, function (data) {
-                $("#pais").html(data);
+                $("#pais").html("<option value='' selected disabled>Seleccione una opción...</option>" + data);
             });
         	
             $("#pais").change(function () {
                 var paisId = $(this).val();
                 $.post("CargarPaisesServlet", {action: "getProvincias", paisId: paisId}, function (data) {
-                    $("#provincia").html(data);
+                    $("#provincia").html("<option value='' selected disabled>Seleccione una opción...</option>" + data);
                 });
             });
             
             $("#provincia").change(function () {
                 var provinciaId = $(this).val();
                 $.post("CargarPaisesServlet", {action: "getLocalidades", provinciaId: provinciaId}, function (data) {
-                    $("#localidad").html(data);
+                    $("#localidad").html("<option value='' selected disabled>Seleccione una opción...</option>" + data);
                 });
             });
             
@@ -136,6 +136,7 @@
 			%>
             
             <input type="submit" value="Registrar" id="btnRegistrar" name="btnRegistrar" onclick="return checkBTN()">
+        	<a Style=margin-left:20px; href="Login.jsp">Volver</a>
         </form>
         
         <script>

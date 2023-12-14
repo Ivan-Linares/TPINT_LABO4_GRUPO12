@@ -19,7 +19,7 @@
 			<input  type="password"  placeholder="Contraseña.."  required name="txtcontraseña"></br></br>
 			<input   class="btn btn-info"  type="submit"    name="btningresar" value="Ingresar"></br></br>
 			<a Style=margin-left:20px; href="CambiarPassword.jsp">Olvidaste la clave?</a>
-			<a Style=margin-left:20px; href="Registrarse_Ctes.jsp">Registrate!</a>
+			<a Style=margin-left:20px; href="ContactoCliente.jsp">Registrate!</a>
     </div>
   </div>
 </div>

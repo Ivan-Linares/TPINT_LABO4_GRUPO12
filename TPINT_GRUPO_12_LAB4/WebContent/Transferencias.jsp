@@ -210,7 +210,7 @@ if (!admin){
 		<%
 			if (request.getAttribute("3ros") != null || request.getAttribute("miscuentas") != null) {
 		%>
-		<input type="text" name="Monto" placeholder="Ingresar monto"></br>
+		<input type="number" name="Monto" placeholder="Ingresar monto" ></br>
 		</br>
 		<%
 			}

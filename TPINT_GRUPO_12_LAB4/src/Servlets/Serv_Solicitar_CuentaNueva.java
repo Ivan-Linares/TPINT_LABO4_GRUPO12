@@ -53,14 +53,13 @@ public class Serv_Solicitar_CuentaNueva extends HttpServlet {
 					Tipocuenta=2;
 				}
 				if (cn.insert(dni, Tipocuenta)) {
-					RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
-					rd.forward(request, response);
+					msj="Solicitud enviada con exito.";
 				}
 			}
 			else {
 				msj="Ya posee una solicitud de cuenta en Proceso, debera aguardar su aprobacion.";
-				request.setAttribute("msj", msj);
 			}
+			request.setAttribute("msj", msj);
 			RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
 			rd.forward(request, response);
 		}

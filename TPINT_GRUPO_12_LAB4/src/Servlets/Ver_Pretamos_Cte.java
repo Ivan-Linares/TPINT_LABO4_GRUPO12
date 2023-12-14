@@ -48,6 +48,10 @@ public class Ver_Pretamos_Cte extends HttpServlet {
 			
 			listaPrestamos = pn.getPrestamoDNICliente(DNI);
 			
+			for(Prestamo p : listaPrestamos) {
+				System.out.println(p.getDNI());
+			}
+			
 			request.setAttribute("listaPrestamos", listaPrestamos);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Prestamos_Principal.jsp");

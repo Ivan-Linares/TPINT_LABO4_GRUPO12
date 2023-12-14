@@ -124,8 +124,14 @@ if (!admin){
     </div>
   </div>
 </nav>
-<%} %>
-
+<%}
+String msj;
+	if(request.getAttribute("msj")!=null){
+		msj=request.getAttribute("msj").toString();
+	%>
+		<H2><%= msj %></H2>
+	<%}
+%>
 <%--ACA PODRIAMOS PONER UN CARROUSEL DE FOTOS, ETC, ES SOLO EL HOME --%>
 
 </body>

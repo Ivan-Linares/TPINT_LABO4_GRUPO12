@@ -18,6 +18,7 @@ import NegocioImpl.CuentaNegocioImpl;
 @WebServlet("/Transferencias")
 public class Transferencias extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String msj;
     public Transferencias() {
         super();
     }
@@ -56,16 +57,24 @@ public class Transferencias extends HttpServlet {
 			
 			CuentaNegocio cn = new CuentaNegocioImpl();
 			try {
-				if (cn.Transferencia(origen, destino, monto)) {
-					//Carte o confirmacion de transferencia
+				if(origen==destino) {
+					msj ="La cuenta de origen debe ser diferente a la cuenta destino.";
 				}
 				else {
-					//No se pudo realizar la transferencia
+					if (cn.Transferencia(origen, destino, monto)) {
+						//Carte o confirmacion de transferencia
+						msj ="Tranferencia generada con exito.";
+					}
+					else {
+							//No se pudo realizar la transferencia
+							msj ="No es posible realizar la transferencia.";
+					}						
 				}
 			} catch (FondosInsuficientesEx e) {
-				// TODO Auto-generated catch block
+				msj ="Fondos insuficientes.";
 				e.printStackTrace();
 			}
+			request.setAttribute("msj", msj);
 			RequestDispatcher rd = request.getRequestDispatcher("Transferencias.jsp");
 			rd.forward(request, response);
 		}
@@ -73,26 +82,30 @@ public class Transferencias extends HttpServlet {
 		if (request.getParameter("btntransferir")!=null && request.getParameter("CBU")!=null) {
 			int origen = Integer.parseInt(request.getParameter("cuentasorigen"));
 			float monto = Integer.parseInt(request.getParameter("Monto"));
-			
-			CuentaNegocio cn = new CuentaNegocioImpl();
 			int cbu=Integer.parseInt(request.getParameter("CBU"));
+			CuentaNegocio cn = new CuentaNegocioImpl();
 			int destino = cn.Cuenta_x_CBU(cbu);
 			if(destino!=0) {
 				try {
 					if (cn.Transferencia(origen, destino, monto)) {
 						//Carte o confirmacion de transferencia
+						msj ="Tranferencia generada con exito.";
 					}
 					else {
 						//No se pudo realizar la transferencia
+						msj ="No es posible realizar la transferencia.";
 					}
 				} catch (FondosInsuficientesEx e) {
 					// TODO Auto-generated catch block
+					msj ="Fondos insuficientes.";
 					e.printStackTrace();
 				}				
 			}
 			else {
 				//MSJ cbu inexistente
+				msj ="Cbu inexistente, verifique los datos ingresados.";
 			}
+			request.setAttribute("msj", msj);
 			RequestDispatcher rd = request.getRequestDispatcher("Transferencias.jsp");
 			rd.forward(request, response);
 		}

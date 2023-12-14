@@ -20,6 +20,8 @@ import NegocioImpl.CuentaNegocioImpl;
 @WebServlet("/Serv_Solicitar_CuentaNueva")
 public class Serv_Solicitar_CuentaNueva extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String msj;
+	private int Tipocuenta;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -42,7 +44,6 @@ public class Serv_Solicitar_CuentaNueva extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("Param")!=null) {
-			int Tipocuenta;
 			String dni = request.getParameter("Param").toString();
 			CuentaNegocio cn = new CuentaNegocioImpl();
 			if(!cn.CuentasPendientes(dni)){
@@ -55,6 +56,10 @@ public class Serv_Solicitar_CuentaNueva extends HttpServlet {
 					RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
 					rd.forward(request, response);
 				}
+			}
+			else {
+				msj="Ya posee una solicitud de cuenta en Proceso, debera aguardar su aprobacion.";
+				request.setAttribute("msj", msj);
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("Index.jsp");
 			rd.forward(request, response);

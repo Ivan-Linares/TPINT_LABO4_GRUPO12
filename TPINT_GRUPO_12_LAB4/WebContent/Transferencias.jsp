@@ -140,9 +140,13 @@ if (!admin){
 				name="btntranferencia3ro" value=" Transferir a un tercero ">
 		</div>
 		<br>
-		<%
-			ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
-			if (request.getAttribute("miscuentas") != null) {
+		<%String msj;
+			if(request.getAttribute("msj")!=null){
+				msj=request.getAttribute("msj").toString();%>
+				<H2><%= msj %></H2>
+			<%}
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		if (request.getAttribute("miscuentas") != null) {
 		%>
 		<div>
 			<label>Seleccionar cuenta desde la cual realizara la

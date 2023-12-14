@@ -47,17 +47,23 @@ public class Servlet_Movimientos_X_Cte extends HttpServlet {
 		}
 		
 		if(request.getParameter("btnfiltro")!= null) {
-			int importe=Integer.parseInt(request.getParameter("txtvalor"));
-			int tipoMov=Integer.parseInt(request.getParameter("filtro"));
-			
-			ArrayList<Movimiento> listaMov = new ArrayList<Movimiento>();
-			MovimientoNegocio mn = new Movimiento_NegocioImpl();
-			
-			listaMov = mn.listarFiltrada(this.cuenta, importe, tipoMov);
-			request.setAttribute("listaMovimientos", listaMov);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("Servlets_Cuentas_del_Cte?Param2="+cuenta);
-			rd.forward(request, response);	
+			if(request.getParameter("txtvalor")!="") {
+				int importe=Integer.parseInt(request.getParameter("txtvalor"));
+				int tipoMov=Integer.parseInt(request.getParameter("filtro"));
+				
+				ArrayList<Movimiento> listaMov = new ArrayList<Movimiento>();
+				MovimientoNegocio mn = new Movimiento_NegocioImpl();
+				
+				listaMov = mn.listarFiltrada(this.cuenta, importe, tipoMov);
+				request.setAttribute("listaMovimientos", listaMov);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Servlets_Cuentas_del_Cte?Param2="+cuenta);
+				rd.forward(request, response);				
+			}
+			else {
+				RequestDispatcher rd = request.getRequestDispatcher("Servlet_Movimientos_X_Cte?cuenta="+cuenta);
+				rd.forward(request, response);
+			}
 		}
 	}
 

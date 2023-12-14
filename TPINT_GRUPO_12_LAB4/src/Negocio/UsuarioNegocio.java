@@ -10,4 +10,5 @@ public interface UsuarioNegocio {
 	public boolean verificarExistencia(String usuario);
 	public Usuario obtenerUsuario(String usuario);
 	public Usuario asignarCliente(Usuario user);
+	public boolean actualizarUsuario(Usuario user);
 }

@@ -16,9 +16,9 @@
     <div class="col align-self-center">
       		<form action="validarLoginServlet" method="post">
 			<input  type="text"  placeholder="Usuario..."  required name="txtusuario"></br></br>
-			<input  type="text"  placeholder="Contraseña.."  required name="txtcontraseña"></br></br>
+			<input  type="password"  placeholder="Contraseña.."  required name="txtcontraseña"></br></br>
 			<input   class="btn btn-info"  type="submit"    name="btningresar" value="Ingresar"></br></br>
-			<a Style=margin-left:20px; href="servlet">Olvidaste la clave?</a>
+			<a Style=margin-left:20px; href="CambiarPassword.jsp">Olvidaste la clave?</a>
 			<a Style=margin-left:20px; href="Registrarse_Ctes.jsp">Registrate!</a>
     </div>
   </div>

@@ -88,7 +88,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			statement = con.prepareStatement("Update Usuarios Set Estado=?, Password=? where Usuario=?");
 			statement.setBoolean(1, usuario.getEstado());
 			statement.setString(2, usuario.getPass());
-			statement.setString(2, usuario.getUser());
+			statement.setString(3, usuario.getUser());
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();

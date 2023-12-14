@@ -86,6 +86,17 @@ public class UsuarioNegocioImpl implements UsuarioNegocio{
 	public boolean insertar2(Usuario usuario) {
 		return uDao.insertar(usuario);
 	}
+
+	@Override
+	public boolean actualizarUsuario(Usuario user) {
+		// TODO Auto-generated method stub
+		uDao=new UsuarioDaoImpl();
+		
+		if(uDao.modificar(user)) {
+			return true;
+		}
+		else return false;
+	}
 	
 	
 

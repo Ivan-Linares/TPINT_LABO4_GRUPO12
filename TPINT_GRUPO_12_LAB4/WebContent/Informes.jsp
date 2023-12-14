@@ -1,5 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entidad.Movimiento"%>
+<%@page import="Entidad.Informe"%>
 <%@page import="Entidad.TipoMovimiento"%>
 <%@page import="NegocioImpl.TipoMovimientoNegocioImpl"%>
 <%@page import="Negocio.TipoMovimientoNegocio"%>
@@ -17,6 +18,26 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <script>
+ 
+    	
+        $(document).ready(function () {
+        	
+            $.post("CargarPaisesServlet", {action: "getPaises"}, function (data) {
+                $("#pais").html("<option value='' selected disabled>Seleccione una opción...</option>" + data);
+            });
+        	
+            $("#pais").change(function () {
+                var paisId = $(this).val();
+                $.post("CargarPaisesServlet", {action: "getProvincias", paisId: paisId}, function (data) {
+                    $("#provincia").html("<option value='' selected disabled>Seleccione una opción...</option>" + data);
+                });
+            });
+            
+        }); 
+        
+    </script>
 
 </head>
 <body>
@@ -140,9 +161,7 @@ Usuario user=new Usuario();%>
 
 <h1>Seleccione un Informe</h1>
     <form action="informes_Servlet" method="post">
-        <button type="submit">Resumen de Cuentas</button>
-        <button type="submit">Historial de Movimientos</button>
-        <button type="submit">Registros de actividad</button>
+        <button type="submit" name="btnPorRegion">Resumen por región</button>
         <button type="submit" name="btnAcumuladoTipoMov">Acumulado por Tipo de movimiento</button>
     </form>
     
@@ -151,6 +170,90 @@ Usuario user=new Usuario();%>
 		tipoInforme = request.getAttribute("tipoInforme").toString();
 	}	
 %>
+
+<%if ("resumenRegion".equals(tipoInforme)) { %>
+	<div style="margin-top: 30px;"> 
+		<form action="informes_Servlet" method="post">		
+		        <label for="pais">Pais:</label>
+	            <select id="pais" name="pais">
+	            <option value="" selected disabled>Seleccione una opción...</option>
+	            </select>
+	            
+	            <label for="provincia">Provincia:</label>
+	            <select id="provincia" name="provincia">
+	            </select> 
+	            <button type="submit" name="btnPorRegionFilter">Generar reporte</button>
+	            <button type="submit" name="btnPorRegion">Borrar filtros</button>
+     	</form>
+     </div>
+ <%
+ 	ArrayList<Informe> listado = new ArrayList<Informe>();
+	String filtro = "";
+ 	String title="";
+	if (request.getAttribute("filtro") != null) {
+		filtro = request.getAttribute("filtro").toString();
+		title="Resultados para "+filtro;
+	}
+	
+	else{
+		title="Resultados totales por región";
+	}
+	
+	if(request.getAttribute("InformeRegion")!=null){
+		listado=(ArrayList<Informe>)request.getAttribute("InformeRegion");
+	}
+%>
+	<div style="margin-top: 20px;"> 
+		<h2><%=title%></h2>
+	</div>
+	
+		<div class="container text-center" style="margin-top: 30px;">
+		<div class="row justify-content-md-center">
+			<div class="col col-lg-2"></div>
+			<div class="col-md-auto">
+				<table class="table table-hover" id="tablaMovimientos">
+					<thead>
+						<tr>
+							<th>Region</th>
+							<th>Clientes Activos</th>
+							<th>Clientes Inactivos</th>
+							<th>Clientes pendientes</th>
+							<th>Saldo total</th>
+							<th>Movimientos altas cuenta</th>
+							<th>Movimientos altas prestamos</th>
+							<th>Movimientos pago prestamos</th>
+							<th>Movimientos extracciones</th>
+							<th>Movimientos depositos</th>
+						</tr>
+					</thead>
+					<tbody>
+					<%  if (listado != null) 
+						for(Informe i : listado){
+					%>
+						<tr>
+							<td><%= i.getRegion() %></td>
+							<td><%= i.getClientesActivos() %></td>
+							<td><%= i.getClientesInactivos() %></td>
+							<td><%= i.getClientesPendientes() %></td>
+							<td><%= i.getSaldoTotal() %></td>
+							<td><%= i.getMovimientosAltasCuenta() %></td>
+							<td><%= i.getMovimientosAltasPrestamo() %></td>
+							<td><%= i.getMovimientosPagoPrestamo() %></td>
+							<td><%= i.getMovimientosExtracciones() %></td>
+							<td><%= i.getMovimientosDeposito() %></td>
+						</tr>
+					<%
+						}
+					%>	
+					</tbody>
+				</table>		
+			</div>
+			<div class="col col-lg-2"></div>
+		</div>
+	</div>	
+
+              
+<%} %>
 
 <%if ("acumuladoTipoMov".equals(tipoInforme)) { %>   
 	
@@ -190,8 +293,7 @@ Usuario user=new Usuario();%>
 <%if (total != "") { %>   
 	<br><br>
 	<label for="TotalMov">El total de movimientos relacionados a fechas y tipo seleccionados es:</label>
-    <input type="text" name="TotalMov" value="<%= total%>" class="form-control d-inline w-auto" disabled>
-    <br><br><br>
+    <input type="text" name="TotalMov" value="<%= total%>" class="form-control d-inline w-auto" disabled><br>
 <%} %>
     
     <%
@@ -206,11 +308,11 @@ Usuario user=new Usuario();%>
 					} 
 				else {
 				%>
+				
+	<h3>Historial completo de movimientos</h3>
 	
 	<div class="container text-center">
 		<div class="row justify-content-md-center">
-		<h4>Historial completo de movimientos</h4>
-		<br><br>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<table class="table table-hover" id="tablaMovimientos">

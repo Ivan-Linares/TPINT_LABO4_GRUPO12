@@ -26,7 +26,8 @@ Usuario user=new Usuario();%>
 		if(user.getTipoUsuario().getTipo()==2){
 			admin=false;
 		}
-}%>
+}
+%>
 <!-- Navbar Admin -->
 <%if (admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -45,8 +46,7 @@ Usuario user=new Usuario();%>
             Prestamos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Prestamo_Aprobar.jsp">Aprobar Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Aprobar_Servlet?Param=1">Aprobar Prestamos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -54,7 +54,7 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="cuentasAsignarServlet?Param=1">Asignar Cuentas</a></li>
             <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>
@@ -63,8 +63,8 @@ Usuario user=new Usuario();%>
             Administrar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
-            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
+            <li><a class="dropdown-item" href="admClientes_Servlet?Param=1"> Admin Clientes </a></li>
+            <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1"> Admin Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -81,8 +81,14 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <!-- Navbar Cliente -->
-<%if (!admin){ 
+
+<%
+
+
+if (!admin){ 
+	String nusuario = user.getUser();
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
+	String UsuarioDni = user.getPersona().getDni();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -100,9 +106,9 @@ Usuario user=new Usuario();%>
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Solicitud_Prestamo_Cte.jsp" >Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
-            <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
+          	<li><a class="dropdown-item" href="SolicitarPrestamoClienteServlet?Param=<%= UsuarioDni%>" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Ver_Pretamos_Cte?Param=<%= UsuarioDni%>">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Pagar_Prestamo_Servlet?Param=<%= UsuarioDni%>">Pagar Cuotas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -110,8 +116,7 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_del_Cliente.jsp" >Ver Cuentas</a></li>
-            <li><a class="dropdown-item" href="#">Administrar</a></li>
+            <li><a class="dropdown-item" href="Servlets_Cuentas_del_Cte?Param=<%= nusuario %>" >Ver Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">

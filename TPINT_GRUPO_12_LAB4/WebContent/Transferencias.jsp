@@ -7,11 +7,11 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Transferencia</title>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <%!
 boolean admin=true;
 Usuario user=new Usuario();%>
@@ -20,10 +20,9 @@ Usuario user=new Usuario();%>
 		if(user.getTipoUsuario().getTipo()==2){
 			admin=false;
 		}
-}%>
-
+}
+%>
 <!-- Navbar Admin -->
-
 <%if (admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -41,8 +40,7 @@ Usuario user=new Usuario();%>
             Prestamos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Prestamo_Aprobar.jsp">Aprobar Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Aprobar_Servlet?Param=1">Aprobar Prestamos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -50,7 +48,7 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="cuentasAsignarServlet?Param=1">Asignar Cuentas</a></li>
             <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>
@@ -59,8 +57,8 @@ Usuario user=new Usuario();%>
             Administrar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
-            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
+            <li><a class="dropdown-item" href="admClientes_Servlet?Param=1"> Admin Clientes </a></li>
+            <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1"> Admin Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -77,10 +75,12 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <!-- Navbar Cliente -->
-<%
-String nusuario = user.getUser();
 
+<%
+
+String nusuario = "";
 if (!admin){ 
+	nusuario = user.getUser();
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
 	String UsuarioDni = user.getPersona().getDni();
 	%>
@@ -102,7 +102,7 @@ if (!admin){
           <ul class="dropdown-menu">
           	<li><a class="dropdown-item" href="SolicitarPrestamoClienteServlet?Param=<%= UsuarioDni%>" >Pedir Prestamos</a></li>
             <li><a class="dropdown-item" href="Ver_Pretamos_Cte?Param=<%= UsuarioDni%>">Ver Prestamos</a></li>
-            <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
+            <li><a class="dropdown-item" href="Pagar_Prestamo_Servlet?Param=<%= UsuarioDni%>">Pagar Cuotas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -128,64 +128,95 @@ if (!admin){
     </div>
   </div>
 </nav>
-<br />
-<h2>Nueva trasferencia</h2><br>
-<form method="post" action="Transferencias?Param=<%= nusuario %>" class="alert">
 <%} %>
-<div>
-		<input type="submit" name="btntranferencia1mismo" value="Transferir a una cuenta propia">
-		<input type="submit" name="btntranferencia3ro" value=" Transferir a un tercero ">	
-</div><br>
-<%ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
-	if(request.getAttribute("miscuentas")!=null){%>
-	<div>
-		<label>Seleccionar cuenta desde la cual realizara la transferencia </label><br>
-		<b>Cuentas</b>
-		<select name="cuentasorigen">		
-		<%lista = (ArrayList<Cuenta>)request.getAttribute("miscuentas");
-		for(Cuenta ct : lista){%>
-			<option value="<%= ct.getNumero() %>">N° <%= ct.getNumero() %>- Saldo $<%= ct.getSaldo() %></option>			
-		<%}
-			%>
-		</select>
-	</div><br>
-	<div>
-		<label>Seleccionar cuenta destino </label><br>
-		<b>Cuentas</b>
-		<select name="cuentasdestino">
+<br />
+	<h2>Nueva trasferencia</h2>
+	<br>
+	<form method="post" action="Transferencias?Param=<%=nusuario%>"
+		class="alert">
+		<div>
+			<input type="submit" name="btntranferencia1mismo"
+				value="Transferir a una cuenta propia"> <input type="submit"
+				name="btntranferencia3ro" value=" Transferir a un tercero ">
+		</div>
+		<br>
 		<%
-		for(Cuenta ct : lista){%>
-		<option value="<%= ct.getNumero() %>">N° <%= ct.getNumero() %>- Saldo $<%= ct.getSaldo() %></option>			
-		<%}
-			%>
+			ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+			if (request.getAttribute("miscuentas") != null) {
+		%>
+		<div>
+			<label>Seleccionar cuenta desde la cual realizara la
+				transferencia </label><br> <b>Cuentas</b> <select name="cuentasorigen">
+				<%
+					lista = (ArrayList<Cuenta>) request.getAttribute("miscuentas");
+						for (Cuenta ct : lista) {
+				%>
+				<option value="<%=ct.getNumero()%>">N°
+					<%=ct.getNumero()%>- Saldo $<%=ct.getSaldo()%></option>
+				<%
+					}
+				%>
+			</select>
+		</div>
+		<br>
+		<div>
+			<label>Seleccionar cuenta destino </label><br> <b>Cuentas</b> <select
+				name="cuentasdestino">
+				<%
+					for (Cuenta ct : lista) {
+				%>
+				<option value="<%=ct.getNumero()%>">N°
+					<%=ct.getNumero()%>- Saldo $<%=ct.getSaldo()%></option>
+				<%
+					}
+				%>
 
-		</select>
-	</div></br></br><%	
-}%>
+			</select>
+		</div>
+		</br>
+		</br>
+		<%
+			}
+		%>
 
-<%if(request.getAttribute("3ros")!=null){%>
-	<div>
-		</div><br>
-			<div>
-				<label>Seleccionar cuenta desde la cual realizara la transferencia </label><br>
-				<b>Cuentas</b>
-				<select name="cuentasorigen">		
-					<%lista = (ArrayList<Cuenta>)request.getAttribute("3ros");
-					for(Cuenta ct : lista){%>
-						<option value="<%= ct.getNumero() %>">N° <%= ct.getNumero() %>- Saldo $<%= ct.getSaldo() %></option>			
-					<%}%>
-		</select>
-	</div><br>
-		<input type="text" name="CBU" placeholder="Ingresar CBU"></br></br>	
-<%}%>
-<%if(request.getAttribute("3ros")!=null || request.getAttribute("miscuentas")!=null) {%>
-	<input type="text" name="Monto" placeholder="Ingresar monto"></br></br>
-<%}%>
-	<input   class="btn btn-success"  type="submit"    name="btnvolver" value="Volver">
-<%if(request.getAttribute("3ros")!=null || request.getAttribute("miscuentas")!=null) {%>
-	<input   class="btn btn-info"  type="submit" name="btntransferir" value="Transferir">	
-<%}%>
-</div>
-</form>
+		<%
+			if (request.getAttribute("3ros") != null) {
+		%>
+		<div></div>
+		<br>
+		<div>
+			<label>Seleccionar cuenta desde la cual realizara la
+				transferencia </label><br> <b>Cuentas</b> <select name="cuentasorigen">
+				<%
+					lista = (ArrayList<Cuenta>) request.getAttribute("3ros");
+						for (Cuenta ct : lista) {
+				%>
+				<option value="<%=ct.getNumero()%>">N°
+					<%=ct.getNumero()%>- Saldo $<%=ct.getSaldo()%></option>
+				<%
+					}
+				%>
+			</select>
+		</div>
+		<br> <input type="text" name="CBU" placeholder="Ingresar CBU"></br>
+		</br>
+		<%
+			}
+		%>
+		<%
+			if (request.getAttribute("3ros") != null || request.getAttribute("miscuentas") != null) {
+		%>
+		<input type="text" name="Monto" placeholder="Ingresar monto"></br>
+		</br>
+		<%
+			}
+		%>
+		<%
+			if (request.getAttribute("3ros") != null || request.getAttribute("miscuentas") != null) {
+		%>
+		<input class="btn btn-info" type="submit" name="btntransferir" value="Transferir">
+		<%}%>
+		</div>
+	</form>
 </body>
 </html>

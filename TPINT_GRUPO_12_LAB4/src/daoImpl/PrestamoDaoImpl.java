@@ -32,7 +32,7 @@ public class PrestamoDaoImpl implements PrestamoDao {
 			statement.setDouble(5, prestamo.getImporteTotal());
 			statement.setDouble(6, prestamo.getImporteMensual());
 			statement.setInt(7, prestamo.getCuotasRestantes());
-			statement.setString(8, prestamo.getEstado());
+			statement.setString(8, "P");
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();

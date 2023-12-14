@@ -22,14 +22,13 @@ BEGIN
 			ifnull(sum(CASE WHEN m.Tipo_movimiento = 5 THEN m.importe END),0) AS movimientos_deposito
 	FROM pais p
 	left JOIN localidades l ON l.codPais = p.codPais
-	LEFT JOIN clientes c ON c.localidad = l.codlocalidad
+	left JOIN clientes c ON c.localidad = l.codlocalidad
 	left JOIN cuentas cu ON cu.dni = c.dni
 	left join movimientos m on m.cuenta=cu.cuenta
 	group by p.codPais, p.NombrePais;
 END //
 
 delimiter ;
-
 
 DELIMITER //
 
@@ -45,12 +44,12 @@ BEGIN
 			(select count(c.DNI) from clientes c
 			right join localidades lo on lo.codlocalidad= c.localidad
 			where lo.codProvincia=pr.codprovincia and c.estado="P") AS clientes_pendientes,
-		   ifnull(sum(cu.saldo),0) AS Saldo_total,
-			ifnull(sum(CASE WHEN m.Tipo_movimiento = 1 THEN m.importe END),0) AS movimientos_altas_cuenta,
-			ifnull(sum(CASE WHEN m.Tipo_movimiento = 2 THEN m.importe END),0) AS movimientos_altas_prestamo,
-			ifnull(sum(CASE WHEN m.Tipo_movimiento = 3 THEN m.importe END),0) AS movimientos_pago_prestamo,
-			ifnull(sum(CASE WHEN m.Tipo_movimiento = 4 THEN m.importe END),0) AS movimientos_extracciones,
-			ifnull(sum(CASE WHEN m.Tipo_movimiento = 5 THEN m.importe END),0) AS movimientos_deposito
+			ifnull(sum(cu.saldo),0) AS Saldo_total,
+			ifnull(sum(case when m.Tipo_movimiento = 1 then m.importe end),0) as movimientos_altas_cuenta,
+			ifnull(sum(case when m.Tipo_movimiento = 2 then m.importe end),0) as movimientos_altas_prestamo,
+			ifnull(sum(case when m.Tipo_movimiento = 3 then m.importe end),0) as movimientos_pago_prestamo,
+			ifnull(sum(case when m.Tipo_movimiento = 4 then m.importe end),0) as movimientos_extracciones,
+			ifnull(sum(case when m.Tipo_movimiento = 5 then m.importe end),0) as movimientos_deposito
 	FROM provincia pr
 	left JOIN localidades l ON l.codProvincia= pr.codProvincia
 	LEFT JOIN clientes c ON c.localidad = l.codlocalidad
@@ -61,7 +60,6 @@ BEGIN
 END//
 
 DELIMITER ;
-
 
 DELIMITER //
 
@@ -92,4 +90,3 @@ BEGIN
 END//
 
 DELIMITER ;
-

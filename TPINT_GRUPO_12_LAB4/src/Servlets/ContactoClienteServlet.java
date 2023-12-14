@@ -137,8 +137,7 @@ public class ContactoClienteServlet extends HttpServlet {
 				user.getTipoUsuario().setTipo(2);
 				user.setUser(cte.getUsuario());
 				user.setPass(cte.getPass());
-				user.setEstado(true);
-				
+			
 				if(!uNeg.verificarExistencia(user.getUser()) && !cNeg.verificarExistencia(cte) ) {
 					if(uNeg.insertar2(user) && cNeg.insertar(cte)) {
 						resp = "Solicitud procesada!";

@@ -34,7 +34,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		//German: ???
 		
 		try {
-			statement = con.prepareStatement("INSERT into clientes values(?,?,?,?,?,?,?,?,?,?,?)");
+			statement = con.prepareStatement("INSERT into clientes (DNI, cuil, Apellido, Nombre, Sexo, FechaNac, Localidad, Direccion, Email, Telefono, TelefonoSecundario, Usuario) values(?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, cliente.getDni());
 			statement.setString(2, cliente.getCuil());
 			statement.setString(3, cliente.getApellido());
@@ -46,8 +46,7 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setString(9, cliente.getEmail());
 			statement.setString(10, cliente.getTelefono());
 			statement.setString(11, cliente.getTelefonoSecundario());
-			statement.setString(12, cliente.getUsuario());
-			statement.setString(13, cliente.getEstado());			
+			statement.setString(12, cliente.getUsuario());			
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();

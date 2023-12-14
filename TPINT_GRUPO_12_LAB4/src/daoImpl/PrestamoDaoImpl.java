@@ -184,30 +184,157 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		return null;
 	}
 
+	public boolean PagarCuota(int ID, int CoutasRestantes) {
+		
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		String IDPrestamo = String.valueOf(ID);
+		String Coutas = String.valueOf(CoutasRestantes - 1);
+		
+		if(CoutasRestantes == 1) {
+			try {
+				statement = con.prepareStatement("Update Prestamos set Estado='E', cuotas_pendientes=? Where ID_Prestamo=?");
+				statement.setString(1, Coutas);
+				statement.setString(2, IDPrestamo);
+				
+				if(statement.executeUpdate() > 0) {
+					con.commit();
+					return true;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					con.rollback();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+			finally {
+				Conexion.instancia.cerrarConexion();
+			}	
+		}
+		else if(CoutasRestantes > 1){
+			try {
+				statement = con.prepareStatement("Update Prestamos set cuotas_pendientes=? Where ID_Prestamo=?");
+				statement.setString(1, Coutas);
+				statement.setString(2, IDPrestamo);
+				
+				if(statement.executeUpdate() > 0) {
+					con.commit();
+					return true;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					con.rollback();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+			finally {
+				Conexion.instancia.cerrarConexion();
+			}
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean Aprobar(int ID) {
-		// TODO Auto-generated method stub
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		String IDPrestamo = String.valueOf(ID);
+		
+		try {
+			statement = con.prepareStatement("Update Prestamos set Estado='A' Where ID_Prestamo=?");
+			statement.setString(1, IDPrestamo);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
 		return false;
 	}
 
 	@Override
 	public boolean Rechazar(int ID) {
-		// TODO Auto-generated method stub
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		String IDPrestamo = String.valueOf(ID);
+		
+		try {
+			statement = con.prepareStatement("Update Prestamos set Estado='R' Where ID_Prestamo=?");
+			statement.setString(1, IDPrestamo);
+			
+			if(statement.executeUpdate() > 0) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		finally {
+			Conexion.instancia.cerrarConexion();
+		}
+		
 		return false;
 	}
 
 
 	@Override
 	public ArrayList<Prestamo> listarPendientes() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		Prestamo prestamo = new Prestamo();
+		ArrayList<Prestamo> listPrestamo = new ArrayList<Prestamo>();
+		
+		try {
+			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
+					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where Estado = 'P'; ");
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				prestamo = setPrestamo(rs);
+				listPrestamo.add(prestamo);
+			}
+			 rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listPrestamo;
 	}
 
 	@Override
 	public Prestamo setPrestamo(ResultSet rs) {
 		
 		Prestamo prestamo = new Prestamo();
-		//ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, Importe_mensual_a_pagar, cuotas_pendientes, Estado
 		try {
 			prestamo.setIDPrestamo(rs.getInt("ID_Prestamo"));
 			prestamo.setDNI(rs.getString("DNI"));

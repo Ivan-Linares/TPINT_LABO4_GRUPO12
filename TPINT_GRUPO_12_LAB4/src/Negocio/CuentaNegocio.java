@@ -3,6 +3,7 @@ package Negocio;
 import java.util.ArrayList;
 
 import Entidad.Cuenta;
+import Excepciones.FondosInsuficientesEx;
 
 
 public interface CuentaNegocio {
@@ -23,7 +24,7 @@ public interface CuentaNegocio {
 	public boolean CuentasPendientes (String DNI);
 	public ArrayList<Cuenta> ListarCuentasPendientes();
 	
-	public boolean Transferencia(int origen, int destino, float monto);
+	public boolean Transferencia(int origen, int destino, float monto) throws FondosInsuficientesEx;
 	public int Cuenta_x_CBU(int cbu);
 	public int Cuenta_x_DNI(String DNI);
 }

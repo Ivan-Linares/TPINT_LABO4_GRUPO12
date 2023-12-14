@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Prestamo;
+import Excepciones.FondosInsuficientesEx;
 import daoImpl.PrestamoDaoImpl;
+import daoImpl.CuentaDaoImpl;
+import daoImpl.MovimientoDaoImpl;
 
 /**
  * Servlet implementation class Pagar_Prestamo_Servlet
@@ -86,10 +89,25 @@ public class Pagar_Prestamo_Servlet extends HttpServlet {
 				
 				int IDPrestamo = Integer.parseInt(request.getParameter("IDPrestamoPagar")); 
 				
+				MovimientoDaoImpl mv = new MovimientoDaoImpl();
+				CuentaDaoImpl cn = new CuentaDaoImpl();	
 				Prestamo prestamo = pn.getPrestamoPorID(IDPrestamo);
-				
-				
-				
+
+				try {
+					cn.debito(prestamo.getNroCuenta(), prestamo.getImporteMensual());
+					pn.PagarCuota(prestamo.getIDPrestamo(), prestamo.getCuotasRestantes());
+					mv.insertar(prestamo.getNroCuenta(), (float)prestamo.getImporteMensual(), 3);
+					
+					String msj = "Cuota Pagada con exito!";
+					request.setAttribute("msj", msj);
+					
+				} catch (FondosInsuficientesEx e) {
+					
+					e.printStackTrace();
+					
+					String msj = "Fondos insuficientes para realizar esta operacion!";
+					request.setAttribute("msj", msj);
+				}
 				request.setAttribute("PrestamoSelec", 2);
 				
 			} catch (Exception e) {

@@ -19,6 +19,7 @@ import Entidad.TipoCuenta;
 import Negocio.MovimientoNegocio;
 import NegocioImpl.Movimiento_NegocioImpl;
 import dao.CuentaDao;
+import Excepciones.FondosInsuficientesEx;;
 
 public class CuentaDaoImpl implements CuentaDao {
 	private final int tipoMovimientoExtraccion=4;
@@ -509,8 +510,37 @@ public boolean insert(String DNI, int tc) {
 		return lista;
 	}
 
+	public Cuenta GetCuentaxID(int idCuenta) {
+		
+		Connection cn = Conexion.getConexion().getSQLConexion();		
+		Cuenta cuenta = new Cuenta();
+		
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT DNI, Cuenta, Fecha_creacion, c.Tipo_De_Cuenta as tdc, tc.descripcion, c.cbu, c.saldo, c.estado "
+					+ "FROM cuentas c inner join tipos_cuentas tc on c.Tipo_De_Cuenta=tc.Tipo_De_Cuenta "
+					+ "where c.Estado='a' and Cuenta =" + idCuenta + ";");
+			while(rs.next()) {
+				
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setDni(rs.getString("DNI"));
+				cuenta.setNumero(rs.getString("Cuenta"));
+				cuenta.setSaldo(rs.getFloat("saldo"));
+				
+				TipoCuenta obj= new TipoCuenta();
+				obj.setCode(rs.getInt("tdc"));
+				obj.setName(rs.getString("descripcion"));
+				cuenta.setTipoCuenta(obj);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cuenta;
+	}
+	
 	@Override
-	public boolean Transferencia(int origen, int destino, float monto) {
+	public boolean Transferencia(int origen, int destino, float monto) throws FondosInsuficientesEx {
 		MovimientoNegocio mn = new Movimiento_NegocioImpl();
 		if (origen==destino) {
 			return false;
@@ -523,33 +553,44 @@ public boolean insert(String DNI, int tc) {
 		}			
 		return false;
 	}
-	private boolean debito(int origen, float monto) {
+	
+	public boolean debito(int origen, double d) throws FondosInsuficientesEx {
 		PreparedStatement statement;
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
-		try {
-			statement = con.prepareStatement("UPDATE cuentas set Saldo=(Saldo)-? where Cuenta=?;");
-			statement.setFloat(1, monto);
-			statement.setInt(2, origen);
-			
-			if(statement.executeUpdate() > 0) {
-				con.commit();
-				return true;
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		Cuenta cuenta = GetCuentaxID(origen);
+		
+		if(cuenta.getSaldo() > d) {
+		
 			try {
-				con.rollback();
-			} catch (Exception e2) {
-				e2.printStackTrace();
+				statement = con.prepareStatement("UPDATE cuentas set Saldo=(Saldo)-? where Cuenta=?;");
+				statement.setDouble(1, d);
+				statement.setInt(2, origen);
+				
+				if(statement.executeUpdate() > 0) {
+					con.commit();
+					return true;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					con.rollback();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+			finally {
+				Conexion.instancia.cerrarConexion();
 			}
 		}
-		finally {
-			Conexion.instancia.cerrarConexion();
+		else {
+			throw new FondosInsuficientesEx();
 		}
 		return false;
 	}
+	
+	
 	private boolean credito(int destino, float monto) {
 		PreparedStatement statement;
 		Connection con = Conexion.getConexion().getSQLConexion();
@@ -578,6 +619,8 @@ public boolean insert(String DNI, int tc) {
 		return false;
 	}
 
+	
+	
 	@Override
 	public int Cuenta_x_CBU(int cbu) {
 		Connection cn = Conexion.getConexion().getSQLConexion();

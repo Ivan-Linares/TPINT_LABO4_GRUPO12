@@ -3,6 +3,7 @@ package NegocioImpl;
 import java.util.ArrayList;
 
 import Entidad.Cuenta;
+import Excepciones.FondosInsuficientesEx;
 import Negocio.CuentaNegocio;
 import dao.CuentaDao;
 import daoImpl.CuentaDaoImpl;
@@ -114,7 +115,7 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	}
 
 	@Override
-	public boolean Transferencia(int origen, int destino, float monto) {
+	public boolean Transferencia(int origen, int destino, float monto) throws FondosInsuficientesEx {
 		cDao = new CuentaDaoImpl();
 		return cDao.Transferencia(origen, destino, monto);
 	}

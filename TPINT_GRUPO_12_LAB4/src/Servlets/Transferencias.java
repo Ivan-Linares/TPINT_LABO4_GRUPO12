@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cuenta;
+import Excepciones.FondosInsuficientesEx;
 import Negocio.CuentaNegocio;
 import NegocioImpl.CuentaNegocioImpl;
 
@@ -54,11 +55,16 @@ public class Transferencias extends HttpServlet {
 			float monto = Integer.parseInt(request.getParameter("Monto"));
 			
 			CuentaNegocio cn = new CuentaNegocioImpl();
-			if (cn.Transferencia(origen, destino, monto)) {
-				//Carte o confirmacion de transferencia
-			}
-			else {
-				//No se pudo realizar la transferencia
+			try {
+				if (cn.Transferencia(origen, destino, monto)) {
+					//Carte o confirmacion de transferencia
+				}
+				else {
+					//No se pudo realizar la transferencia
+				}
+			} catch (FondosInsuficientesEx e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("Transferencias.jsp");
 			rd.forward(request, response);
@@ -72,11 +78,16 @@ public class Transferencias extends HttpServlet {
 			int cbu=Integer.parseInt(request.getParameter("CBU"));
 			int destino = cn.Cuenta_x_CBU(cbu);
 			if(destino!=0) {
-				if (cn.Transferencia(origen, destino, monto)) {
-					//Carte o confirmacion de transferencia
-				}
-				else {
-					//No se pudo realizar la transferencia
+				try {
+					if (cn.Transferencia(origen, destino, monto)) {
+						//Carte o confirmacion de transferencia
+					}
+					else {
+						//No se pudo realizar la transferencia
+					}
+				} catch (FondosInsuficientesEx e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}				
 			}
 			else {

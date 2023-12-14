@@ -224,9 +224,12 @@ Usuario user=new Usuario();%>
 				</div>
 			</form>
 			<%} 
+			String msj ="";
+			if (request.getAttribute("msj") != null)
+				msj = request.getAttribute("msj").toString();
 			if (PrestamoSelec == 2){
 			%>
-			<h3>Cuota Pagada con exito!</h3>
+			<h3><%= msj %></h3>
 			<%} %>
 		</div>
 	</div>

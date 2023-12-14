@@ -60,4 +60,10 @@ public class Movimiento_NegocioImpl implements MovimientoNegocio{
 		return Cdao.totalTipoMov(fechaInicio, fechaFin, tipoMovimiento);
 	}
 
+	@Override
+	public ArrayList<Movimiento> listarFiltrada(String cuenta, int importe, int tipoMov) {
+		Cdao = new MovimientoDaoImpl();
+		return Cdao.listarFiltrada(cuenta, importe, tipoMov);
+	}
+
 }

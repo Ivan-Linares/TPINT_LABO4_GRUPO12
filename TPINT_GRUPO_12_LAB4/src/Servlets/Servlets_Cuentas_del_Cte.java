@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cuenta;
+import Entidad.TipoMovimiento;
 import Negocio.CuentaNegocio;
+import Negocio.TipoMovimientoNegocio;
 import NegocioImpl.CuentaNegocioImpl;
+import NegocioImpl.TipoMovimientoNegocioImpl;
 
 /**
  * Servlet implementation class Servlets_Cuentas_del_Cte
@@ -50,8 +53,12 @@ public class Servlets_Cuentas_del_Cte extends HttpServlet {
 			CuentaNegocio cn = new CuentaNegocioImpl();
 			String dni = cn.BuscarCteporCuenta(request.getParameter("Param2"));
 			listaCuentas = cn.CuentasxDNI(dni);
-					
-
+			
+			ArrayList<TipoMovimiento> listatm = new ArrayList<TipoMovimiento>();
+			TipoMovimientoNegocio tmn= new TipoMovimientoNegocioImpl();
+			listatm = tmn.listar();
+			
+			request.setAttribute("listafiltro", listatm);
 			request.setAttribute("listaCuentas", listaCuentas);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Cuentas_del_Cliente.jsp");

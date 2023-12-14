@@ -1,3 +1,4 @@
+<%@page import="Entidad.TipoMovimiento"%>
 <%@page import="Entidad.Movimiento"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entidad.Cuenta"%>
@@ -177,8 +178,28 @@ if (!admin){
 	ArrayList<Movimiento> listadomov = new ArrayList<Movimiento>();
 	if(request.getAttribute("listaMovimientos")!=null){
 		listadomov = (ArrayList<Movimiento>)request.getAttribute("listaMovimientos");%>
+		
 	<h2>Historial de movimientos</h2></br>
 	<h4><input type="text" value="Cuenta seleccionada" disabled></h4>
+	
+	<form method="get" action="Servlet_Movimientos_X_Cte">
+		<select name="filtro">
+	<%ArrayList<TipoMovimiento> lista = new ArrayList<TipoMovimiento>();
+		int tope=2;
+		if(request.getAttribute("listafiltro")!=null){
+			lista = (ArrayList<TipoMovimiento>)request.getAttribute("listafiltro");
+			for(TipoMovimiento tm : lista){
+				if(tm.getCode()>tope){%>
+					<option value="<%= tm.getCode() %>"><%= tm.getName() %> mayor a $</option>
+					
+				<%}
+				}
+			}
+		%>
+		</select>
+		<input type="text" name="txtvalor">
+		<input type="submit" name="btnfiltro" value="Filtrar">
+	</form>
 	<table class="table accordion-button">
 		<tr>
 			<th>Fecha</th>
@@ -196,6 +217,5 @@ if (!admin){
 	%>
 	</table>
 </div>
-
 </body>
 </html>

@@ -42,12 +42,15 @@
 </head>
 <body>
 <%!
-boolean admin=true;
+boolean admin;
 Usuario user=new Usuario();%>
 <%if(session!=null){
 	user=(Usuario)session.getAttribute("Client");
 		if(user.getTipoUsuario().getTipo()==2){
 			admin=false;
+		}
+		else{
+			admin=true;
 		}
 }
 %>

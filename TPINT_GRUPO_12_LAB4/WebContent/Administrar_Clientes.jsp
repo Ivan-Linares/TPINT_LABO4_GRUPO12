@@ -67,8 +67,7 @@ Usuario user=new Usuario();%>
             Prestamos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Prestamo_Aprobar.jsp">Aprobar Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Aprobar_Servlet?Param=1">Aprobar Prestamos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -76,7 +75,7 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="cuentasAsignarServlet?Param=1">Asignar Cuentas</a></li>
             <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>

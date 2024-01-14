@@ -16,12 +16,15 @@ import Entidad.Cliente;
 import Entidad.Cuenta;
 import Entidad.Fecha;
 import Entidad.TipoCuenta;
+import Entidad.Usuario;
 import Negocio.ClienteNegocio;
 import Negocio.CuentaNegocio;
 import Negocio.MovimientoNegocio;
+import Negocio.UsuarioNegocio;
 import NegocioImpl.ClienteNegocioImpl;
 import NegocioImpl.CuentaNegocioImpl;
 import NegocioImpl.Movimiento_NegocioImpl;
+import NegocioImpl.UsuarioNegocioImpl;
 
 /**
  * Servlet implementation class cuentasAsignarServlet
@@ -96,7 +99,10 @@ public class cuentasAsignarServlet extends HttpServlet {
 				if(estado == 1) {
 					if(cNeg.aprobar(DNI)) {
 						
-						if(ctaNeg.insert(DNI, TipoCuenta)) {
+						UsuarioNegocio uNeg= new UsuarioNegocioImpl();
+						Usuario u= uNeg.obtenerUsuarioDNI(DNI);
+						
+						if(ctaNeg.insert(DNI, TipoCuenta) && uNeg.habilitarUsuario(u)) {
 							mvn.insertar(ctaNeg.Cuenta_x_DNI(DNI), ImporteInicial, TipoMovimiento);
 							msj = "Cliente aprobado con exito!";
 						}

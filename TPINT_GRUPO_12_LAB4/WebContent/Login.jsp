@@ -25,12 +25,15 @@
 </div>
 
 <%if(request.getAttribute("Validar")!=null){
-		String resp=(String)request.getAttribute("Validar");%>
+		String resp=(String)request.getAttribute("Validar");
+		%>
 		<h3><%= resp %></h3>
 <%}%>
 
 <%if(request.getAttribute("Logout")!=null){
 		String resp=(String)request.getAttribute("Logout");%>
+		<script>sessionStorage.clear();
+				localStorage.clear();</script>
 		<h3><%= resp %></h3>
 <%}%>
 

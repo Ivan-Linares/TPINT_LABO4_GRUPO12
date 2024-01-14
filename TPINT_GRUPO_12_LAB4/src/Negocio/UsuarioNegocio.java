@@ -11,4 +11,6 @@ public interface UsuarioNegocio {
 	public Usuario obtenerUsuario(String usuario);
 	public Usuario asignarCliente(Usuario user);
 	public boolean actualizarUsuario(Usuario user);
+	public Usuario obtenerUsuarioDNI(String DNI);
+	public boolean habilitarUsuario (Usuario user);
 }

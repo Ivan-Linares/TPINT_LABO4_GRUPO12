@@ -97,6 +97,23 @@ public class UsuarioNegocioImpl implements UsuarioNegocio{
 		}
 		else return false;
 	}
+
+	@Override
+	public Usuario obtenerUsuarioDNI(String DNI) {
+		// TODO Auto-generated method stub
+		uDao=new UsuarioDaoImpl();
+		
+		return uDao.getUsuarioPorDNI(DNI);
+		
+	}
+
+	@Override
+	public boolean habilitarUsuario(Usuario user) {
+		
+		uDao=new UsuarioDaoImpl();
+		user.setEstado(true);
+		return uDao.modificar(user);
+	}
 	
 	
 

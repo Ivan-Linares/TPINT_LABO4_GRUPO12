@@ -41,9 +41,13 @@ public class validarLoginServlet extends HttpServlet {
 		String resp= "Ocurrió un error";
         HttpSession session = request.getSession(false);
         if (session != null) {
+        	session.setAttribute("Client", null);
+        	session.removeAttribute("Client");
+        	request.logout();
             session.invalidate();
             resp="La sesión se cerró correctamente";
         }
+
         RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
 		request.setAttribute("Logout", resp);
 		rd.forward(request, response);
@@ -77,6 +81,7 @@ public class validarLoginServlet extends HttpServlet {
 						}
 						HttpSession session = request.getSession(true);
 						session.setAttribute("Client", utest);
+						
 					}
 					
 					else {
@@ -105,6 +110,7 @@ public class validarLoginServlet extends HttpServlet {
 			rd.forward(request, response);
 			
 		}
+		
 		
 		response.sendRedirect("Index.jsp");
 	}

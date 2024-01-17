@@ -46,6 +46,8 @@ public class Serv_Solicitar_CuentaNueva extends HttpServlet {
 		if(request.getParameter("Param")!=null) {
 			String dni = request.getParameter("Param").toString();
 			CuentaNegocio cn = new CuentaNegocioImpl();
+			
+			
 			if(!cn.CuentasPendientes(dni)){
 				if(request.getParameter("BtnCA")!=null) {
 					Tipocuenta=1;

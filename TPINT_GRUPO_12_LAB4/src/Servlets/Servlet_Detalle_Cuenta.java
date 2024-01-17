@@ -48,9 +48,7 @@ public class Servlet_Detalle_Cuenta extends HttpServlet {
 			
 			RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
 			rd.forward(request, response);
-		}
-		
-		
+		}		
 	}
 
 	/**

@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cuenta;
 import Entidad.TipoCuenta;
+import Negocio.MovimientoNegocio;
 import NegocioImpl.CuentaNegocioImpl;
+import NegocioImpl.Movimiento_NegocioImpl;
 import NegocioImpl.Tipo_de_CuentaNegocioImpl;
 
 /**
@@ -21,6 +23,9 @@ import NegocioImpl.Tipo_de_CuentaNegocioImpl;
 @WebServlet("/Servlet_Modificar_Cuenta")
 public class Servlet_Modificar_Cuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final float ImporteInicial=10000;
+	private final int TipoMovimiento=1;
+	private final String Aprobado="A";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,6 +56,7 @@ public class Servlet_Modificar_Cuenta extends HttpServlet {
 		if(request.getParameter("btnConfirmar")!=null) {
 			Cuenta obj = new Cuenta();
 			TipoCuenta au = new TipoCuenta();
+			MovimientoNegocio mn = new Movimiento_NegocioImpl();
 			
 			au.setCode(Integer.parseInt(request.getParameter("Tipo Cuenta")));
 			obj.setTipoCuenta(au);
@@ -63,9 +69,32 @@ public class Servlet_Modificar_Cuenta extends HttpServlet {
 			CuentaNegocioImpl cni= new CuentaNegocioImpl();
 			cni.modificar(obj);
 			
+			
 			RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
 			rd.forward(request, response);
 			}
+		if (request.getParameter("btnAprobar")!=null) {
+			Cuenta obj = new Cuenta();
+			TipoCuenta au = new TipoCuenta();
+			MovimientoNegocio mn = new Movimiento_NegocioImpl();
+			
+			au.setCode(Integer.parseInt(request.getParameter("Tipo Cuenta")));
+			obj.setTipoCuenta(au);
+			
+			obj.setCBU(request.getParameter("CBU"));
+			obj.setDni(request.getParameter("DNI"));
+			obj.setEstado(Aprobado);
+			obj.setNumero(request.getParameter("Numero"));
+			
+			CuentaNegocioImpl cni= new CuentaNegocioImpl();
+			if(cni.modificar(obj)) {
+				mn.insertar(Integer.parseInt(request.getParameter("Numero")), ImporteInicial, TipoMovimiento);
+			}
+			
+			
+			RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
+			rd.forward(request, response);
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

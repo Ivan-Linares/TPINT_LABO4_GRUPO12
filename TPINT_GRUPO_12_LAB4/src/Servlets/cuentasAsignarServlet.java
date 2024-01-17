@@ -34,7 +34,7 @@ public class cuentasAsignarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final float ImporteInicial=10000;
 	private final int TipoMovimiento=1;
-	private final int TipoCuenta=1;
+	private int TipoCuenta;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -118,7 +118,6 @@ public class cuentasAsignarServlet extends HttpServlet {
 			catch (Exception e) {
 				msj = "Ocurrio un error";
 				throw e;
-				
 			}
 			
 			ArrayList<Cliente> lista = cNeg.listarPendientes();

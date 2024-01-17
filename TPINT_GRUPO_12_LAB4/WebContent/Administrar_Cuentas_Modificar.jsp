@@ -163,7 +163,15 @@ if (!admin){
 		        <input type="text"  name="CBU" value="<%=cuenta.getCBU() %>" class="form-control"><br>
 		        
 		        <label for="nombre">Estado </label>
-		        <input type="text"  name="Estado" value="<%=cuenta.getEstado() %>" class="form-control"><br>
+		        <%
+		        String estado;
+		        if(cuenta.getEstado().equals("P")){
+		        	estado ="Pendiente de aprobacion";
+		        }else{
+		        	estado ="Aprobada";
+		        }
+		        %>
+		        <input type="text"  name="Estado" value="<%=estado %>" class="form-control" disabled><br>
 		        
 		        <label for="nombre">Tipo Cuenta:</label><br>
 					  	<Select Name="Tipo Cuenta" class="ratio w-25">
@@ -183,7 +191,8 @@ if (!admin){
 	  	}
 	  %>
 	<input type="submit" name="btnCancelar" value="Cancelar" class="btn btn-danger">
-	<input type="submit" name="btnConfirmar" value="Confirmar" class="btn btn-success">
+	<input type="submit" name="btnConfirmar" value="Modificar" class="btn btn-success">
+	<input type="submit" name="btnAprobar" value="Aprobar cuenta" class="btn btn-primary">
 </form>
 </body>
 </html>

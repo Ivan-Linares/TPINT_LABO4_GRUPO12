@@ -17,11 +17,13 @@
 
 <%!
 boolean admin=true;
-Usuario user=new Usuario();%>
+Usuario user=new Usuario();
+String dni;%>
 <%if(session!=null){
 	user=(Usuario)session.getAttribute("Client");
 		if(user.getTipoUsuario().getTipo()==2){
 			admin=false;
+			dni=user.getPersona().getDni();
 		}
 }
 %>
@@ -162,7 +164,10 @@ if (!admin){
     </div>
   		<%}
 		int max=3;
-			if(c<3){%>
+			if(c<3){
+				if(nc==""){
+					nc=dni;
+				}%>
 			<form method="post" action="Serv_Solicitar_CuentaNueva?Param=<%=nc%>">
 			    <div>
 			    	<input type="submit" value="Solicitar nueva caja de ahorro" name="BtnCA">

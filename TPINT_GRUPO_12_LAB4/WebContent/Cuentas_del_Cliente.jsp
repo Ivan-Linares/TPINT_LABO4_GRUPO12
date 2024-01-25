@@ -219,7 +219,14 @@ if (!admin){
 			<tr>
 				<td><%= mv.getFechaTef().toString() %></td>
 				<td><%= mv.getTipoMovimiento().getName() %></td>
-				<td>$<%= mv.getImporte() %></td>		
+				<%if(mv.getTipoMovimiento().getCode()==3 || mv.getTipoMovimiento().getCode()==4){%>
+					<td>$- <%= mv.getImporte() %></td>							
+				<%}
+				else{%>
+					<td>$+ <%= mv.getImporte() %></td>
+					
+				<%}
+				%>
 			</tr>
 		<%}
 	}

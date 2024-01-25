@@ -5,21 +5,26 @@ import java.util.Date;
 public class PagoPrestamo 
 {
 	private int IDPagoPrestamo;
-	private Prestamo prestamo;
-	private Cuenta cuenta;
+	private int ID_Prestamo;
+	private int ID_Cuenta;
 	private double ImporteCuota; 
 	private int NroCuota; 
 	private Date Fecha;
 	
-	public PagoPrestamo(int iDPagoPrestamo, Prestamo prestamo, Cuenta cuenta, double importeCuota, int nroCuota,
+	public PagoPrestamo(int iDPagoPrestamo, int prestamo, int cuenta, double importeCuota, int nroCuota,
 			Date fecha) {
 		super();
 		IDPagoPrestamo = iDPagoPrestamo;
-		this.prestamo = prestamo;
-		this.cuenta = cuenta;
+		this.ID_Prestamo = prestamo;
+		this.ID_Cuenta = cuenta;
 		ImporteCuota = importeCuota;
 		NroCuota = nroCuota;
 		Fecha = fecha;
+	}
+	
+	public PagoPrestamo()
+	{
+		
 	}
 	
 	public int getIDPagoPrestamo() {
@@ -28,17 +33,17 @@ public class PagoPrestamo
 	public void setIDPagoPrestamo(int iDPagoPrestamo) {
 		IDPagoPrestamo = iDPagoPrestamo;
 	}
-	public Prestamo getPrestamo() {
-		return prestamo;
+	public int getPrestamo() {
+		return ID_Prestamo;
 	}
-	public void setPrestamo(Prestamo prestamo) {
-		this.prestamo = prestamo;
+	public void setPrestamo(int prestamo) {
+		this.ID_Prestamo = prestamo;
 	}
-	public Cuenta getCuenta() {
-		return cuenta;
+	public int getCuenta() {
+		return ID_Cuenta;
 	}
-	public void setCuenta(Cuenta cuenta) {
-		this.cuenta = cuenta;
+	public void setCuenta(int cuenta) {
+		this.ID_Cuenta = cuenta;
 	}
 	public double getImporteCuota() {
 		return ImporteCuota;

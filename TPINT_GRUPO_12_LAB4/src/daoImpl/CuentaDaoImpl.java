@@ -622,7 +622,7 @@ public boolean insert(String DNI, int tc) {
 	
 	
 	@Override
-	public int Cuenta_x_CBU(int cbu) {
+	public int Cuenta_x_CBU(String cbu) {
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		int cuenta=0;
 		try {
@@ -664,4 +664,5 @@ public boolean insert(String DNI, int tc) {
 		}
 		return cuenta;
 	}
+
 }

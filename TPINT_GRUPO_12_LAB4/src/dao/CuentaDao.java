@@ -29,6 +29,6 @@ public interface CuentaDao {
 	public ArrayList<Cuenta> ListarCuentasPendientes();
 	
 	public boolean Transferencia(int origen, int destino, float monto) throws FondosInsuficientesEx;
-	public int Cuenta_x_CBU(int cbu);
+	public int Cuenta_x_CBU(String cbu);
 	public int Cuenta_x_DNI(String DNI);
 }

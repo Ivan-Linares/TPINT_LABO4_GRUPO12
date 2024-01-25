@@ -121,7 +121,7 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	}
 
 	@Override
-	public int Cuenta_x_CBU(int cbu) {
+	public int Cuenta_x_CBU(String cbu) {
 		cDao = new CuentaDaoImpl();
 		return cDao.Cuenta_x_CBU(cbu);
 	}
@@ -130,6 +130,5 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public int Cuenta_x_DNI(String DNI) {
 		cDao = new CuentaDaoImpl();
 		return cDao.Cuenta_x_DNI(DNI);
-	}
-	
+	}	
 }

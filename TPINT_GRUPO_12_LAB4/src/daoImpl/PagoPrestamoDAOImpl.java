@@ -54,7 +54,6 @@ public class PagoPrestamoDAOImpl implements PagoPrestamoDAO {
 				con.commit();
 				return true;
 			}
-			
 		} 
 		catch (Exception e) 
 		{

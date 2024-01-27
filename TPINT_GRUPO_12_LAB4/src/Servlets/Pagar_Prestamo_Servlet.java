@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Prestamo;
+import Entidad.PagoPrestamo;
 import Excepciones.FondosInsuficientesEx;
 import daoImpl.PrestamoDaoImpl;
 import daoImpl.CuentaDaoImpl;
 import daoImpl.MovimientoDaoImpl;
+import NegocioImpl.PagoPrestamoNegocioImpl;
 
 /**
  * Servlet implementation class Pagar_Prestamo_Servlet
@@ -62,6 +66,8 @@ public class Pagar_Prestamo_Servlet extends HttpServlet {
 		
 		ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 		PrestamoDaoImpl pn = new PrestamoDaoImpl();
+		PagoPrestamoNegocioImpl pagoNeg = new PagoPrestamoNegocioImpl();
+		PagoPrestamo pago = new PagoPrestamo();
 		
 		listaPrestamos = pn.getPrestamoActivosDNICliente(valorDesdeGet);
 		
@@ -76,23 +82,33 @@ public class Pagar_Prestamo_Servlet extends HttpServlet {
 				prestamo = pn.getPrestamoPorID(IDPrestamo);
 				
 				request.setAttribute("Prestamo", prestamo);
-				request.setAttribute("PrestamoSelec", 1);
-				
-			} catch (Exception e) {
+				request.setAttribute("PrestamoSelec", 1);	
+			} 
+			catch (Exception e) 
+			{
 				e.printStackTrace();
 			}
-			
 		}
 		//----------------------------------------------------------
 		if(request.getParameter("btnPagar") != null) {
 			try {
-				
 				int IDPrestamo = Integer.parseInt(request.getParameter("IDPrestamoPagar")); 
 				
 				MovimientoDaoImpl mv = new MovimientoDaoImpl();
 				CuentaDaoImpl cn = new CuentaDaoImpl();	
 				Prestamo prestamo = pn.getPrestamoPorID(IDPrestamo);
-
+				
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  						
+				LocalDate FechaCreacion = LocalDate.now();
+				dtf.format(FechaCreacion);
+				String fechaString = FechaCreacion.toString();	
+				java.sql.Date Fecha = java.sql.Date.valueOf(fechaString);
+				
+				pago.setCuenta(prestamo.getNroCuenta());
+				pago.setPrestamo(prestamo.getIDPrestamo());
+				pago.setImporteCuota(prestamo.getImporteMensual());
+				pago.setFecha(Fecha);
+				
 				try {
 					cn.debito(prestamo.getNroCuenta(), prestamo.getImporteMensual());
 					pn.PagarCuota(prestamo.getIDPrestamo(), prestamo.getCuotasRestantes());

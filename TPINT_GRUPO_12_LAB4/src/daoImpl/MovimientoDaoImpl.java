@@ -28,11 +28,16 @@ public class MovimientoDaoImpl implements movimientoDao{
 				return true;
 			}
 			
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
-			try {
+			try 
+			{
 				con.rollback();
-			} catch (Exception e2) {
+			} 
+			catch (Exception e2) 
+			{
 				e2.printStackTrace();
 			}
 		}

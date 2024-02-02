@@ -144,6 +144,7 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 					newPrestamo.setImporteSolicitado(montoInicial);
 					newPrestamo.setImporteTotal(montoFinal);
 					newPrestamo.setImporteMensual(montoCuota);
+					newPrestamo.setCantCuotas(cuotas);
 					newPrestamo.setCuotasRestantes(cuotas);
 					newPrestamo.setFecha(Fecha);
 					newPrestamo.setEstado("P");

@@ -11,6 +11,7 @@ public class Prestamo {
 	private double ImporteSolicitado; 
 	private double ImporteTotal;
 	private double ImporteMensual; 
+	private int CantCuotas; 
 	private int CuotasRestantes; 
 	private String Estado;
 	
@@ -60,6 +61,12 @@ public class Prestamo {
 	}
 	public void setImporteMensual(double montoCuota) {
 		ImporteMensual = montoCuota;
+	}
+	public int getCantCuotas() {
+		return CantCuotas;
+	}
+	public void setCantCuotas(int cantCuotas) {
+		CantCuotas = cantCuotas;
 	}
 	public int getCuotasRestantes() {
 		return CuotasRestantes;

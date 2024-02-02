@@ -23,7 +23,7 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		
 		try {
 			statement = con.prepareStatement("INSERT INTO Prestamos (Cuenta, dni, Fecha, Importe_solicitado, Importe_total, "
-					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado) VALUES (?,?,?,?,?,?,?,?)");
+					+ "Importe_mensual_a_pagar, CantidadCuotas, cuotas_pendientes, Estado) VALUES (?,?,?,?,?,?,?,?,?)");
 			
 			statement.setInt(1, prestamo.getNroCuenta());
 			statement.setString(2, prestamo.getDNI());
@@ -31,8 +31,9 @@ public class PrestamoDaoImpl implements PrestamoDao {
 			statement.setDouble(4, prestamo.getImporteSolicitado());
 			statement.setDouble(5, prestamo.getImporteTotal());
 			statement.setDouble(6, prestamo.getImporteMensual());
-			statement.setInt(7, prestamo.getCuotasRestantes());
-			statement.setString(8, "P");
+			statement.setInt(7, prestamo.getCantCuotas());
+			statement.setInt(8, prestamo.getCuotasRestantes());
+			statement.setString(9, "P");
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();
@@ -77,7 +78,7 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		
 		try {
 			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
-					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where ID_Prestamo = ?; ");
+					+ "Importe_mensual_a_pagar, CantidadCuotas, cuotas_pendientes, Estado from prestamos where ID_Prestamo = ?; ");
 			statement.setString(1, ID);
 			
 			ResultSet rs = statement.executeQuery();
@@ -110,7 +111,7 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		
 		try {
 			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
-					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where DNI = ?; ");
+					+ "Importe_mensual_a_pagar, CantidadCuotas, cuotas_pendientes, Estado from prestamos where DNI = ?; ");
 			statement.setString(1, dni);
 			
 			ResultSet rs = statement.executeQuery();
@@ -137,7 +138,7 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		
 		try {
 			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
-					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where Estado = 'A' AND DNI = ?; ");
+					+ "Importe_mensual_a_pagar, CantidadCuotas, cuotas_pendientes, Estado from prestamos where Estado = 'A' AND DNI = ?; ");
 			statement.setString(1, dni);
 			
 			ResultSet rs = statement.executeQuery();
@@ -315,7 +316,7 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		
 		try {
 			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
-					+ "Importe_mensual_a_pagar, cuotas_pendientes, Estado from prestamos where Estado = 'P'; ");
+					+ "Importe_mensual_a_pagar, CantidadCuotas, cuotas_pendientes, Estado from prestamos where Estado = 'P'; ");
 			
 			ResultSet rs = statement.executeQuery();
 			
@@ -345,6 +346,7 @@ public class PrestamoDaoImpl implements PrestamoDao {
 			prestamo.setImporteSolicitado(rs.getDouble("Importe_solicitado"));
 			prestamo.setImporteTotal(rs.getDouble("Importe_total"));
 			prestamo.setImporteMensual(rs.getDouble("Importe_mensual_a_pagar"));
+			prestamo.setCantCuotas(rs.getInt("CantidadCuotas"));
 			prestamo.setCuotasRestantes(rs.getInt("cuotas_pendientes"));
 			prestamo.setEstado(rs.getString("Estado"));
 			

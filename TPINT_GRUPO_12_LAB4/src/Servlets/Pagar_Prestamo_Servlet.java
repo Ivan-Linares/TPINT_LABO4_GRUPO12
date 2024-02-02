@@ -108,11 +108,14 @@ public class Pagar_Prestamo_Servlet extends HttpServlet {
 				pago.setPrestamo(prestamo.getIDPrestamo());
 				pago.setImporteCuota(prestamo.getImporteMensual());
 				pago.setFecha(Fecha);
+				pago.setNroCuota((prestamo.getCantCuotas() - prestamo.getCuotasRestantes()) + 1);
 				
 				try {
 					cn.debito(prestamo.getNroCuenta(), prestamo.getImporteMensual());
 					pn.PagarCuota(prestamo.getIDPrestamo(), prestamo.getCuotasRestantes());
 					mv.insertar(prestamo.getNroCuenta(), (float)prestamo.getImporteMensual(), 3);
+					
+					pagoNeg.insertar(pago);
 					
 					String msj = "Cuota Pagada con exito!";
 					request.setAttribute("msj", msj);

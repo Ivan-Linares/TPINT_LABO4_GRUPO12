@@ -43,7 +43,7 @@ public class PagoPrestamoDAOImpl implements PagoPrestamoDAO {
 		try {
 			statement = con.prepareStatement("INSERT INTO PagoPrestamos (ID_Prestamo, Cuenta, NumeroCuota, Importe_cuota, Fecha) VALUES (?,?,?,?,?)");
 			
-			statement.setInt(1, pago.getIDPagoPrestamo());
+			statement.setInt(1, pago.getPrestamo());
 			statement.setInt(2, pago.getCuenta());
 			statement.setInt(3, pago.getNroCuota());
 			statement.setDouble(4, pago.getImporteCuota());

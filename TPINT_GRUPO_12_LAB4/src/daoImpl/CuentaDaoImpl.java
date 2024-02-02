@@ -561,7 +561,7 @@ public boolean insert(String DNI, int tc) {
 		Cuenta cuenta = GetCuentaxID(origen);
 		
 		if(cuenta.getSaldo() > d) {
-		
+		d = d * -1; //Agrego esta linea falta probarr
 			try {
 				statement = con.prepareStatement("UPDATE cuentas set Saldo=(Saldo)-? where Cuenta=?;");
 				statement.setDouble(1, d);

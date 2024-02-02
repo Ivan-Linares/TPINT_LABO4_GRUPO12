@@ -103,6 +103,9 @@ create table Prestamos
     foreign key (DNI) references Clientes(DNI)
 ) AUTO_INCREMENT = 100000;
 
+ALTER TABLE Prestamos
+ADD CantidadCuotas INT NOT NULL;
+
 CREATE table PagoPrestamos(
     ID_Pago int not NULL primary key auto_increment,
     ID_Prestamo int not NULL,

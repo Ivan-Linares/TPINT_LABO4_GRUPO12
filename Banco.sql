@@ -103,6 +103,9 @@ create table Prestamos
     foreign key (DNI) references Clientes(DNI)
 ) AUTO_INCREMENT = 100000;
 
+ALTER TABLE Prestamos
+ADD CantidadCuotas INT NOT NULL;
+
 CREATE table PagoPrestamos(
     ID_Pago int not NULL primary key auto_increment,
     ID_Prestamo int not NULL,
@@ -113,6 +116,9 @@ CREATE table PagoPrestamos(
     foreign key (Cuenta) references Cuentas(Cuenta),
     foreign key (ID_Prestamo) references Prestamos(ID_Prestamo)
 );
+
+ALTER TABLE PagoPrestamos
+MODIFY COLUMN Importe_cuota DECIMAL(10,2) NOT NULL;
 
 create Table Tipos_Movimientos
 (

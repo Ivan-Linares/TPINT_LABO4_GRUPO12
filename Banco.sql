@@ -117,6 +117,9 @@ CREATE table PagoPrestamos(
     foreign key (ID_Prestamo) references Prestamos(ID_Prestamo)
 );
 
+ALTER TABLE PagoPrestamos
+MODIFY COLUMN Importe_cuota DECIMAL(10,2) NOT NULL;
+
 create Table Tipos_Movimientos
 (
 	Tipo_movimiento int not null primary key auto_increment,

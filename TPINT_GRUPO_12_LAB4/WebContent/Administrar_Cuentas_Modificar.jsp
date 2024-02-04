@@ -21,6 +21,7 @@
 </head>
 <body>
 <%!
+String estado;
 boolean admin=true;
 Usuario user=new Usuario();%>
 <%if(session!=null){
@@ -164,7 +165,6 @@ if (!admin){
 		        
 		        <label for="nombre">Estado </label>
 		        <%
-		        String estado;
 		        if(cuenta.getEstado().equals("P")){
 		        	estado ="Pendiente de aprobacion";
 		        }else{
@@ -192,7 +192,11 @@ if (!admin){
 	  %>
 	<input type="submit" name="btnCancelar" value="Cancelar" class="btn btn-danger">
 	<input type="submit" name="btnConfirmar" value="Modificar" class="btn btn-success">
-	<input type="submit" name="btnAprobar" value="Aprobar cuenta" class="btn btn-primary">
+	<%
+	if(estado != "Aprobada"){%>
+		<input type="submit" name="btnAprobar" value="Aprobar cuenta" class="btn btn-primary">		
+	<%}
+	%>
 </form>
 </body>
 </html>

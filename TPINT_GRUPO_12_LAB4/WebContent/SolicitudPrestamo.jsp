@@ -1,43 +1,27 @@
-<%@page import="Entidad.Cuenta"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Entidad.Usuario"%>
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<style type="text/css">
+	<jsp:include page="Css\Styles.css"></jsp:include>
+</style>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-	crossorigin="anonymous">
-	<link rel="stylesheet" href="Styles/Css.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-	crossorigin="anonymous"></script>
-	
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<title>Prestamos en solicitud</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
 <%!
-boolean admin;
+boolean admin=true;
 Usuario user=new Usuario();%>
 <%if(session!=null){
 	user=(Usuario)session.getAttribute("Client");
 		if(user.getTipoUsuario().getTipo()==2){
 			admin=false;
 		}
-		else{
-			admin=true;
-		}
-}
-%>
+}%>
 <!-- Navbar Admin -->
 <%if (admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -56,7 +40,8 @@ Usuario user=new Usuario();%>
             Prestamos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Prestamo_Aprobar_Servlet?Param=1">Aprobar Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Aprobar.jsp">Aprobar Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -64,7 +49,8 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="cuentasAsignarServlet?Param=1">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_Asignar.jsp">Asignar Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -72,8 +58,8 @@ Usuario user=new Usuario();%>
             Administrar
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="admClientes_Servlet?Param=1"> Admin Clientes </a></li>
-            <li><a class="dropdown-item" href="Servlets_AdministraCuentas?Param=1"> Admin Cuentas</a></li>
+            <li><a class="dropdown-item" href="Administrar_Clientes.jsp">Admin Clientes</a></li>
+            <li><a class="dropdown-item" href="Administrar_Cuentas.jsp">Admin Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -90,14 +76,8 @@ Usuario user=new Usuario();%>
 </nav>
 <%} %>
 <!-- Navbar Cliente -->
-
-<%
-
-
-if (!admin){ 
-	String nusuario = user.getUser();
+<%if (!admin){ 
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
-	String UsuarioDni = user.getPersona().getDni();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -115,9 +95,10 @@ if (!admin){
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-          	<li><a class="dropdown-item" href="SolicitarPrestamoClienteServlet?Param=<%= UsuarioDni%>" >Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Ver_Pretamos_Cte?Param=<%= UsuarioDni%>">Ver Prestamos</a></li>
-            <li><a class="dropdown-item" href="Pagar_Prestamo_Servlet?Param=<%= UsuarioDni%>">Pagar Cuotas</a></li>
+            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
+            <li><a class="dropdown-item" href="Prestamos_Principal.jsp">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Detalle_Prestamos_Cte.jsp">Pagar Cuotas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -125,7 +106,8 @@ if (!admin){
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Servlets_Cuentas_del_Cte?Param=<%= nusuario %>" >Ver Cuentas</a></li>
+            <li><a class="dropdown-item" href="Cuentas_del_Cliente.jsp" >Ver Cuentas</a></li>
+            <li><a class="dropdown-item" href="#">Administrar</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -143,13 +125,53 @@ if (!admin){
     </div>
   </div>
 </nav>
-<%}
-String msj;
-if(request.getAttribute("msj")!=null){
-	msj=request.getAttribute("msj").toString();%>
-	<H2><%= msj %></H2>
-	<%
-	}
-	%>
+<%} %>
+<br />
+	<div>
+		<h2> Solicitudes en proceso </h2><br>
+		<table>
+			<tr>
+			<th>Filtrar por: </th>
+			<th>
+				<select>
+					<option> En proceso </option>
+					<option> Rechazadas </option>
+					<option> Aceptadas </option>
+				</select>
+			</th>
+			<th> Cuenta/DNI: <input type="text" name="txtfiltro"> </th>
+			<th><input type="submit" name="btnfiltrar" value="Buscar"></th>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<table class="table accordion-collapse">
+			<tr>
+				<th> N° cuenta </td>
+				<th> DNI </td>
+				<th> Apellido y nombre </td>
+				<th> Tipo de cuenta </td>
+				<th> Estado </td>
+				<th> Accion </td>
+			</tr>
+			<tr>
+				<td> 123456 </td>
+				<td> 41555888 </td>
+				<td> Fremna jose </td>
+				<td> Cuenta corriente </td>
+				<td> Proceso </td>
+				<td> <input type="submit" value="Ampliar" name="txtaccion"> </td>
+			</tr>
+						<tr>
+				<td> 123456 </td>
+				<td> 41555888 </td>
+				<td> Fremna jose </td>
+				<td> Cuenta corriente </td>
+				<td> Proceso </td>
+				<td>  <input type="submit" value="Ampliar" name="txtaccion">  </td>
+			</tr>
+		</table><br>
+		<input type="submit" name="btnvolver" value="Volver">
+	</div>
 </body>
 </html>

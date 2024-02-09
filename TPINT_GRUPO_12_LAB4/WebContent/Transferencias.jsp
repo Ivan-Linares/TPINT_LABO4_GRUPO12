@@ -202,7 +202,7 @@ if (!admin){
 				%>
 			</select>
 		</div>
-		<br> <input type="text" name="CBU" placeholder="Ingresar CBU"></br>
+		<br> <input type="number" name="CBU" placeholder="Ingresar CBU" required ></br>
 		</br>
 		<%
 			}
@@ -210,7 +210,7 @@ if (!admin){
 		<%
 			if (request.getAttribute("3ros") != null || request.getAttribute("miscuentas") != null) {
 		%>
-		<input type="number" name="Monto" placeholder="Ingresar monto" ></br>
+		<input type="number" min="100" name="Monto" placeholder="Ingresar monto" ></br>
 		</br>
 		<%
 			}

@@ -356,6 +356,32 @@ public class PrestamoDaoImpl implements PrestamoDao {
 		
 		return prestamo;
 	}
+
+	@Override
+	public Prestamo getPrestamoPorID(String idPrestamo) {
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		Prestamo prestamo = new Prestamo();
+		String ID = String.valueOf(idPrestamo);
+		
+		try {
+			statement = con.prepareStatement(" select ID_Prestamo, DNI, Cuenta, Fecha, Importe_solicitado, Importe_total, "
+					+ "Importe_mensual_a_pagar, CantidadCuotas, cuotas_pendientes, Estado from prestamos where ID_Prestamo = ?; ");
+			statement.setString(1, ID);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				prestamo = setPrestamo(rs);
+			}
+			 rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return prestamo;
+	}
 	
 	
 

@@ -15,6 +15,7 @@ public interface PrestamoDao {
 	public boolean Aprobar(int ID);
 	public boolean Rechazar(int ID);
 	public Prestamo getPrestamoPorID(int idPrestamo);
+	public Prestamo getPrestamoPorID(String idPrestamo);
 	public ArrayList<Prestamo> getPrestamoDNICliente(String DNI);
 	public ArrayList<Prestamo> listar();
 	public ArrayList<Prestamo> listarPendientes();

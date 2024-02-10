@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-    <%@page import="Entidad.Usuario"%>
-    <%@page import="java.util.ArrayList"%>
-    <%@page import="Entidad.Prestamo"%>
-    
+<%@page import="Entidad.Usuario"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Entidad.Prestamo"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Prestamos</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<title>Detalle de prestamo</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+	<link rel="stylesheet" href="Styles/Css.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+	crossorigin="anonymous"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 </head>
@@ -132,70 +140,44 @@ if (!admin){
 </nav>
 <%}%>
 <br />
+<%
+	Prestamo pres = new Prestamo();
+	if (request.getAttribute("Prestamo") != null){
+		pres = (Prestamo)request.getAttribute("Prestamo");
 
-<div class="container">
-	<div class="row justify-content-md-center">
-		<div class="col col-lg-2"></div>
-		<div class="col-md-auto">
-			<form action="Ver_Pretamos_Cte" method="post">
-				<%
-					ArrayList<Prestamo> listaJSP = new ArrayList<>();
-					if (request.getAttribute("listaPrestamos") != null)
-						listaJSP = (ArrayList<Prestamo>) request.getAttribute("listaPrestamos");
+%>
 
-					if (listaJSP.isEmpty()) {
-				%>
-				<h3>No tienes registrado ningun prestamo!</h3>
-				<%
-					} else {
-				%>
-				<table class="table accordion-collapse" id="tablaPrestamos" >
-					<thead>
-						<th>Codigo Prestamo</th>
-						<th>Cuenta Destino</th>
-						<th>Fecha Solicitud</th>
-						<th>Monto Solicitado</th>
-						<th>Monto a Pagar</th>
-						<th>Cuotas Restantes</th>
-						<th>Estado</th>
-						<th>Cancelar</th>
-						<th>Más información</th>
-					</thead>
-					<%
-						if (listaJSP != null)
-								for (Prestamo prestamo : listaJSP) {
-					%>
-					<tr>
-						<th><%=prestamo.getIDPrestamo()%></th><input type="hidden" name="IDPrestamo" value="<%= prestamo.getIDPrestamo()%>" ></td>
-						<th><%=prestamo.getNroCuenta()%></th>
-						<th><%=prestamo.getFecha()%></th>
-						<th>$<%=prestamo.getImporteSolicitado()%></th>
-						<th>$<%=prestamo.getImporteTotal()%></th>
-						<th><%=prestamo.getCuotasRestantes()%></th>
-						<th><%=prestamo.getEstado()%></th>
-						<th><input type="submit" class="btn btn-danger"
-							name="btnCancelar" Value="Cancelar"></th>
-						<th><input type="submit" class="btn btn-primary"
-							name="btnInfo" Value="Más información"></th>
-					</tr>
-					<%
-						}
-					%>
-				</table>
-				<%
-		}
-	%>
-			</form>
+	<form action="Prestamos_Principal.jsp" style=margin-top:15px;margin-left:10px;>
+		<div class="row">
+		  <div class="col">
+		    <label for="ID">ID:</label>
+	        <input type="text" id="ID" name="ID" value="<%=pres.getIDPrestamo()%>" class="form-control" disabled><br>
+	        
+	        <label for="fecha">Fecha de solicitud:</label>
+	        <input type="text" id="fecha" name="fecha" value="<%=pres.getFecha()%>"  class="form-control" disabled><br>
+	        
+	        <label for="importeSolicitado">Importe original solicitado:</label>
+	        <input type="text" id="importeSolicitado" name="importeSolicitado" value="<%=pres.getImporteSolicitado()%>"  class="form-control" disabled><br>
+	        
+	        <label for="importeFinal">Importe final a abonar:</label>
+	        <input type="text" id="importeFinal" name="importeFinal" value="<%=pres.getImporteTotal()%>"  class="form-control" disabled><br>
+	        
+		  </div>
+		  <div class="col">
+		  	 <label for="cuota">Importe de cuota:</label>
+	        <input type="text" id="cuota" name="cuota" value="<%=pres.getImporteMensual()%>"  class="form-control" disabled><br>
+	        
+	        <label for="cuotasTotales">Cantidad de cuotas totales:</label>
+	        <input type="text" id="cuotasTotales" name=cuotasTotales value="<%=pres.getCantCuotas()%>" class="form-control" disabled><br>
+		  
+	 		<label for="cuotasRestantes">Cantidad de cuotas restantes:</label>
+	        <input type="text" id="cuotasRestantes" name="cuotasRestantes" value="<%=pres.getCuotasRestantes()%>"  class="form-control" disabled><br>
+	        
+		  </div>
 		</div>
-		<div class="col"></div>
-	</div>
-</div>
-
-<script>
-	$(document).ready(function() {
-	    $('#tablaPrestamos').DataTable();
-	});
-</script>
+	<input type="submit" value="volver">
+<%}%>
+</form>
 
 </body>
 </html>

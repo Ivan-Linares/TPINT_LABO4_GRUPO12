@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import Entidad.Cuenta;
 import Negocio.CuentaNegocio;
 import NegocioImpl.CuentaNegocioImpl;
+import dao.PrestamoDao;
 import Entidad.Prestamo;
 import daoImpl.PrestamoDaoImpl;
 
@@ -63,7 +64,15 @@ public class Ver_Pretamos_Cte extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		if(request.getParameter("btnInfo")!=null) {
+			String Prestamo= request.getParameter("IDPrestamo").toString();
+			PrestamoDao p = new PrestamoDaoImpl();
+			Prestamo pr=p.getPrestamoPorID(Prestamo);
+			
+			request.setAttribute("Prestamo", pr);
+			RequestDispatcher rd = request.getRequestDispatcher("Prestamos_informacion.jsp");
+			rd.forward(request, response);
+	}
 	}
 
 }

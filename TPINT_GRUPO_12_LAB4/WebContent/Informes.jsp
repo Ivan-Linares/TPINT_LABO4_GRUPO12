@@ -313,8 +313,9 @@ if (!admin){
 					} 
 				else {
 				%>
-				
-	<h3>Historial completo de movimientos</h3>
+	<br>			
+	<h3>Historial de movimientos asociado</h3>
+	<br>
 	
 	<div class="container text-center">
 		<div class="row justify-content-md-center">
@@ -330,15 +331,24 @@ if (!admin){
 						</tr>
 					</thead>
 					<tbody>
-					<%  if (listaMovimientos != null) 
+					<%  
+						int tipoMovimiento = -1;
+						Object tipoMovimientoObj = request.getAttribute("tipoMovimiento");
+						if (tipoMovimientoObj != null) {
+						    tipoMovimiento = Integer.parseInt(tipoMovimientoObj.toString());
+						}
+						
+						if (listaMovimientos != null && tipoMovimiento != -1) 
 						for(Movimiento mov : listaMovimientos){
 					%>
-						<tr>
-							<td><%= mov.getCuenta() %></td>
-							<td><%= mov.getFechaTef() %></td>
-							<td><%= mov.getTipoMovimiento() %></td>
-							<td><%= mov.getImporte() %></td>
-						</tr>
+							<%if(mov.getTipoMovimiento().getCode() == tipoMovimiento){ %>
+								<tr>
+									<td><%= mov.getCuenta() %></td>
+									<td><%= mov.getFechaTef() %></td>
+									<td><%= mov.getTipoMovimiento() %></td>
+									<td><%= mov.getImporte() %></td>
+								</tr>
+							<%} %>
 					<%
 						}
 					%>	

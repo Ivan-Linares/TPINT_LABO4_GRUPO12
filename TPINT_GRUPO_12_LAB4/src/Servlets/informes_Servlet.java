@@ -134,6 +134,7 @@ public class informes_Servlet extends HttpServlet {
 					Double total = movNeg.totalTipoMov(fechaInicio, fechaFin, tipoMovimiento);
 					System.out.println(total);
 					request.setAttribute("total", total);
+					request.setAttribute("tipoMovimiento", tipoMovimiento);
 				} catch (Exception e) {
 					throw e;
 				}				

@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cuenta;
+import Entidad.Movimiento;
+import Entidad.PagoPrestamo;
 import Negocio.CuentaNegocio;
+import Negocio.MovimientoNegocio;
 import NegocioImpl.CuentaNegocioImpl;
+import NegocioImpl.Movimiento_NegocioImpl;
 import dao.PrestamoDao;
 import Entidad.Prestamo;
 import daoImpl.PrestamoDaoImpl;
@@ -70,9 +74,15 @@ public class Ver_Pretamos_Cte extends HttpServlet {
 			Prestamo pr=p.getPrestamoPorID(Prestamo);
 			
 			request.setAttribute("Prestamo", pr);
+			
+			ArrayList<PagoPrestamo>listaPagos = p.listarPagos(Prestamo);
+				
+			request.setAttribute("listaPagos", listaPagos);
+			}
+			
 			RequestDispatcher rd = request.getRequestDispatcher("Prestamos_informacion.jsp");
 			rd.forward(request, response);
 	}
-	}
+	
 
 }

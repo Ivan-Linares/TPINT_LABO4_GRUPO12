@@ -111,7 +111,7 @@ CREATE table PagoPrestamos(
     ID_Prestamo int not NULL,
     Cuenta int,
     NumeroCuota INT not NULL,
-    Importe_cuota DECIMAL(6,2) NOT NULL,
+    Importe_cuota DECIMAL NOT NULL,
     Fecha date not null,
     foreign key (Cuenta) references Cuentas(Cuenta),
     foreign key (ID_Prestamo) references Prestamos(ID_Prestamo)

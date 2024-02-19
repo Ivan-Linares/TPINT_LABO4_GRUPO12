@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.mysql.cj.protocol.Resultset;
 
 import Entidad.Cliente;
+import Entidad.PagoPrestamo;
 import Entidad.Prestamo;
 import dao.PrestamoDao;
 
@@ -376,6 +377,55 @@ public class PrestamoDaoImpl implements PrestamoDao {
 				prestamo = setPrestamo(rs);
 			}
 			 rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return prestamo;
+	}
+
+	@Override
+	public ArrayList<PagoPrestamo> listarPagos(String idPrestamo) {
+
+		PreparedStatement statement;
+		Connection con = Conexion.getConexion().getSQLConexion();
+		
+		ArrayList<PagoPrestamo> listaprestamo = new ArrayList<PagoPrestamo>();
+		PagoPrestamo prestamo=new PagoPrestamo();
+		String ID = String.valueOf(idPrestamo);
+		
+		try {
+			statement = con.prepareStatement(" select ID_Pago, ID_Prestamo, Cuenta, NumeroCuota, Importe_cuota, Fecha from pagoprestamos where ID_Prestamo = ?; ");
+			statement.setString(1, ID);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				prestamo = setPagoPrestamo(rs);
+				listaprestamo.add(prestamo);
+			}
+			 rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listaprestamo;
+	}
+	
+	public PagoPrestamo setPagoPrestamo(ResultSet rs) {
+		
+		PagoPrestamo prestamo = new PagoPrestamo();
+		
+		try {
+			prestamo.setPrestamo(rs.getInt("ID_Prestamo"));
+			prestamo.setIDPagoPrestamo(rs.getInt("ID_pago"));
+			String fechaStr = rs.getString("Fecha");
+			java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+			prestamo.setFecha(fechaSQL);
+			prestamo.setImporteCuota(rs.getDouble("Importe_cuota"));
+			prestamo.setNroCuota(rs.getInt("NumeroCuota"));
+			prestamo.setCuenta(rs.getInt("Cuenta"));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

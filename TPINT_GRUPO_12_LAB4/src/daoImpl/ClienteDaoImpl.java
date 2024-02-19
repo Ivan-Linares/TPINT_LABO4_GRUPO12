@@ -34,7 +34,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		//German: ???
 		
 		try {
-			statement = con.prepareStatement("INSERT into clientes (DNI, cuil, Apellido, Nombre, Sexo, FechaNac, Localidad, Direccion, Email, Telefono, TelefonoSecundario, Usuario) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			statement = con.prepareStatement("INSERT into clientes (DNI, cuil, Apellido, Nombre, Sexo, FechaNac, Localidad, Direccion, Email, Telefono, TelefonoSecundario, Usuario) values(?,?,?,?,?,?,?,?,?,?,?,?);");
 			statement.setString(1, cliente.getDni());
 			statement.setString(2, cliente.getCuil());
 			statement.setString(3, cliente.getApellido());
@@ -80,7 +80,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update clientes SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Localidad=? ,Direccion=?, Email=?, Usuario=?, Telefono=?, TelefonoSecundario=?, Estado='A' Where DNI=?");
+			statement = con.prepareStatement("Update clientes SET Cuil=?, Apellido=?, Nombre=?, Sexo=?, FechaNac=?, Localidad=? ,Direccion=?, Email=?, Usuario=?, Telefono=?, TelefonoSecundario=?, Estado='A' Where DNI=?;");
 			statement.setString(1, cliente.getCuil());
 			statement.setString(2, cliente.getApellido());
 			statement.setString(3, cliente.getNombre());
@@ -258,7 +258,7 @@ private Cliente setCliente(ResultSet rs){
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Localidades l on l.codLocalidad=c.Localidad inner join Provincia p on l.codProvincia=p.codprovincia inner join Pais pa on p.codpais=pa.codpais where c.Estado = 'P'");
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario=u.Usuario inner join Localidades l on l.codLocalidad=c.Localidad inner join Provincia p on l.codProvincia=p.codprovincia inner join Pais pa on p.codpais=pa.codpais where c.Estado = 'P';");
 			while(rs.next()) {
 				cliente = setCliente(rs);
 				clientes.add(cliente);
@@ -305,7 +305,7 @@ private Cliente setCliente(ResultSet rs){
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Clientes SET Estado='A' Where DNI=?");
+			statement = con.prepareStatement("Update Clientes SET Estado='A' Where DNI=?;");
 			statement.setString(1, DNI);
 			
 			if(statement.executeUpdate() > 0) {
@@ -334,7 +334,7 @@ private Cliente setCliente(ResultSet rs){
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Clientes SET Estado='I' Where DNI=?");
+			statement = con.prepareStatement("Update Clientes SET Estado='I' Where DNI=?;");
 			statement.setString(1, DNI);
 			
 			if(statement.executeUpdate() > 0) {
@@ -364,7 +364,7 @@ private Cliente setCliente(ResultSet rs){
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'A'");
+			ResultSet rs = st.executeQuery("select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'A';");
 			while(rs.next()) {
 				cliente = setCliente(rs);
 				clientes.add(cliente);
@@ -402,7 +402,7 @@ private Cliente setCliente(ResultSet rs){
 		try {
 			Statement st = cn.createStatement();
 			String complemento = " and c." + campo + " like '" + dato + "%'";
-			String query = "select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'A'";
+			String query = "select * from Clientes c inner join Usuarios u on c.Usuario = u.Usuario inner join Localidades l on c.Localidad = l.codLocalidad inner join Provincia p on l.codProvincia = p.codProvincia inner join Pais pa on p.codPais = pa.codPais where c.Estado = 'A';";
 			ResultSet rs = st.executeQuery(query+complemento);
 			while(rs.next()) {
 				obj = setCliente(rs);

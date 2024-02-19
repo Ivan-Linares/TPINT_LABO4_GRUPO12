@@ -21,7 +21,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("INSERT into usuarios values(?,?,?,?)");
+			statement = con.prepareStatement("INSERT into usuarios values(?,?,?,?);");
 			statement.setString(1,usuario.getUser());
 			statement.setString(2, usuario.getPass());
 			statement.setInt(3, usuario.getTipoUsuario().getTipo());
@@ -55,7 +55,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Usuarios Set Estado=? where Usuario=?");
+			statement = con.prepareStatement("Update Usuarios Set Estado=? where Usuario=?;");
 			statement.setBoolean(1, usuario.getEstado());
 			statement.setString(2, usuario.getUser());
 			
@@ -85,7 +85,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Usuarios Set Estado=?, Password=? where Usuario=?");
+			statement = con.prepareStatement("Update Usuarios Set Estado=?, Password=? where Usuario=?;");
 			statement.setBoolean(1, usuario.getEstado());
 			statement.setString(2, usuario.getPass());
 			statement.setString(3, usuario.getUser());
@@ -119,7 +119,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Usuario usuario=new Usuario();
 		
 		try {
-			statement = con.prepareStatement("Select * From Usuarios u inner join clientes c on c.Usuario=u.Usuario inner join Tipos_Usuarios ts on ts.Tipo_usuario=u.Tipo_usuario where c.DNI=?");
+			statement = con.prepareStatement("Select * From Usuarios u inner join clientes c on c.Usuario=u.Usuario inner join Tipos_Usuarios ts on ts.Tipo_usuario=u.Tipo_usuario where c.DNI=?;");
 			statement.setString(1, dni);
 			
 			ResultSet r=statement.executeQuery();
@@ -150,7 +150,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Usuario usuario=new Usuario();
 		
 		try {
-			statement = con.prepareStatement("Select * From Usuarios u inner join Tipos_Usuarios ts on ts.Tipo_usuario=u.Tipo_usuario where u.Usuario=?");
+			statement = con.prepareStatement("Select * From Usuarios u inner join Tipos_Usuarios ts on ts.Tipo_usuario=u.Tipo_usuario where u.Usuario=?;");
 			statement.setString(1, user);
 			
 			ResultSet r=statement.executeQuery();

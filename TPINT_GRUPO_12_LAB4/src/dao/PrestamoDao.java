@@ -3,7 +3,7 @@ package dao;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-
+import Entidad.PagoPrestamo;
 import Entidad.Prestamo;
 
 public interface PrestamoDao {
@@ -19,6 +19,7 @@ public interface PrestamoDao {
 	public ArrayList<Prestamo> getPrestamoDNICliente(String DNI);
 	public ArrayList<Prestamo> listar();
 	public ArrayList<Prestamo> listarPendientes();
+	public ArrayList<PagoPrestamo> listarPagos(String idPrestamo);
 	
 	
 	//Para reportes

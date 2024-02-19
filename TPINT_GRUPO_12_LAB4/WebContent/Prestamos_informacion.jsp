@@ -2,6 +2,7 @@
 <%@page import="Entidad.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entidad.Prestamo"%>
+<%@page import="Entidad.PagoPrestamo"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -178,6 +179,36 @@ if (!admin){
 	<input type="submit" value="volver">
 <%}%>
 </form>
+
+<div>
+	<%
+	ArrayList<PagoPrestamo> listadoPagos = new ArrayList<PagoPrestamo>();
+	if(request.getAttribute("listaPagos")!=null){
+		listadoPagos = (ArrayList<PagoPrestamo>)request.getAttribute("listaPagos");%>
+		
+	<h2>Historial de Pagos</h2></br>
+	<h4><input type="text" value="Cuenta seleccionada" disabled></h4>
+	
+	<table class="table accordion-button">
+		<tr>
+			<th>ID Prestamo</th>
+			<th>Cuota número</th>
+			<th>Importe</th>	
+			<th>Fecha</th>		
+		</tr>
+		<%for(PagoPrestamo p : listadoPagos){%>
+			<tr>
+				<td><%= p.getPrestamo()%></td>
+				<td><%= p.getNroCuota() %></td>
+				<td><%= p.getImporteCuota() %></td>
+				<td><%= p.getFecha().toString()%></td>
+
+			</tr>
+		<%}
+	}
+	%>
+	</table>
+</div>
 
 </body>
 </html>

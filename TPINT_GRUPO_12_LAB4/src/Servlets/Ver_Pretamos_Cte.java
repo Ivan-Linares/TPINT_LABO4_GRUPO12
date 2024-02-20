@@ -32,7 +32,7 @@ public class Ver_Pretamos_Cte extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	
-	private String valorDesdeGet;
+	private String DNIUsuario;
 	
     public Ver_Pretamos_Cte() {
         super();
@@ -46,7 +46,7 @@ public class Ver_Pretamos_Cte extends HttpServlet {
 		if(request.getParameter("Param")!=null) {
 			
 			String DNI = request.getParameter("Param").toString();
-			valorDesdeGet = DNI;
+			DNIUsuario = DNI;
 			
 			ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 			PrestamoDaoImpl pn = new PrestamoDaoImpl();
@@ -68,7 +68,9 @@ public class Ver_Pretamos_Cte extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnInfo")!=null) {
+		
+		if(request.getParameter("btnInfo")!=null) 
+		{
 			String Prestamo= request.getParameter("IDPrestamo").toString();
 			PrestamoDao p = new PrestamoDaoImpl();
 			Prestamo pr=p.getPrestamoPorID(Prestamo);
@@ -78,7 +80,9 @@ public class Ver_Pretamos_Cte extends HttpServlet {
 			ArrayList<PagoPrestamo>listaPagos = p.listarPagos(Prestamo);
 				
 			request.setAttribute("listaPagos", listaPagos);
-			}
+			
+			request.setAttribute("DNIUsuario", DNIUsuario);
+		}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Prestamos_informacion.jsp");
 			rd.forward(request, response);

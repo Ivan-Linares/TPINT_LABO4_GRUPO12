@@ -141,74 +141,76 @@ if (!admin){
 </nav>
 <%}%>
 <br />
+
 <%
+	String DNI = "";
+	if (request.getAttribute("DNIUsuario") != null)
+		DNI = (String)request.getAttribute("DNIUsuario");
+
 	Prestamo pres = new Prestamo();
 	if (request.getAttribute("Prestamo") != null){
 		pres = (Prestamo)request.getAttribute("Prestamo");
 
 %>
-
-	<form action="Prestamos_Principal.jsp" style=margin-top:15px;margin-left:10px;>
-		<div class="row">
-		  <div class="col">
-		    <label for="ID">ID:</label>
-	        <input type="text" id="ID" name="ID" value="<%=pres.getIDPrestamo()%>" class="form-control" disabled><br>
-	        
-	        <label for="fecha">Fecha de solicitud:</label>
-	        <input type="text" id="fecha" name="fecha" value="<%=pres.getFecha()%>"  class="form-control" disabled><br>
-	        
-	        <label for="importeSolicitado">Importe original solicitado:</label>
-	        <input type="text" id="importeSolicitado" name="importeSolicitado" value="<%=pres.getImporteSolicitado()%>"  class="form-control" disabled><br>
-	        
-	        <label for="importeFinal">Importe final a abonar:</label>
-	        <input type="text" id="importeFinal" name="importeFinal" value="<%=pres.getImporteTotal()%>"  class="form-control" disabled><br>
-	        
-		  </div>
-		  <div class="col">
-		  	 <label for="cuota">Importe de cuota:</label>
-	        <input type="text" id="cuota" name="cuota" value="<%=pres.getImporteMensual()%>"  class="form-control" disabled><br>
-	        
-	        <label for="cuotasTotales">Cantidad de cuotas totales:</label>
-	        <input type="text" id="cuotasTotales" name=cuotasTotales value="<%=pres.getCantCuotas()%>" class="form-control" disabled><br>
-		  
-	 		<label for="cuotasRestantes">Cantidad de cuotas restantes:</label>
-	        <input type="text" id="cuotasRestantes" name="cuotasRestantes" value="<%=pres.getCuotasRestantes()%>"  class="form-control" disabled><br>
-	        
-		  </div>
-		</div>
-	<input type="submit" value="volver">
-<%}%>
-</form>
-
-<div>
-	<%
-	ArrayList<PagoPrestamo> listadoPagos = new ArrayList<PagoPrestamo>();
-	if(request.getAttribute("listaPagos")!=null){
-		listadoPagos = (ArrayList<PagoPrestamo>)request.getAttribute("listaPagos");%>
-		
-	<h2>Historial de Pagos</h2></br>
-	<h4><input type="text" value="Cuenta seleccionada" disabled></h4>
+	<div class="row">
+	  <div class="col">
+	    <label for="ID">ID:</label>
+        <input type="text" id="ID" name="ID" value="<%=pres.getIDPrestamo()%>" class="form-control" disabled><br>
+        
+        <label for="fecha">Fecha de solicitud:</label>
+        <input type="text" id="fecha" name="fecha" value="<%=pres.getFecha()%>"  class="form-control" disabled><br>
+        
+        <label for="importeSolicitado">Importe original solicitado:</label>
+        <input type="text" id="importeSolicitado" name="importeSolicitado" value="<%=pres.getImporteSolicitado()%>"  class="form-control" disabled><br>
+        
+        <label for="importeFinal">Importe final a abonar:</label>
+        <input type="text" id="importeFinal" name="importeFinal" value="<%=pres.getImporteTotal()%>"  class="form-control" disabled><br>
+        
+	  </div>
+	  <div class="col">
+	  	 <label for="cuota">Importe de cuota:</label>
+        <input type="text" id="cuota" name="cuota" value="<%=pres.getImporteMensual()%>"  class="form-control" disabled><br>
+        
+        <label for="cuotasTotales">Cantidad de cuotas totales:</label>
+        <input type="text" id="cuotasTotales" name=cuotasTotales value="<%=pres.getCantCuotas()%>" class="form-control" disabled><br>
+	  
+ 		<label for="cuotasRestantes">Cantidad de cuotas restantes:</label>
+        <input type="text" id="cuotasRestantes" name="cuotasRestantes" value="<%=pres.getCuotasRestantes()%>"  class="form-control" disabled><br>
+        
+	  </div>
+	</div>
 	
-	<table class="table accordion-button">
-		<tr>
-			<th>ID Prestamo</th>
-			<th>Cuota número</th>
-			<th>Importe</th>	
-			<th>Fecha</th>		
-		</tr>
-		<%for(PagoPrestamo p : listadoPagos){%>
-			<tr>
-				<td><%= p.getPrestamo()%></td>
-				<td><%= p.getNroCuota() %></td>
-				<td><%= p.getImporteCuota() %></td>
-				<td><%= p.getFecha().toString()%></td>
+	<a class="btn btn-primary" href="Ver_Pretamos_Cte?Param=<%= DNI%>">Volver</a>
+<%}%>
 
+	<div>
+		<%
+		ArrayList<PagoPrestamo> listadoPagos = new ArrayList<PagoPrestamo>();
+		if(request.getAttribute("listaPagos")!=null){
+			listadoPagos = (ArrayList<PagoPrestamo>)request.getAttribute("listaPagos");%>
+			
+		<h2>Historial de Pagos</h2></br>
+		<h4><input type="text" value="Cuenta seleccionada" disabled></h4>
+		
+		<table class="table accordion-button">
+			<tr>
+				<th>ID Prestamo</th>
+				<th>Cuota número</th>
+				<th>Importe</th>	
+				<th>Fecha</th>		
 			</tr>
-		<%}
-	}
-	%>
-	</table>
-</div>
+			<%for(PagoPrestamo p : listadoPagos){%>
+				<tr>
+					<td><%= p.getPrestamo()%></td>
+					<td><%= p.getNroCuota() %></td>
+					<td><%= p.getImporteCuota() %></td>
+					<td><%= p.getFecha().toString()%></td>
+	
+				</tr>
+			<%}
+		}%>
+		</table>
+	</div>
 
 </body>
 </html>

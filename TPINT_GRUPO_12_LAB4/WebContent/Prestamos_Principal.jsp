@@ -133,11 +133,11 @@ if (!admin){
 <%}%>
 <br />
 
-<div class="container">
-	<div class="row justify-content-md-center">
-		<div class="col col-lg-2"></div>
-		<div class="col-md-auto">
-			<form action="Ver_Pretamos_Cte" method="post">
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col col-lg-2"></div>
+			<div class="col-md-auto">
+
 				<%
 					ArrayList<Prestamo> listaJSP = new ArrayList<>();
 					if (request.getAttribute("listaPrestamos") != null)
@@ -147,9 +147,11 @@ if (!admin){
 				%>
 				<h3>No tienes registrado ningun prestamo!</h3>
 				<%
-					} else {
+					} 
+					else {
 				%>
-				<table class="table accordion-collapse" id="tablaPrestamos" >
+				
+				<table class="table accordion-collapse" id="tablaPrestamos">
 					<thead>
 						<th>Codigo Prestamo</th>
 						<th>Cuenta Destino</th>
@@ -158,7 +160,6 @@ if (!admin){
 						<th>Monto a Pagar</th>
 						<th>Cuotas Restantes</th>
 						<th>Estado</th>
-						<th>Cancelar</th>
 						<th>Más información</th>
 					</thead>
 					<%
@@ -166,36 +167,38 @@ if (!admin){
 								for (Prestamo prestamo : listaJSP) {
 					%>
 					<tr>
-						<th><%=prestamo.getIDPrestamo()%></th><input type="hidden" name="IDPrestamo" value="<%= prestamo.getIDPrestamo()%>" ></td>
+						<form action="Ver_Pretamos_Cte" method="post">
+						<th><%=prestamo.getIDPrestamo()%></th>
+						<input type="hidden" name="IDPrestamo"
+							value="<%=prestamo.getIDPrestamo()%>">
+						</td>
 						<th><%=prestamo.getNroCuenta()%></th>
 						<th><%=prestamo.getFecha()%></th>
 						<th>$<%=prestamo.getImporteSolicitado()%></th>
 						<th>$<%=prestamo.getImporteTotal()%></th>
 						<th><%=prestamo.getCuotasRestantes()%></th>
 						<th><%=prestamo.getEstado()%></th>
-						<th><input type="submit" class="btn btn-danger"
-							name="btnCancelar" Value="Cancelar"></th>
 						<th><input type="submit" class="btn btn-primary"
 							name="btnInfo" Value="Más información"></th>
+						</form>
 					</tr>
 					<%
 						}
 					%>
 				</table>
 				<%
-		}
-	%>
-			</form>
+					}
+				%>
+			</div>
+			<div class="col"></div>
 		</div>
-		<div class="col"></div>
 	</div>
-</div>
 
-<script>
-	$(document).ready(function() {
-	    $('#tablaPrestamos').DataTable();
-	});
-</script>
+	<script>
+		$(document).ready(function() {
+		    $('#tablaPrestamos').DataTable();
+		});
+	</script>
 
 </body>
 </html>

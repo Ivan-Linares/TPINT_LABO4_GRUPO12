@@ -80,22 +80,8 @@ public class Servlets_AdministraCuentas extends HttpServlet implements Servlet {
 			RequestDispatcher rd= request.getRequestDispatcher("Servlet_Detalle_Cuenta");
 			rd.forward(request, response);
 		}
-		if(request.getParameter("Btnbuscar")!=null) {
-			
-			if(request.getParameter("txtdatos")==null) {
-				RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
-				rd.forward(request, response);
-			}
-			
-			String dato = request.getParameter("txtdatos");
-			String campo = request.getParameter("filtro");
-			ArrayList<Cuenta> listado = new ArrayList<Cuenta>();
-			CuentaNegocio cni= new CuentaNegocioImpl();
-			listado=cni.listaFiltrada(dato, campo);
-			
-			
-			request.setAttribute("listadocompleto", listado);
-			RequestDispatcher rd= request.getRequestDispatcher("Administrar_Cuentas.jsp");
+		if(request.getParameter("Btnbuscar")!=null && !(request.getParameter("Param")!=null)) {
+			RequestDispatcher rd= request.getRequestDispatcher("Servlets_AdministraCuentas?Param=1");
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnPendientes")!=null) {

@@ -151,14 +151,7 @@ if (!admin){
 				<h3>Cuentas Activas:</h3>
 				<form id="formulario" action="Servlets_AdministraCuentas" method="get">
 					<div>
-						Filtrar por:
-						<select name="filtro">
-							<option value="c.DNI"> Numero de cliente </option>
-							<option value="c.Cuenta"> Numero de cuenta </option>
-							<option value="tc.descripcion"> Tipo de cuenta </option>
-						</select>
-						<input type="text" name="txtdatos" onchange="enviardatos" >
-						<input type="submit" name="Btnbuscar" value="Buscar">
+						<input type="submit" name="Btnbuscar" value="Listado completo">
 						<input type="submit" name="btnPendientes" value="Cuentas Pendientes de aprobacion">
 					</div></br>
 				</form>

@@ -163,7 +163,7 @@ if (!admin){
         <input type="text" id="direccion" name="direccion" value="<%=user.getPersona().getDireccion()%>"  class="form-control" disabled><br>
        
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="nombre" value="<%=user.getPersona().getDni()%>"  class="form-control" disabled><br>
+        <input type="text" id="nombre" name="nombre" value="<%= user.getPersona().getFechaNac() %>"  class="form-control" disabled><br>
         
         <label for="nombre">Telefono:</label>
         <input type="text" id="nombre" name="nombre" value="<%=user.getPersona().getTelefono()%>" class="form-control" disabled><br>

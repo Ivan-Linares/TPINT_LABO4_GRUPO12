@@ -155,10 +155,10 @@ if (!admin){
 		        <input type="text" name="Numero" value="<%=cuenta.getNumero()%>" class="form-control" disabled><br>
 		        
 		        <label for="nombre">Fecha Creacion </label>
-		        <input type="text" name="fecha" value="2" class="form-control" disabled><br>
+		        <input type="text" name="fecha" value="<%= cuenta.getFechaCreacion()%>" class="form-control" disabled><br>
 		        
 		        <label for="saldo">Saldo </label>
-		        <input type="text"  name="Saldo" value="<%= cuenta.getSaldo()%>" class="form-control" disabled><br>
+		        <input type="text"  name="Saldo" value="$<%= cuenta.getSaldo()%>" class="form-control" disabled><br>
 		        
 			    <label for="dni">DNI </label>
 		        <input type="text" name="DNI" value="<%=cuenta.getDni() %>" class="form-control" disabled><br>               

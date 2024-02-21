@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -272,6 +274,10 @@ public boolean insert(String DNI, int tc) {
 
 			while(rs.next()) {
 				Cuenta cuenta = new Cuenta();
+				String txt= rs.getString("Fecha_creacion");
+				java.sql.Date fechaSQL = java.sql.Date.valueOf(txt);
+				cuenta.setFechaCreacion(fechaSQL);
+				
 				cuenta.setCBU(rs.getString("CBU"));
 				cuenta.setDni(rs.getString("DNI"));
 				cuenta.setNumero(rs.getString("Cuenta"));

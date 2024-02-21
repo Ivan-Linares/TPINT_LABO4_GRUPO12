@@ -151,25 +151,25 @@ if (!admin){
 		  obj= (Cliente)request.getAttribute("Seleccionado");
 		  %>
 	    <label for="nombre">DNI:</label>
-        <input type="text" id="nombre" name="DNI" value="<%= obj.getDni() %>" class="form-control"><br>
+        <input type="text" id="DNI" name="DNI" value="<%= obj.getDni() %>" class="form-control"><br>
         
         <label for="nombre">CUIL:</label>
-        <input type="text" id="nombre" name="cuil" value="<%= obj.getCuil() %>" class="form-control"><br>
+        <input type="text" id="CUIL" name="cuil" value="<%= obj.getCuil() %>" class="form-control"><br>
         
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="<%= obj.getNombre() %>" class="form-control"><br>
+        <input type="text" id="Nombre" name="nombre" value="<%= obj.getNombre() %>" class="form-control"><br>
         
         <label for="nombre">Apellido:</label>
-        <input type="text" id="nombre" name="Apellido" value="<%= obj.getApellido() %>" class="form-control"><br>
+        <input type="text" id="Apellido" name="Apellido" value="<%= obj.getApellido() %>" class="form-control"><br>
         
         <label for="nombre">Email:</label>
-        <input type="text" id="nombre" name="Email" value="<%= obj.getEmail() %>" class="form-control"><br>
+        <input type="text" id="Email" name="Email" value="<%= obj.getEmail() %>" class="form-control"><br>
         
         <label for="nombre">Usuario:</label>
-        <input type="text" id="nombre" name="Usuario" value="<%= obj.getUsuario() %>" class="form-control"><br>
+        <input type="text" id="Usuario" name="Usuario" value="<%= obj.getUsuario() %>" class="form-control"><br>
         
         <label for="nombre">Contraseña:</label>
-        <input type="password" id="nombre" name="Contraseña" value="<%= obj.getPass() %>" class="form-control"><br>
+        <input type="password" id="Contraseña" name="Contraseña" value="<%= obj.getPass() %>" class="form-control"><br>
         
 	  </div>
 	  <div class="col">
@@ -182,16 +182,16 @@ if (!admin){
 	  	</select><br><br>
        
         <label for="nombre">Fecha Nacimiento:</label>
-        <input type="text" id="nombre" name="FechaNac" value="<%= obj.getFechaNac()%>" class="form-control"><br>
+        <input type="text" id="FechaNac" name="FechaNac" value="<%= obj.getFechaNac()%>" class="form-control"><br>
         
         <label for="nombre">Telefono:</label>
-        <input type="text" id="nombre" name="Tel" value="<%= obj.getTelefono() %>" class="form-control"><br>
+        <input type="text" id="Tel" name="Tel" value="<%= obj.getTelefono() %>" class="form-control"><br>
         
         <label for="nombre">Telefono secundario:</label>
-        <input type="text" id="nombre" name="TelSec" value="<%= obj.getTelefonoSecundario() %>" class="form-control"><br>
+        <input type="text" id="TelSec" name="TelSec" value="<%= obj.getTelefonoSecundario() %>" class="form-control"><br>
         
         <label for="nombre">Direccion:</label>
-        <input type="text" id="nombre" name="Direccion" value="<%= obj.getDireccion() %>" class="form-control"><br>
+        <input type="text" id="Direccion" name="Direccion" value="<%= obj.getDireccion() %>" class="form-control"><br>
         
  		<label for="nombre">Localidad  -  Provincia  -  Pais</label><br><br>
  		<select name="localidad" class="ratio w-50 tooltip-inner">
@@ -202,7 +202,7 @@ if (!admin){
 	 			listado = (ArrayList<Localidad>)request.getAttribute("listaLocalidades");
 	 			for(Localidad loc : listado){
 	 				%>
-	 				<option value="<% loc.getCodLocalidad(); %>"><%= loc.getNombreLocalidad() + " - " + loc.getProvincia().getNombreProvincia() + " - " + loc.getProvincia().getPais().getName()%></option>
+	 				<option value="<%= loc.getCodLocalidad() %>"><%= loc.getNombreLocalidad() + " - " + loc.getProvincia().getNombreProvincia() + " - " + loc.getProvincia().getPais().getName()%></option>
 	 			<%	
 	 			}
 	 		}

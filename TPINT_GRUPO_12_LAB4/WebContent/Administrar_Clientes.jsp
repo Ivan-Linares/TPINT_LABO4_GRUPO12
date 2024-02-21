@@ -160,18 +160,6 @@ Usuario user=new Usuario();%>
 			<div class="col col-lg-2"></div>
 			<div class="col-md-auto">
 				<h3>Clientes activos:</h3>
-				<form id="formulario" action="admClientes_Servlet" method="post">
-					<div>
-						Filtrar por:
-						<select name="filtro">
-							<option value="DNI"> DNI </option>
-							<option value="Usuario"> Usuario </option>
-							<option value="Apellido"> Apellido </option>
-						</select>
-						<input type="text" name="txtdatos" onchange="enviardatos" >
-						<input type="submit" name="Btnbuscar" value="Buscar">
-					</div>
-				</form>
 				<br><br>
 					<table class="table table-hover" id="tablaClientes">
 						<thead>

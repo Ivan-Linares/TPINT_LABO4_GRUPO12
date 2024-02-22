@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidad.Cliente;
+import Entidad.Cuenta;
 import Negocio.ClienteNegocio;
 import NegocioImpl.ClienteNegocioImpl;
+import NegocioImpl.CuentaNegocioImpl;
 
 /**
  * Servlet implementation class admClientes_Servlet
@@ -56,6 +58,18 @@ public class admClientes_Servlet extends HttpServlet {
 			request.setAttribute("listaClientes", lista);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Administrar_Clientes.jsp");
+			rd.forward(request, response);
+		}
+		
+		if(request.getParameter("btnDetalle")!=null) 
+		{
+			String DniCliente = request.getParameter("dniCliente");
+			ClienteNegocio neg = new ClienteNegocioImpl();
+			Cliente cli = neg.Cte_Seleccionado(DniCliente);
+			
+			request.setAttribute("Cliente", cli);
+			
+			RequestDispatcher rd= request.getRequestDispatcher("Servlet_Detalle_Cliente");
 			rd.forward(request, response);
 		}
 		

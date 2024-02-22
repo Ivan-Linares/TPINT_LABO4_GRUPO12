@@ -1,36 +1,16 @@
-<%@page import="Entidad.Cliente"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="Entidad.Usuario"%>
+<%@page import="Entidad.Usuario"%>
+<%@page import="Entidad.Cliente"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Clientes</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-	crossorigin="anonymous">
-	<link rel="stylesheet" href="Styles/Css.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-	crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="JS/script.js"></script>
-    <script>
-    	function enviardatos(){
-    		document.forms["formulario"].submit();
-    	}
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<title>Detalles Clientes</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <%!
 boolean admin=true;
 Usuario user=new Usuario();%>
@@ -39,16 +19,8 @@ Usuario user=new Usuario();%>
 		if(user.getTipoUsuario().getTipo()==2){
 			admin=false;
 		}
-}%>
-
-<%
-	ArrayList<Cliente> listaClientes = null;
-	if(request.getAttribute("listaClientes") != null){
-		listaClientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
-	}
+}
 %>
-
-
 <!-- Navbar Admin -->
 <%if (admin){ %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -101,10 +73,15 @@ Usuario user=new Usuario();%>
   </div>
 </nav>
 <%} %>
-
 <!-- Navbar Cliente -->
-<%if (!admin){ 
+
+<%
+
+
+if (!admin){ 
+	String nusuario = user.getUser();
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
+	String UsuarioDni = user.getPersona().getDni();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -122,10 +99,9 @@ Usuario user=new Usuario();%>
               Prestamos  
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="SolicitudPrestamo.jsp" >Pedir Prestamos</a></li>
-            <li><a class="dropdown-item" href="Prestamo_solicitud_cliente.jsp">Ver Estado Solicitud</a></li>
-            <li><a class="dropdown-item" href="Prestamo_Ver.jsp">Ver Prestamos</a></li>
-            <li><a class="dropdown-item" href="#">Pagar Cuotas</a></li>
+          	<li><a class="dropdown-item" href="SolicitarPrestamoClienteServlet?Param=<%= UsuarioDni%>" >Pedir Prestamos</a></li>
+            <li><a class="dropdown-item" href="Ver_Pretamos_Cte?Param=<%= UsuarioDni%>">Ver Prestamos</a></li>
+            <li><a class="dropdown-item" href="Pagar_Prestamo_Servlet?Param=<%= UsuarioDni%>">Pagar Cuotas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -133,15 +109,14 @@ Usuario user=new Usuario();%>
             Cuentas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="CuentasCliente.jsp" >Ver Cuentas</a></li>
-            <li><a class="dropdown-item" href="#">Administrar</a></li>
+            <li><a class="dropdown-item" href="Servlets_Cuentas_del_Cte?Param=<%= nusuario %>" >Ver Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Transferencias.jsp">Transferir</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Datos Personales</a>
+          <a class="nav-link" href="Datos_Personales_cte.jsp">Datos Personales</a>
         </li>
         <li class="nav-item">
 		    <form action="validarLoginServlet" method="get">
@@ -153,79 +128,58 @@ Usuario user=new Usuario();%>
   </div>
 </nav>
 <%} %>
-<br />
+<br>
 
-	<div class="container text-center">
-		<div class="row justify-content-md-center">
-			<div class="col col-lg-2"></div>
-			<div class="col-md-auto">
-				<h3>Clientes activos:</h3>
-				<br><br>
-					<table class="table table-hover" id="tablaClientes">
-						<thead>
-							<td>Cliente</td>
-							<td>Nombre</td>
-							<td>Apellido</td>
-							<td>Usuario</td>
-							<td>Ver Detalle</td>
-							<td>Modificar</td>
-							<td>Eliminar</td>
-						</thead>
-						<%
-						if (listaClientes != null) 
-							for(Cliente cliente : listaClientes){
-					%>
-					<tr>
-						<form action="admClientes_Servlet" method="post">
-						<td><%=cliente.getDni()%> <input type="hidden" name="dniCliente" value="<%= cliente.getDni() %>"></td>
-						<td><%=cliente.getNombre() %></td>
-						<td><%=cliente.getApellido() %></td>
-						<td><%=cliente.getUsuario() %></td>
-						<td><input type="submit" name="btnDetalle" value="Ver Detalle" class="btn btn-primary"></td>
-						<td><input type="submit" value="Modificar" name="btnModificar" class="btn btn-info"></td>
-						<td><input id="btnEliminar" type="submit" value="Eliminar" onclick="return confirmacionEliminar()" name="btnEliminar" class="btn btn-primary"></td>
-						<!-- <td><input id="btnEliminar" type="submit" value="Eliminar" name="btnEliminar" onclick="mostrarModal()" class="btn btn-primary"></td> -->
-						</form>
-					</tr>
-						<%
-							}
-						%>
-					</table>
-				</div>
-			<div class="col col-lg-2"></div>
-		</div>
+<%! Cliente cliente = new Cliente();%>
+
+<%if(request.getAttribute("Cliente")!=null)
+	cliente = (Cliente)request.getAttribute("Cliente"); %>
+
+<form action="Index.jsp" style=margin-top:15px;margin-left:10px;>
+	<div class="row">
+	  <div class="col">
+	    <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" value="<%=cliente.getDni()%>" class="form-control" disabled><br>
+        
+        <label for="cuil">CUIL:</label>
+        <input type="text" id="cuil" name="cuil" value="<%=cliente.getCuil()%>"  class="form-control" disabled><br>
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="<%=cliente.getNombre()%>"  class="form-control" disabled><br>
+        
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" value="<%=cliente.getApellido()%>"  class="form-control" disabled><br>
+        
+        <label for="sexo">Sexo:</label>
+        <input type="text" id="sexo" name="sexo" value="<%=cliente.getSexo()%>"  class="form-control" disabled><br>
+        
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="<%=cliente.getEmail()%>" class="form-control" disabled><br>
+	  </div>
+	  <div class="col">
+ 		<label for="pais">Pais:</label>
+        <input type="text" id="pais" name="pais" value="<%=cliente.getLocalidad().getProvincia().getPais().getName()%>"  class="form-control" disabled><br>
+        
+        <label for="provincia">Provincia:</label>
+        <input type="text" id="provincia" name="provincia" value="<%=cliente.getLocalidad().getProvincia().getNombreProvincia()%>"  class="form-control" disabled><br>
+        
+        <label for="localidad">Localidad:</label>
+        <input type="text" id="localidad" name="localidad" value="<%=cliente.getLocalidad().getNombreLocalidad()%>" class="form-control" disabled><br>
+        
+        <label for="direccion">Direccion:</label>
+        <input type="text" id="direccion" name="direccion" value="<%=cliente.getDireccion()%>"  class="form-control" disabled><br>
+       
+        <label for="nombre">Fecha Nacimiento:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= cliente.getFechaNac() %>"  class="form-control" disabled><br>
+        
+        <label for="nombre">Telefono:</label>
+        <input type="text" id="nombre" name="nombre" value=" <%= cliente.getTelefono() %> " class="form-control" disabled><br>
+        
+        <label for="telefonoSec">Telefono secundario:</label>
+        <input type="text" id="telefonoSec" name="telefonoSec" value=" <%= cliente.getTelefonoSecundario() %> " class="form-control" disabled><br>
+	  </div>
 	</div>
-	
-	<div class="modal" id="modalConfirmacion">
-        <div class="modal-contenido">
-            <p>Confirmar accion</p>
-            <button onclick="confirmarAccion()">Sí</button>
-            <button onclick="cerrarModal()">No</button>
-        </div>
-    </div>
-    
-<script>
-    function confirmacionEliminar() {
-       	var respuesta = confirm("Estas seguro de dar de baja este cliente?");
-        return respuesta; 
-    }
-    
-    $(document).ready(function() {
-        $('#tablaClientes').DataTable();
-    });
-</script>	 
- 
-<%
-	String msj = " ";
-	if(request.getAttribute("msj")!=null)
-		msj = request.getAttribute("msj").toString();
-%>
-
-<% if(!msj.equals(" ")) { %>
-     <script>
-     	alert('<%=msj %>');
-     </script>
-<% } %>
-
+	<input type="submit" value="volver">
+</form>
 </body>
 </html>

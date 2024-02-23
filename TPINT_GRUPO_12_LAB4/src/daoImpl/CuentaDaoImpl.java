@@ -136,12 +136,13 @@ public boolean insert(String DNI, int tc) {
 		Connection con = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = con.prepareStatement("Update Cuentas SET Tipo_De_Cuenta=?, DNI=?, CBU=?, Cuenta=? Where Cuenta=?");
+			statement = con.prepareStatement("Update Cuentas SET Tipo_De_Cuenta=?, DNI=?, CBU=?, Cuenta=?, Estado=? Where Cuenta=?;");
 			statement.setInt(1, cuenta.getTipoCuenta().getCode());
 			statement.setString(2, cuenta.getDni());
 			statement.setString(3, cuenta.getCBU());
 			statement.setString(4, cuenta.getNumero());
-			statement.setString(5, cuenta.getNumero());
+			statement.setString(5, cuenta.getEstado());
+			statement.setString(6, cuenta.getNumero());
 			
 			if(statement.executeUpdate() > 0) {
 				con.commit();

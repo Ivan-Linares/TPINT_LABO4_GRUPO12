@@ -103,7 +103,8 @@ public class cuentasAsignarServlet extends HttpServlet {
 						Usuario u= uNeg.obtenerUsuarioDNI(DNI);
 						u.setEstado(true);
 						TipoCuenta = u.getTipoUsuario().getTipo();
-						if(ctaNeg.insert(DNI, TipoCuenta) && uNeg.habilitarUsuario(u)) {							
+						//if(ctaNeg.insert(DNI, TipoCuenta) && uNeg.habilitarUsuario(u)) {
+						if(uNeg.habilitarUsuario(u)) {
 							msj = "Cliente aprobado con exito!";
 						}
 						else {

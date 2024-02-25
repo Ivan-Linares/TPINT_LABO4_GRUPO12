@@ -151,7 +151,7 @@ if (!admin){
 		  obj= (Cliente)request.getAttribute("Seleccionado");
 		  %>
 	    <label for="nombre">DNI:</label>
-        <input type="text" id="DNI" name="DNI" value="<%= obj.getDni() %>" class="form-control"><br>
+        <input type="text" id="DNI" name="DNI" value="<%= obj.getDni() %>" class="form-control" disabled><br>
         
         <label for="nombre">CUIL:</label>
         <input type="text" id="CUIL" name="cuil" value="<%= obj.getCuil() %>" class="form-control"><br>
@@ -166,7 +166,7 @@ if (!admin){
         <input type="text" id="Email" name="Email" value="<%= obj.getEmail() %>" class="form-control"><br>
         
         <label for="nombre">Usuario:</label>
-        <input type="text" id="Usuario" name="Usuario" value="<%= obj.getUsuario() %>" class="form-control"><br>
+        <input type="text" id="Usuario" name="Usuario" value="<%= obj.getUsuario() %>" class="form-control" disabled><br>
         
         <label for="nombre">Contraseña:</label>
         <input type="password" id="Contraseña" name="Contraseña" value="<%= obj.getPass() %>" class="form-control"><br>

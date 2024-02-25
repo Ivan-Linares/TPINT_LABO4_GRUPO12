@@ -194,15 +194,14 @@ if (!admin){
 	<form method="get" action="Servlet_Movimientos_X_Cte">
 		<select name="filtro">
 	<%ArrayList<TipoMovimiento> lista = new ArrayList<TipoMovimiento>();
-		int tope=2;
 		if(request.getAttribute("listafiltro")!=null){
 			lista = (ArrayList<TipoMovimiento>)request.getAttribute("listafiltro");
 			for(TipoMovimiento tm : lista){
-				if(tm.getCode()>tope){%>
+				%>
 					<option value="<%= tm.getCode() %>"><%= tm.getName() %> mayor a $</option>
 					
 				<%}
-				}
+				
 			}
 		%>
 		</select>

@@ -76,7 +76,6 @@ Usuario user=new Usuario();%>
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="cuentasAsignarServlet?Param=1">Asignar Cuentas</a></li>
-            <li><a class="dropdown-item" href="Cuentas_Ver.jsp">Ver Cuentas</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -104,7 +103,9 @@ Usuario user=new Usuario();%>
 
 <!-- Navbar Cliente -->
 <%if (!admin){ 
+	String nusuario = user.getUser();
 	String nombre=user.getPersona().getNombre()+" "+user.getPersona().getApellido();
+	String UsuarioDni = user.getPersona().getDni();
 	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -138,7 +139,7 @@ Usuario user=new Usuario();%>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
+          <a class="nav-link" href="Transferencias?Param=<%= nusuario %>">Transferir</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Datos Personales</a>

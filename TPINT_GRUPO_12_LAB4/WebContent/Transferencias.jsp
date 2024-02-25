@@ -114,7 +114,7 @@ if (!admin){
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
+          <a class="nav-link" href="Transferencias?Param=<%= nusuario %>">Transferir</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Datos_Personales_cte.jsp">Datos Personales</a>
@@ -132,8 +132,22 @@ if (!admin){
 <br />
 	<h2>Nueva trasferencia</h2>
 	<br>
+	
+	<%boolean ok=false;
+		if(request.getAttribute("mensajeOk")==null){
+			ok=true;
+		}%>
+	<%if(request.getAttribute("mensajeOk")!=null){%>
+			<H4>Usted no posee cuentas aprobadas</H4>
+		<%}%>
+		
+
+		<%if (ok) {
+	%>	
 	<form method="post" action="Transferencias?Param=<%=nusuario%>"
 		class="alert">
+		
+
 		<div>
 			<input type="submit" name="btntranferencia1mismo"
 				value="Transferir a una cuenta propia"> <input type="submit"
@@ -146,8 +160,16 @@ if (!admin){
 				<H2><%= msj %></H2>
 			<%}
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
-		if (request.getAttribute("miscuentas") != null) {
+		
+		if(request.getAttribute("miscuentas")!=null){
+			lista = (ArrayList<Cuenta>) request.getAttribute("miscuentas");
+		}
+		
 		%>
+		
+		<%if(!lista.isEmpty()){
+		%>
+		
 		<div>
 			<label>Seleccionar cuenta desde la cual realizara la
 				transferencia </label><br> <b>Cuentas</b> <select name="cuentasorigen">
@@ -177,17 +199,14 @@ if (!admin){
 
 			</select>
 		</div>
-		</br>
-		</br>
-		<%
-			}
+		
+			<%}
 		%>
-
+		<br></br>
 		<%
-			if (request.getAttribute("3ros") != null) {
+			if (request.getAttribute("3ros") != null ) {
 		%>
 		<div></div>
-		<br>
 		<div>
 			<label>Seleccionar cuenta desde la cual realizara la
 				transferencia </label><br> <b>Cuentas</b> <select name="cuentasorigen">
@@ -202,13 +221,12 @@ if (!admin){
 				%>
 			</select>
 		</div>
-		<br> <input type="number" name="CBU" placeholder="Ingresar CBU" required ></br>
+		<br> <input type="number" name="CBU" placeholder="Ingresar CBU" ></br>
 		</br>
 		<%
-			}
-		%>
+			}%>
 		<%
-			if (request.getAttribute("3ros") != null || request.getAttribute("miscuentas") != null) {
+			if (request.getAttribute("3ros") != null || !lista.isEmpty()) {
 		%>
 		<input type="number" min="100" name="Monto" placeholder="Ingresar monto" ></br>
 		</br>
@@ -216,11 +234,13 @@ if (!admin){
 			}
 		%>
 		<%
-			if (request.getAttribute("3ros") != null || request.getAttribute("miscuentas") != null) {
+			if (request.getAttribute("3ros") != null || !lista.isEmpty()) {
 		%>
 		<input class="btn btn-info" type="submit" name="btntransferir" value="Transferir">
 		<%}%>
 		</div>
 	</form>
+			<%
+			}%>
 </body>
 </html>

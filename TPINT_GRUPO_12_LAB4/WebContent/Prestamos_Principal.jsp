@@ -116,7 +116,7 @@ if (!admin){
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
+          <a class="nav-link" href="Transferencias?Param=<%= nusuario %>">Transferir</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Datos_Personales_cte.jsp">Datos Personales</a>

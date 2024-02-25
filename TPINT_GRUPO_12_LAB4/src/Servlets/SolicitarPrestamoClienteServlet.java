@@ -52,10 +52,17 @@ public class SolicitarPrestamoClienteServlet extends HttpServlet {
 			CuentaNegocio cn = new CuentaNegocioImpl();
 			listaCuentas = cn.CuentasxDNI(DNI);
 			
-			valorDesdeGet = DNI;
+			if(listaCuentas.isEmpty()) {
+				String ok="No posee cuentas activas";
+				request.setAttribute("mensajeOk", ok);
+			}
 			
-			request.setAttribute("DNI", DNI);
-			request.setAttribute("listaCuentas", listaCuentas);
+			else {
+				valorDesdeGet = DNI;
+				
+				request.setAttribute("DNI", DNI);
+				request.setAttribute("listaCuentas", listaCuentas);
+			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Solicitud_Prestamo_Cte.jsp");
 			rd.forward(request, response);

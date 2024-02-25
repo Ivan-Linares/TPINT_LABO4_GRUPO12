@@ -114,7 +114,7 @@ if (!admin){
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
+          <a class="nav-link" href="Transferencias?Param=<%= nusuario %>">Transferir</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Datos_Personales_cte.jsp">Datos Personales</a>
@@ -136,129 +136,149 @@ if (!admin){
     <h4>Utilice esta sección para nuevas solicitudes de préstamos a acreditar en su cuenta personal. Tenga en cuenta que las solicitudes están sujetas a aprobación, dicho proceso puede demorar hasta 48 horas hábiles.</h4>
     <br />
 </div>
-<div>
-    <form action="SolicitarPrestamoClienteServlet" method="post">
-        <div class="alert border-dark">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <table>
-                            <tr>
-                                <th>Monto Solicitado:</th>
-                                <th><input type="number" name="InputMontoPrueba" value="500000" min="500000" max="1000000" step="10000"></th>
-                            </tr>
-                            <tr>
-                                <th>Cantidad de cuotas:</th>
-                                <th class="row-cols-xxl-1">
-                                    <select name="Cuotas" id="Cuota">
-                                        <option value="6" selected>6</option>
-                                        <option value="12">12</option>
-                                        <option value="24">24</option>
-                                    </select>
-                                </th>
-                            </tr>
-                        </table> <br>
-                        <input type="submit" class="btn btn-primary" name="btnSimular" value="Simular préstamo">
-                    </div>
-                    <div class="col">
-                        <%
-                            double montoPrueba = 0;
-                            if (request.getAttribute("MontoSimulacion") != null) {
-                                montoPrueba = (double) request.getAttribute("MontoSimulacion");
-                            }
-                            double montoCuotaPrueba = 0;
-                            if (request.getAttribute("CuotaSimulacion") != null) {
-                            	montoCuotaPrueba = (double) request.getAttribute("CuotaSimulacion");
-                            }
-                        %>
-                        <table>
-                            <tr>
-                                <th>Monto a Pagar:</th>
-                                <th><input type="number" name="MontoPrueba" value="<%=montoPrueba%>" disabled></th>
-                            </tr>
-                             <tr>
-                                <th>Monto por Cuota:</th>
-                                <th><input type="number" name="MontoPrueba" value="<%=montoCuotaPrueba%>" disabled></th>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <%
-        boolean PrestamoSolicitado = false; 
-        if (request.getAttribute("PrestamoSolicitado") != null) {
-        	PrestamoSolicitado = (boolean) request.getAttribute("PrestamoSolicitado");
-        }
-        
-        if(!PrestamoSolicitado){
-        %>
-        
-        <div class="alert border-dark">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <table>
-                            <tr>
-                                <%
-                                    String DNI = "";
-                                    if (request.getAttribute("DNI") != null) {
-                                        DNI = (String) request.getAttribute("DNI");
-                                    }
-                                %>
-                                <th>DNI Cliente: </th>
-                                <th><input name="dniCliente" value="<%=DNI%>" disabled></th>
-                            </tr>
-                            <tr>
-                                <th>Nro. Cuenta Destino: </th>
-                                <th class="row-cols-xxl-1">
-                                    <select name="CuentaDest">
-                                        <%
-                                            ArrayList<Cuenta> listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaCuentas");
-                                            for (Cuenta C : listaCuentas) {
-                                        %>
-                                        <option value="<%=C.getNumero()%>"><%=C.getNumero()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Monto a Solicitar: </th>
-                                <th><input type="number" name="MontoFinal" value="500000" min="500000" max="1000000" step="10000"></th>
-                            </tr>
-                            <tr>
-                                <th>Cantidad de cuotas: </th>
-                                <th class="row-cols-xxl-1">
-                                    <select name="CuotasFinal" id="Cuota">
-                                        <option value="6" selected>6</option>
-                                        <option value="12">12</option>
-                                        <option value="24">24</option>
-                                    </select>
-                                </th>
-                            </tr>
-                        </table>
-                        <br />
-                        <input type="submit" class="btn btn-success" name="btnConfirmar" value="Confirmar préstamo">
-                        <br />
-                    </div>
-                    <%} else{
-			        String msj = "";
-			        if (request.getAttribute("msj") != null) {
-			        	msj = (String) request.getAttribute("msj");
+
+	<%boolean ok=false;
+		if(request.getAttribute("mensajeOk")==null){
+			ok=true;
+		}%>
+	<%if(request.getAttribute("mensajeOk")!=null){
+		String msj = (String) request.getAttribute("mensajeOk");
+		%>
+			<H4><%= msj %></H4>
+		<%}%>
+		
+
+		<%if (ok) {
+	%>	
+
+			<div>
+			    <form action="SolicitarPrestamoClienteServlet" method="post">
+			        <div class="alert border-dark">
+			            <div class="container">
+			                <div class="row">
+			                    <div class="col">
+			                        <table>
+			                            <tr>
+			                                <th>Monto Solicitado:</th>
+			                                <th><input type="number" name="InputMontoPrueba" value="500000" min="500000" max="1000000" step="10000"></th>
+			                            </tr>
+			                            <tr>
+			                                <th>Cantidad de cuotas:</th>
+			                                <th class="row-cols-xxl-1">
+			                                    <select name="Cuotas" id="Cuota">
+			                                        <option value="6" selected>6</option>
+			                                        <option value="12">12</option>
+			                                        <option value="24">24</option>
+			                                    </select>
+			                                </th>
+			                            </tr>
+			                        </table> <br>
+			                        <input type="submit" class="btn btn-primary" name="btnSimular" value="Simular préstamo">
+			                    </div>
+			                    <div class="col">
+			                        <%
+			                            double montoPrueba = 0;
+			                            if (request.getAttribute("MontoSimulacion") != null) {
+			                                montoPrueba = (double) request.getAttribute("MontoSimulacion");
+			                            }
+			                            double montoCuotaPrueba = 0;
+			                            if (request.getAttribute("CuotaSimulacion") != null) {
+			                            	montoCuotaPrueba = (double) request.getAttribute("CuotaSimulacion");
+			                            }
+			                        %>
+			                        <table>
+			                            <tr>
+			                                <th>Monto a Pagar:</th>
+			                                <th><input type="number" name="MontoPrueba" value="<%=montoPrueba%>" disabled></th>
+			                            </tr>
+			                             <tr>
+			                                <th>Monto por Cuota:</th>
+			                                <th><input type="number" name="MontoPrueba" value="<%=montoCuotaPrueba%>" disabled></th>
+			                            </tr>
+			                        </table>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			        
+			        <%
+			        boolean PrestamoSolicitado = false; 
+			        if (request.getAttribute("PrestamoSolicitado") != null) {
+			        	PrestamoSolicitado = (boolean) request.getAttribute("PrestamoSolicitado");
 			        }
-                    %>
-                    <div class="col">
-                    <h3> <%= msj %> </h3>
-                    <input type="submit" class="btn btn-success" name="btnNuevoPrest" value="Pedir préstamo"> 
-                    </div>
-                    <%} %>
-                </div>
-            </div>
-        </div>
-    </form>
+			        
+			        if(!PrestamoSolicitado){
+			        %>
+			        
+			        <div class="alert border-dark">
+			            <div class="container">
+			                <div class="row">
+			                    <div class="col">
+			                        <table>
+			                            <tr>
+			                                <%
+			                                    String DNI = "";
+			                                    if (request.getAttribute("DNI") != null) {
+			                                        DNI = (String) request.getAttribute("DNI");
+			                                    }
+			                                %>
+			                                <th>DNI Cliente: </th>
+			                                <th><input name="dniCliente" value="<%=DNI%>" disabled></th>
+			                            </tr>
+			                            <tr>
+			                                <th>Nro. Cuenta Destino: </th>
+			                                <th class="row-cols-xxl-1">
+			                                <%if(request.getAttribute("listaCuentas")!=null){%>
+			                                    <select name="CuentaDest">
+			                                        <%
+			                                            ArrayList<Cuenta> listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaCuentas");
+			                                            for (Cuenta C : listaCuentas) {
+			                                        %>
+			                                        <option value="<%=C.getNumero()%>"><%=C.getNumero()%></option>
+			                                        <%
+			                                            }
+			                                        %>                                     
+			                                          <%
+			                                        }
+			                                        %>
+			                                    </select>
+			                                </th>
+			                            </tr>
+			                            <tr>
+			                                <th>Monto a Solicitar: </th>
+			                                <th><input type="number" name="MontoFinal" value="500000" min="500000" max="1000000" step="10000"></th>
+			                            </tr>
+			                            <tr>
+			                                <th>Cantidad de cuotas: </th>
+			                                <th class="row-cols-xxl-1">
+			                                    <select name="CuotasFinal" id="Cuota">
+			                                        <option value="6" selected>6</option>
+			                                        <option value="12">12</option>
+			                                        <option value="24">24</option>
+			                                    </select>
+			                                </th>
+			                            </tr>
+			                        </table>
+			                        <br />
+			                        <input type="submit" class="btn btn-success" name="btnConfirmar" value="Confirmar préstamo">
+			                        <br />
+			                    </div>
+			                    <%} else{
+						        String msj = "";
+						        if (request.getAttribute("msj") != null) {
+						        	msj = (String) request.getAttribute("msj");
+						        }
+			                    %>
+			                    <div class="col">
+			                    <h3> <%= msj %> </h3>
+			                    <input type="submit" class="btn btn-success" name="btnNuevoPrest" value="Pedir préstamo"> 
+			                    </div>
+			                    <%} %>
+			                </div>
+			            </div>
+			        </div>
+			    </form>
+    <%} %>
 </div>
 </body>
 </html>

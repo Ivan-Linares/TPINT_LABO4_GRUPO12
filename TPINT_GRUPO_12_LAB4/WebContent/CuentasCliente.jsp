@@ -115,7 +115,8 @@
 <%} %>
 
 <!-- Navbar Cliente -->
-<%if (!admin){ %>
+<%if (!admin){
+	%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Lio Messi´s Bank</a>
@@ -148,7 +149,6 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Transferencias.jsp">Transferir</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Datos Personales</a>

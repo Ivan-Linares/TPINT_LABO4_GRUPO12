@@ -23,7 +23,19 @@ public class Transferencias extends HttpServlet {
         super();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(request.getParameter("Param")!=null) {
+			String dni=request.getParameter("Param");
+			ArrayList<Cuenta> listadocuentas = new ArrayList<Cuenta>();
+			CuentaNegocio cn= new CuentaNegocioImpl();
+			listadocuentas = cn.CuentasAsociadas(dni);
+			
+			if (listadocuentas.isEmpty()) {
+				String ok="Está null";
+				request.setAttribute("mensajeOk", ok);
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("Transferencias.jsp");
+			rd.forward(request, response);			
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
